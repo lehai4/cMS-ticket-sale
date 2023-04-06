@@ -6,8 +6,13 @@ import avatar from "../assets/img/avatar.png";
 import mail from "../assets/icon/fi_mail.png";
 import bell from "../assets/icon/fi_bell.png";
 import { useStateContext } from "../contexts/ContextProvider";
-
-const NavButton = ({ title, color, img }) => (
+type NavButtonProps = {
+  title: string;
+  color: string;
+  img: string;
+  dotColor: string;
+};
+const NavButton = ({ title, color, img, dotColor }: NavButtonProps) => (
   <TooltipComponent content={title} position="BottomCenter">
     <button
       type="button"
@@ -53,7 +58,7 @@ const Navbar = () => {
           color={bgColor}
           img={bell}
         />
-        {/* <TooltipComponent content="Profile" position="BottomCenter">
+        <TooltipComponent content="Profile" position="BottomCenter">
           <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
             <img
               className="rounded-full w-9 h-9"
@@ -61,7 +66,7 @@ const Navbar = () => {
               alt="user-profile"
             />
           </div>
-        </TooltipComponent> */}
+        </TooltipComponent>
       </div>
     </div>
   );

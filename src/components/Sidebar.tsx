@@ -32,8 +32,7 @@ const Sidebar = () => {
             >
               <img src={`${logo}`} alt="logo" />
             </Link>
-            {/* Chưa cần thiết */}
-            {/* <TooltipComponent content="Menu" position="BottomCenter">
+            <TooltipComponent content="Menu" position="BottomCenter">
               <button
                 type="button"
                 onClick={() => setActiveMenu(!activeMenu)}
@@ -42,7 +41,7 @@ const Sidebar = () => {
               >
                 <MdOutlineCancel />
               </button>
-            </TooltipComponent> */}
+            </TooltipComponent>
           </div>
           <div className="mt-24 mt-24-override">
             {links.map((link) => (
