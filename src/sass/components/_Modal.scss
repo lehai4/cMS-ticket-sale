@@ -1,0 +1,202 @@
+$color1: #fff;
+$color2: #27aef9;
+.form-setting,
+.form-managementTicket,
+.form-ticketCheck {
+  max-width: 760px;
+  max-height: 630px;
+  width: 716px;
+  height: 586px;
+  padding: 12px;
+  padding-top: 0;
+  .form-header {
+    text-align: center;
+  }
+  .form-content {
+    .form-group {
+      .form-label {
+        font-family: Montserrat;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 26px;
+        line-height: 133%;
+        color: #1e0d03;
+        opacity: 0.7;
+      }
+      .form-control {
+        padding: 10px calc(306px - 222px) 10px 16px;
+        border: 1px solid #a5a8b1;
+        color: #a5a8b1;
+        font-family: Montserrat;
+        font-size: 16px;
+        line-height: 20px;
+        line-height: 100%;
+        opacity: 0.7;
+        border-radius: 8px;
+        margin: 8px 0 25px 0;
+        width: 367px;
+        height: 40px;
+      }
+      div {
+        input[type="date"] {
+          cursor: pointer;
+          padding: 8px 10px 8px 12px;
+          border: 1px solid #a5a8b1;
+          color: #a5a8b1;
+          font-family: Montserrat;
+          font-size: 16px;
+          line-height: 100%;
+          opacity: 0.7;
+          border-radius: 8px;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          background-position: center;
+          max-width: 100%;
+          padding-right: 5px;
+          height: 20px;
+          width: 20px;
+          background-size: 24px;
+          background: url(../../assets//icon/u_calender.png) no-repeat;
+        }
+        input[type="text"] {
+          color: #9d9d9d;
+          background: #fff;
+          padding: 10px 10px 10px 12px;
+          border: 1px solid #a5a8b1;
+          color: #a5a8b1;
+          font-family: Montserrat;
+          font-size: 16px;
+          line-height: 100%;
+          width: 137px;
+          border-radius: 8px;
+        }
+        input[type="checkbox"] {
+          cursor: pointer;
+          zoom: 1.8;
+        }
+        input[type="radio"] {
+          zoom: 1.8;
+        }
+        //
+        input[type="radio"] {
+          cursor: pointer;
+          position: absolute;
+          opacity: 0;
+          + .radio-label {
+            &:before {
+              content: "";
+              background: $color1;
+              border-radius: 100%;
+              border: 2px solid #27aef9;
+              display: inline-block;
+              width: 1.4em;
+              height: 1.4em;
+              position: relative;
+              top: 0;
+              margin-right: 8px;
+              vertical-align: top;
+              cursor: pointer;
+              text-align: center;
+              transition: all 250ms ease;
+            }
+          }
+          &:checked {
+            + .radio-label {
+              &:before {
+                background-color: $color2;
+                box-shadow: inset 0 0 0 4px $color1;
+              }
+            }
+          }
+          &:focus {
+            + .radio-label {
+              &:before {
+                outline: none;
+                border-color: $color2;
+              }
+            }
+          }
+          + .radio-label {
+            &:empty {
+              &:before {
+                margin-right: 0;
+              }
+            }
+          }
+        }
+        //
+        label {
+          font-family: Montserrat;
+          color: #1e0d03;
+          opacity: 0.7;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 100%;
+        }
+        span {
+          font-family: Montserrat;
+          color: #1e0d03;
+          opacity: 0.7;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 100%;
+        }
+        .price {
+          border: none;
+          border-radius: 8px;
+          outline: none;
+          font: size 12px;
+          font-family: Montserrat;
+          background-color: #f1f4f8;
+          padding: 10px 0 10px 12px;
+          width: 148px;
+          height: 35px;
+        }
+        .price-override {
+          width: 72px;
+        }
+        .select-css {
+          position: relative;
+          color: #1e0d03;
+          font-family: Montserrat;
+          border: 1px solid #a5a8b1;
+          border-radius: 8px;
+          outline: none;
+          font-weight: 500;
+          padding: 8px 12px;
+        }
+        .select-css::-ms-expand {
+          display: block;
+        }
+        .select-css:hover {
+          border-color: #888;
+        }
+      }
+      .form-note {
+        span {
+          color: #1e0d03;
+          font-size: 12px;
+          font-family: Montserrat;
+          line-height: 15px;
+          line-height: 100%;
+          font-style: italic;
+          opacity: 0.4;
+        }
+      }
+      .check-in {
+        padding: 6px 0;
+        width: 189px;
+      }
+    }
+  }
+}
+// formManagementTicket
+.form-managementTicket {
+  width: 592px;
+  height: 412px;
+}
+.form-ticketCheck {
+  width: auto;
+  height: auto;
+  padding: 0;
+}

@@ -1,0 +1,74 @@
+.mt-24 {
+  margin-top: 0;
+}
+.bg-main-grey {
+  background-color: #f9f6f4;
+}
+.mt-24-override {
+  margin-top: 59px;
+}
+.pt-15-override,
+.pb-15-override {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.pl-27-override {
+  margin-left: 27px;
+}
+.m-4-override {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.capitalize {
+  font-family: Montserrat;
+  font-style: Medium;
+  font-size: 18px;
+  line-height: 26px;
+  line-height: 118%;
+  font-weight: 500;
+  text-transform: none;
+}
+// override\
+.e-grid {
+  margin-top: 32px;
+}
+.e-grid .e-gridheader {
+  color: #1e0d03;
+  border: none;
+}
+.e-grid .e-headercell {
+  background-color: #f1f4f8 !important;
+}
+
+table tbody tr:nth-child(2n + 2) {
+  background-color: #f1f4f8;
+}
+.e-grid,
+.e-grid .e-rowcell,
+.e-grid .e-pager {
+  border: none;
+}
+.e-headercelldiv {
+  padding: 0 0.6em !important;
+}
+.e-headertext {
+  font-size: 16px;
+  font-family: Montserrat;
+  line-height: 26px;
+  line-height: 133%;
+  vertical-align: top;
+  font-weight: 600;
+}
+.e-templatecell {
+  display: inline-block;
+}
+.e-grid.e-responsive .e-rowcell {
+  white-space: inherit;
+}
+.e-grid .e-rowcell {
+  padding: 7px 22px;
+}
+// Modal
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}

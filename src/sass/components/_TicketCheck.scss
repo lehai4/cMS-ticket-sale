@@ -1,0 +1,46 @@
+.status-check {
+  font-size: 14px;
+  line-height: 22px;
+  line-height: 129%;
+  font-family: Montserrat;
+  font-style: italic;
+  &--true {
+    color: #fd5959;
+  }
+  &--false {
+    color: #a5a8b1;
+  }
+}
+.grid-template-columns {
+  grid-template-columns: 2.3fr 1fr;
+}
+.form-group {
+  .form-type {
+    margin-left: 4.8rem;
+  }
+  .form-type-input {
+    margin-left: 7.3rem;
+    border: none !important;
+    color: #f7f8fb;
+    background: #f1f4f8;
+  }
+  .form-type-date {
+    margin-left: 6.4rem;
+    border: none !important;
+    color: #f7f8fb;
+    background: #f1f4f8;
+  }
+  img {
+    width: 13px;
+    height: 6px;
+    transform: translateX(-30px);
+  }
+}
+select {
+  width: 360px;
+  background: #f1f4f8;
+  padding: 10px 16px;
+  border-radius: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}

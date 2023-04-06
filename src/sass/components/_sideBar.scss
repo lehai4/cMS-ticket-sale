@@ -1,0 +1,24 @@
+// Icon sidebar
+.icon-sidebar {
+  font-size: 20px;
+  img {
+    opacity: 0.5;
+  }
+}
+.text-white > span > img {
+  opacity: 1;
+  filter: brightness(0) invert(1);
+  -webkit-filter: brightness(0) invert(1);
+}
+.package {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  line-height: 118%;
+  vertical-align: Top;
+  span {
+    font-family: Montserrat;
+    letter-spacing: 2px;
+  }
+}

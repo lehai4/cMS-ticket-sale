@@ -1,0 +1,62 @@
+.status {
+  border-radius: 5px;
+  border: 1px solid;
+
+  align-items: center;
+  justify-content: space-around;
+
+  img {
+    height: 50%;
+    margin: 11.5px 8px 11.5px 12px;
+  }
+  &--use {
+    background-color: #eaf1f8;
+    color: #919dba;
+    border-color: #919dba;
+  }
+  &--noUse {
+    background-color: #def7e0;
+    color: #03ac00;
+    border-color: #03ac00;
+  }
+  &--invalid {
+    background-color: #f8ebe8;
+    color: #fd5959;
+    border-color: #fd5959;
+  }
+}
+.button-status {
+  font-size: 12px;
+  line-height: 14.63px;
+  font-weight: 500;
+  font-family: Montserrat;
+  margin: 8px 12px 8px 0;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.e-pager div.e-parentmsgbar {
+  display: none;
+}
+.e-pager .e-pagercontainer {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.e-pager .e-pagercontainer .e-firstpagedisabled,
+.e-pager .e-pagercontainer .e-nextpagedisabled,
+.e-pager .e-pagercontainer .e-prevpagedisabled,
+.e-pager .e-pagercontainer .e-lastpagedisabled,
+.e-pager .e-pagercontainer .e-nextpage,
+.e-pager .e-pagercontainer .e-lastpage,
+.e-pager .e-pagercontainer .e-firstpage,
+.e-pager .e-pagercontainer .e-prevpage {
+  margin-top: 0;
+}
+.e-grid .e-pager {
+  margin-top: 32px;
+}
+.fw-700 {
+  font-weight: 700;
+}
