@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   GridComponent,
   ColumnsDirective,
@@ -14,31 +14,24 @@ import {
   Inject,
 } from "@syncfusion/ej2-react-grids";
 import {
-  contextMenuItems,
   ordersGrid,
   statusUse,
   statusCheckIn,
   Pagination,
 } from "../data/dummy";
 import moment from "moment";
+import { useAppSelector, useAppDispatch } from "../hooks/hooks";
+import { getDatabase, get, ref, child } from "firebase/database";
 import { Button, Header, Input, ModalManagerTicket } from "../components";
-import { getDatabase, ref, get, child } from "firebase/database";
+import { loadTicketManager } from "../redux/dataTicketSlice";
+import { TicketManagementData } from "../typeProps/index";
 import filterIcon from "../assets/icon/filter.png";
-import app from "../config/firabaseConfig";
-
-interface TicketDate {
-  uiId: number;
-  code: string;
-  checkIn: string;
-  dayExportedTicket: string;
-  dayUseTicket: string;
-  event: string;
-  statusTicket: number;
-  ticketNumber: string;
-}
+import app from "../database/firabaseConfig";
 
 const TicketManagement = () => {
   const dbRef = ref(getDatabase(app));
+  const dispatcher = useAppDispatch();
+  const data = useAppSelector((state) => state.ticket.ticketManagement);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [isCheckAll, setIsCheckAll] = useState<boolean>(false);
   const [isCheck, setIsCheck] = useState<string[]>([]);
@@ -46,11 +39,10 @@ const TicketManagement = () => {
   const [dayFrom, setDayFrom] = useState("");
   const [dayTo, setDayTo] = useState("");
   const [radio, setRadio] = useState<string | number | undefined>();
-  const [ticket, setTicket] = useState<TicketDate[] | undefined>();
+  const [ticket, setTicket] = useState<TicketManagementData[] | undefined>();
   const [originalTicket, setOriginalTicket] = useState<
-    TicketDate[] | undefined
+    TicketManagementData[] | undefined
   >();
-
   const editing = { allowDeleting: true, allowEditing: true };
   const stringToBool = (value: string) => {
     if (value) {
@@ -102,7 +94,7 @@ const TicketManagement = () => {
   };
 
   const handleFilterModal = () => {
-    let result: TicketDate[] | undefined = [];
+    let result: TicketManagementData[] | undefined = [];
     result = originalTicket;
 
     if (dayFrom !== "" && dayTo !== "") {
@@ -141,26 +133,28 @@ const TicketManagement = () => {
     setValRadio("");
   };
 
-  const handleReadAllData = () => {
-    get(child(dbRef, `ticket/`))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          let data = [snapshot.val()];
-          let [a, ...result] = data[0];
-          setTicket(result);
-          setOriginalTicket(result);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
   useEffect(() => {
-    handleReadAllData();
+    const loadTicketData = () => {
+      get(child(dbRef, `ticket/`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            let data = [snapshot.val()];
+            let [a, ...result] = data[0];
+            dispatcher(loadTicketManager(result));
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    loadTicketData();
   }, []);
-
+  useEffect(() => {
+    setTicket(data);
+    setOriginalTicket(data);
+  }, [data]);
   return (
     <div className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-6 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
@@ -212,13 +206,11 @@ const TicketManagement = () => {
       <GridComponent
         id="gridcomp"
         load={Pagination}
-        // pageSizes
         dataSource={ticket}
         allowPaging
         allowSorting
         allowExcelExport
         allowPdfExport
-        // contextMenuItems={contextMenuItems}
         editSettings={editing}
         height={580}
       >

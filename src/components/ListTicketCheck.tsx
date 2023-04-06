@@ -14,7 +14,7 @@ import {
   Inject,
 } from "@syncfusion/ej2-react-grids";
 import { Button, Header, Input } from ".";
-import { TicketCheck, TicketField } from "../configType";
+import { TicketCheck, TicketField } from "../typeProps";
 
 type ListTicketCheckProps = {
   editing: any;

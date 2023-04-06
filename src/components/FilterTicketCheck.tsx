@@ -1,6 +1,6 @@
 import iconArrow from "../assets/icon/iconArrow.png";
 import { Button, Header } from ".";
-import { FilterTicketCheckProps } from "../configType";
+import { FilterTicketCheckProps } from "../typeProps";
 const FilterTicketCheck = ({
   radio,
   statusCheck,

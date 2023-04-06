@@ -11,12 +11,23 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
-const ModalSetting = (props) => {
+type ModalSettingProps = {
+  title: string;
+  icon: string;
+  modalIsOpen: boolean;
+  closeModal: () => void;
+};
+const ModalSetting = ({
+  title,
+  modalIsOpen,
+  icon,
+  closeModal,
+}: ModalSettingProps) => {
   return (
     <div>
       <Modal
-        isOpen={props.modalIsOpen}
-        onRequestClose={props.closeModal}
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
         ariaHideApp={false}
@@ -24,18 +35,20 @@ const ModalSetting = (props) => {
         <form className="form-setting">
           <div className="form-header">
             <Header
-              title={props.title}
-              fontWeight={700}
-              fontSize={26}
-              lineHeight={"103%"}
-              color={"#1E0D03"}
+              title={title}
+              style={{
+                fontWeight: 700,
+                fontSize: 26,
+                lineHeight: "103%",
+                color: "#1E0D03",
+              }}
             />
           </div>
           <div className="form-content mt-3">
-            {props.title === "Thêm gói vé" ? (
+            {title === "Thêm gói vé" ? (
               <div className="form-group">
                 <label className="form-label flex align-center gap-1">
-                  Tên gói vé <img src={`${props.icon}`} alt="" />
+                  Tên gói vé <img src={`${icon}`} alt="" />
                 </label>
                 <input
                   className="form-control"
@@ -47,9 +60,9 @@ const ModalSetting = (props) => {
             ) : (
               <div className="form-group">
                 <div>
-                  <lable>
-                    Mã sự kiện <img src={`${props.icon}`} alt="" />
-                  </lable>
+                  <label>
+                    Mã sự kiện <img src={`${icon}`} alt="" />
+                  </label>
                   <input placeholder="Nhập tên gói vé" />
                 </div>
                 <div>
@@ -110,7 +123,7 @@ const ModalSetting = (props) => {
             </div>
             <div className="form-group mt-4 mb-5 ml-0 mr-0">
               <label className="form-note flex align-center">
-                <img src={`${props.icon}`} alt="" />
+                <img src={`${icon}`} alt="" />
                 <span className="ml-1">là thông tin bắt buộc</span>
               </label>
             </div>
@@ -119,24 +132,33 @@ const ModalSetting = (props) => {
           <div className="flex align-center justify-center gap-5">
             <Button
               text="Hủy"
-              bgColor="#FFFFFF"
-              color="#FF993C"
-              border="1px solid #FF993C"
-              borderRadius={6}
-              fontSize={18}
-              width={138}
               size={10}
-              handleClick={props.closeModal}
+              handleClick={closeModal}
+              icon={""}
+              bgHoverColor=""
+              style={{
+                gap: 12,
+                border: "1px solid #FF993C",
+                color: "#FF993C",
+                fontSize: "18px",
+                borderRadius: "6px",
+                backgroundColor: "#FFFFFF",
+              }}
             />
             <Button
               text="Lưu"
-              bgColor="#FF993C"
-              color="#FFFFFF"
-              border="1px solid #FF993C"
-              fontSize={18}
-              borderRadius={6}
-              width={138}
               size={10}
+              handleClick={() => {}}
+              icon={""}
+              bgHoverColor=""
+              style={{
+                gap: 12,
+                border: "1px solid #FF993C",
+                color: "#FF993C",
+                fontSize: "18px",
+                borderRadius: "6px",
+                backgroundColor: "#FFFFFF",
+              }}
             />
           </div>
         </form>

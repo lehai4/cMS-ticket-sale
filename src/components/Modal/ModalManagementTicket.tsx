@@ -1,6 +1,6 @@
 import Modal from "react-modal";
 import { Button, Header, Checkbox } from "../index";
-import { ModalManagementTicket } from "../../configType";
+import { ModalManagementTicket } from "../../typeProps";
 
 const ModalManagerTicket = (props: ModalManagementTicket) => {
   const customStyles = {

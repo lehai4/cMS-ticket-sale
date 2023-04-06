@@ -1,8 +1,9 @@
 import moment from "moment";
-import app from "../config/firabaseConfig";
+import app from "../database/firabaseConfig";
 import React, { useEffect, useState } from "react";
-import { TicketCheck } from "../configType";
+import { TicketCheck } from "../typeProps";
 import { get, child, ref, getDatabase } from "firebase/database";
+import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { FilterTicketCheck, ListTicketCheck } from "../components";
 import {
   contextMenuItems,
@@ -10,9 +11,12 @@ import {
   ticketCheck,
   Pagination,
 } from "../data/dummy";
+import { loadTicketControl } from "../redux/dataTicketSlice";
 
 const TicketControl = () => {
   const dbRef = ref(getDatabase(app));
+  const dispatcher = useAppDispatch();
+  const data = useAppSelector((state) => state.ticket.ticketControl);
   const [radio, setRadio] = useState<string | number | undefined>();
   const [dayFrom, setDayFrom] = useState<string>("");
   const [dayTo, setDayTo] = useState<string>("");
@@ -62,25 +66,28 @@ const TicketControl = () => {
     setTicket(result);
   };
 
-  const handleReadAllData = () => {
-    get(child(dbRef, `ticketcheck`))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          let data = [snapshot.val()];
-          let [a, ...result] = data[0];
-          setTicket(result);
-          setOriginalTicket(result);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
   useEffect(() => {
+    const handleReadAllData = () => {
+      get(child(dbRef, `ticketcheck`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            let data = [snapshot.val()];
+            let [a, ...result] = data[0];
+            dispatcher(loadTicketControl(result));
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
     handleReadAllData();
   }, []);
+  useEffect(() => {
+    setTicket(data);
+    setOriginalTicket(data);
+  }, [data]);
 
   return (
     <div className="grid grid-flow-dense grid-template-columns">

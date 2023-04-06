@@ -75,3 +75,23 @@ export interface SettingTicket {
   editType?: undefined;
   template?: (props: any) => JSX.Element | undefined;
 }
+export interface TicketManagementData {
+  uiId: number;
+  ticketNumber: string;
+  statusTicket: number;
+  event: string;
+  dayUseTicket: string;
+  dayExportedTicket: string;
+  code: string;
+  checkIn: string;
+}
+export interface TicketSetting {
+  dayApply: string;
+  dayExpire: string;
+  packageCode: string;
+  packageName: string;
+  price: string;
+  priceCombo: string;
+  status: number;
+  uiId: number;
+}

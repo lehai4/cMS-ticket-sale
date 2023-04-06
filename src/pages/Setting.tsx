@@ -13,14 +13,15 @@ import {
   Edit,
   Inject,
 } from "@syncfusion/ej2-react-grids";
-import { settingTicket } from "../data/dummy";
-import { getDatabase, ref, get, child } from "firebase/database";
-import app from "../config/firabaseConfig";
 import { Button, Header, Input, ModalSetting } from "../components";
+import { useAppSelector, useAppDispatch } from "../hooks/hooks";
+import { getDatabase, ref, get, child } from "firebase/database";
+import { loadSettingTicket } from "../redux/dataTicketSlice";
+import { TicketSetting } from "../typeProps/index";
+import app from "../database/firabaseConfig";
+import { settingTicket } from "../data/dummy";
 import star from "../assets/icon/star.png";
 import update from "../assets/icon/fi_edit.png";
-
-// import { CRUD } from "../config/CRUD";
 
 type grid = {
   handleUpdate: () => void;
@@ -39,59 +40,40 @@ const gridStatusSetting = ({ handleUpdate }: grid) => (
 
 const Setting = () => {
   const dbRef = ref(getDatabase(app));
-  const [modalIsOpen, setIsOpen] = useState(false);
-  // const [ticketID, setID] = useState(12);
-  // const [uiId, setUiID] = useState(12);
-  // const [code, setCode] = useState("ALTNBVGH ");
-  // const [ticketNumber, setNumberTicket] = useState("185653100147");
-  // const [event, setEvent] = useState("Hội chợ triển lãm tiêu dùng 2021");
-  // const [statusTicket, setStatus] = useState("1");
-  // const [dayUseTicket, setDayUseTicket] = useState("25/03/2023");
-  // const [dayExportedTicket, setDayExportedTicket] = useState("25/03/2023");
-  // const [checkIn, setCheckIn] = useState("Cổng 1");
-  const [ticketSetting, setTicketSetting] = useState([]);
+  const dispatcher = useAppDispatch();
+  const data = useAppSelector((state) => state.ticket.ticketSetting);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+
+  const [ticketSetting, setTicketSetting] = useState<
+    TicketSetting[] | undefined
+  >();
   const editing = { allowDeleting: true, allowEditing: true };
-  // const handleClick = () => {
-  //   CRUD.writeData({
-  //     ticketID,
-  //     uiId,
-  //     code,
-  //     ticketNumber,
-  //     event,
-  //     statusTicket,
-  //     dayUseTicket,
-  //     dayExportedTicket,
-  //     checkIn,
-  //   });
-  // };
+
   const handleAddPackage = () => {
     setIsOpen(true);
   };
   function closeModal() {
     setIsOpen(false);
   }
-  const handleUpdate = () => {
-    console.log("check");
-  };
-  const handleReadAllData = () => {
-    get(child(dbRef, `settingTicket/`))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          let data = [snapshot.val()];
-          let [a, ...result] = data[0];
-          setTicketSetting(result);
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
   useEffect(() => {
+    const handleReadAllData = () => {
+      get(child(dbRef, `settingTicket/`))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            let data = [snapshot.val()];
+            let [a, ...result] = data[0];
+            dispatcher(loadSettingTicket(result));
+          } else {
+            console.log("No data available");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
     handleReadAllData();
   }, []);
-
+  useEffect(() => setTicketSetting(data), [data]);
   return (
     <div className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
