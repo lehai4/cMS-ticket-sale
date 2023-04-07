@@ -18,7 +18,7 @@ import {
   statusUse,
   statusCheckIn,
   Pagination,
-} from "../data/dummy";
+} from "../mock/dummy";
 import moment from "moment";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { getDatabase, get, ref, child } from "firebase/database";
@@ -26,7 +26,7 @@ import { Button, Header, Input, ModalManagerTicket } from "../components";
 import { loadTicketManager } from "../redux/dataTicketSlice";
 import { TicketManagementData } from "../typeProps/index";
 import filterIcon from "../assets/icon/filter.png";
-import app from "../database/firabaseConfig";
+import app from "../database/firebaseConfig";
 
 const TicketManagement = () => {
   const dbRef = ref(getDatabase(app));
@@ -168,7 +168,12 @@ const TicketManagement = () => {
       />
       <div className="flex align-center justify-between">
         <div className="flex align-center relative">
-          <Input type="router" placeholder="Tìm bằng số vé" />
+          <Input
+            option="router"
+            name=""
+            type="text"
+            placeholder="Tìm bằng số vé"
+          />
         </div>
         <div className="flex align-center gap-3">
           <Button
@@ -179,6 +184,7 @@ const TicketManagement = () => {
             bgHoverColor=""
             style={{
               gap: 12,
+              height: 45,
               border: "1px solid #FF993C",
               color: "#FF993C",
               fontSize: "18px",
@@ -194,6 +200,7 @@ const TicketManagement = () => {
             bgHoverColor=""
             style={{
               gap: 0,
+              height: 45,
               border: "1px solid #FF993C",
               color: "#FF993C",
               fontSize: "18px",

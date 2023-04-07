@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD2E1bzncXB2FZGJu_aJGaQQGhx3De74iE",
+  apiKey: `${process.env.REACT_APP_KEY}`,
   authDomain: "cms-ticket-sale-10873.firebaseapp.com",
   projectId: "cms-ticket-sale-10873",
   storageBucket: "cms-ticket-sale-10873.appspot.com",

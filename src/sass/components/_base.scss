@@ -2,3 +2,15 @@ input,
 select {
   outline: none;
 }
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.align-center {
+  align-items: center;
+}
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+  display: none;
+}

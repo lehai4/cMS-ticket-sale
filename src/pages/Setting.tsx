@@ -18,8 +18,8 @@ import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { getDatabase, ref, get, child } from "firebase/database";
 import { loadSettingTicket } from "../redux/dataTicketSlice";
 import { TicketSetting } from "../typeProps/index";
-import app from "../database/firabaseConfig";
-import { settingTicket } from "../data/dummy";
+import app from "../database/firebaseConfig";
+import { settingTicket } from "../mock/dummy";
 import star from "../assets/icon/star.png";
 import update from "../assets/icon/fi_edit.png";
 
@@ -82,7 +82,12 @@ const Setting = () => {
       />
       <div className="flex align-center justify-between">
         <div className="flex align-center relative">
-          <Input type="router" placeholder="Tìm bằng số vé" />
+          <Input
+            option="router"
+            name=""
+            type="text"
+            placeholder="Tìm bằng số vé"
+          />
         </div>
         <div className="flex align-center gap-5">
           <Button
@@ -97,6 +102,7 @@ const Setting = () => {
               border: "1px solid #FF993C",
               fontSize: 18,
               borderRadius: 6,
+              height: 48,
             }}
           />
           <Button
@@ -105,11 +111,12 @@ const Setting = () => {
             bgHoverColor=""
             size={10}
             style={{
-              backgroundColor: "#FFFFFF",
-              color: "#FF993C",
+              backgroundColor: "#FF993C",
+              color: "#FFFFFF",
               border: "1px solid #FF993C",
               fontSize: 18,
               borderRadius: 6,
+              height: 48,
             }}
             handleClick={handleAddPackage}
           />

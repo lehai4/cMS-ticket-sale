@@ -2,16 +2,17 @@ import searchIcon from "../../assets/icon/search.png";
 type InputProps = {
   placeholder: string;
   type: string;
+  name: string;
+  option: string;
 };
-const Input = ({ placeholder, type }: InputProps) => {
+const Input = ({ placeholder, type, name, option }: InputProps) => {
   return (
     <>
-      {type == "navbar" ? (
+      {option == "navbar" ? (
         <>
           <input
-            title="search"
-            type="text"
-            name="text"
+            type={type}
+            name={name}
             placeholder={`${placeholder}`}
             className="search-input navbar"
           />
@@ -19,12 +20,11 @@ const Input = ({ placeholder, type }: InputProps) => {
             <img src={`${searchIcon}`} alt="" />
           </span>
         </>
-      ) : (
+      ) : option == "router" ? (
         <>
           <input
-            title="search"
-            type="text"
-            name="text"
+            type={type}
+            name={name}
             placeholder={`${placeholder}`}
             className="search-input router"
           />
@@ -32,6 +32,13 @@ const Input = ({ placeholder, type }: InputProps) => {
             <img src={`${searchIcon}`} alt="" />
           </span>
         </>
+      ) : (
+        <input
+          type={type}
+          name={name}
+          placeholder={`${placeholder}`}
+          className="search-input router"
+        />
       )}
     </>
   );

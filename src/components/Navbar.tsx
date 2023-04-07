@@ -48,7 +48,12 @@ const Navbar = () => {
   return (
     <div className="flex justify-between p-3 pl-0 md:ml-0 md:mr-6 relative">
       <div className="flex align-center search relative">
-        <Input type="navbar" placeholder="Search" />
+        <Input
+          option="navbar"
+          name=""
+          type="text"
+          placeholder="Tìm bằng số vé"
+        />
       </div>
       <div className="flex align-center user">
         <NavButton title="Mail" dotColor="#03C9D7" color={bgColor} img={mail} />

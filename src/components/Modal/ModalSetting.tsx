@@ -44,9 +44,9 @@ const ModalSetting = ({
               }}
             />
           </div>
-          <div className="form-content mt-3">
+          <div className="form-content">
             {title === "Thêm gói vé" ? (
-              <div className="form-group">
+              <div className="form-group mt-6">
                 <label className="form-label flex align-center gap-1">
                   Tên gói vé <img src={`${icon}`} alt="" />
                 </label>
@@ -76,7 +76,8 @@ const ModalSetting = ({
                 <label className="form-label">Ngày áp dụng</label>
                 <div className="flex align-center gap-2 mt-2">
                   <input type="date" placeholder="mm/dd/yy" />
-                  <input type="text" placeholder="hh:mm:ss" />
+                  <input type="time" step={1} />
+                  {/* <input type="text" placeholder="hh:mm:ss" /> */}
                 </div>
               </div>
               <div>
@@ -138,6 +139,8 @@ const ModalSetting = ({
               bgHoverColor=""
               style={{
                 gap: 12,
+                height: 48,
+                width: 160,
                 border: "1px solid #FF993C",
                 color: "#FF993C",
                 fontSize: "18px",
@@ -153,11 +156,13 @@ const ModalSetting = ({
               bgHoverColor=""
               style={{
                 gap: 12,
+                height: 48,
+                width: 160,
                 border: "1px solid #FF993C",
-                color: "#FF993C",
+                color: "#FFFFFF",
                 fontSize: "18px",
                 borderRadius: "6px",
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "#FF993C",
               }}
             />
           </div>

@@ -1,9 +1,8 @@
-import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { MdOutlineCancel } from "react-icons/md";
+import { links } from "../mock/dummy";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-
-import { links } from "../data/dummy";
+import { Footer } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 import logo from "../assets/img/logo.png";
 const Sidebar = () => {
@@ -21,7 +20,7 @@ const Sidebar = () => {
   const normalLink =
     "flex items-center mb-1 gap-3 pl-7 pb-15-override pt-15-override rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2 m-4-override";
   return (
-    <div className="ml-8 mr-8 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto ">
+    <div className="ml-8 mr-8 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto relative">
       {activeMenu && (
         <>
           <div className="flex justify-between items-center">
@@ -70,6 +69,7 @@ const Sidebar = () => {
           </div>
         </>
       )}
+      <Footer />
     </div>
   );
 };

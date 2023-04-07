@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 
-import { Navbar, Footer, Sidebar } from "./components";
+import { Navbar, Sidebar } from "./components";
 import { Router } from "./pages";
 import "./App.css";
 import { useStateContext } from "./contexts/ContextProvider";
@@ -35,7 +35,7 @@ const App = () => {
           <div
             className={
               activeMenu
-                ? "dark:bg-main-dark-bg  bg-main-grey min-h-screen md:ml-80 w-full  "
+                ? "dark:bg-main-dark-bg  bg-main-grey min-h-screen md:ml-80 w-full"
                 : "bg-main-grey dark:bg-main-dark-bg  w-full min-h-screen flex-2 "
             }
           >
@@ -45,7 +45,6 @@ const App = () => {
             <div>
               <Router />
             </div>
-            <Footer />
           </div>
         </div>
       </BrowserRouter>

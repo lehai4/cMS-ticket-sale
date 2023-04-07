@@ -75,11 +75,8 @@ $color2: #27aef9;
           zoom: 1.8;
         }
         input[type="radio"] {
-          zoom: 1.8;
-        }
-        //
-        input[type="radio"] {
           cursor: pointer;
+          zoom: 1.8;
           position: absolute;
           opacity: 0;
           + .radio-label {
@@ -190,10 +187,12 @@ $color2: #27aef9;
     }
   }
 }
-// formManagementTicket
+.form-setting {
+  height: 575px;
+}
 .form-managementTicket {
   width: 592px;
-  height: 412px;
+  height: 400px;
 }
 .form-ticketCheck {
   width: auto;

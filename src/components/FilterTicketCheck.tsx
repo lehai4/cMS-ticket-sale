@@ -111,6 +111,7 @@ const FilterTicketCheck = ({
               borderRadius: 6,
               fontSize: 18,
               width: 160,
+              height: 48,
             }}
           />
         </div>

@@ -1,5 +1,5 @@
 import moment from "moment";
-import app from "../database/firabaseConfig";
+import app from "../database/firebaseConfig";
 import React, { useEffect, useState } from "react";
 import { TicketCheck } from "../typeProps";
 import { get, child, ref, getDatabase } from "firebase/database";
@@ -10,7 +10,7 @@ import {
   statusCheck,
   ticketCheck,
   Pagination,
-} from "../data/dummy";
+} from "../mock/dummy";
 import { loadTicketControl } from "../redux/dataTicketSlice";
 
 const TicketControl = () => {

@@ -37,8 +37,8 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
               }}
             />
           </div>
-          <div className="form-content mt-8">
-            <div className="form-group flex gap-6 mt-1 mb-5">
+          <div className="form-content mt-6">
+            <div className="form-group flex gap-6 mb-5">
               <div>
                 <label className="form-label">Từ ngày</label>
                 <div className="flex align-center gap-2 mt-2 ">
@@ -59,10 +59,10 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
               </div>
             </div>
             <div className="form-group mt-1">
-              <div className="mb-3">
+              <div className="mb-2">
                 <label className="form-label">Tình trạng sử dụng</label>
               </div>
-              <div className="flex align-center justify-between mb-2 ">
+              <div className="flex align-center justify-between mb-2">
                 {props.statusUse.map((item, i) => (
                   <div className="flex" key={i}>
                     <input
@@ -86,7 +86,7 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
               <div className="mb-2">
                 <label className="form-label">Cổng Check - in</label>
               </div>
-              <div className="mb-3">
+              <div className="mb-2">
                 <div className="flex align-center flex-wrap">
                   <div className="flex align-center check-in">
                     <Checkbox
@@ -122,8 +122,9 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
               icon={""}
               bgHoverColor=""
               style={{
-                width: "180px",
+                width: "160px",
                 gap: 0,
+                height: 48,
                 border: "1px solid #FF993C",
                 color: "#FF993C",
                 fontSize: "18px",
