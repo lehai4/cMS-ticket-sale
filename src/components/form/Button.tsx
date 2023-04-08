@@ -1,5 +1,5 @@
 import React from "react";
-export type ButtonProps = {
+type ButtonProps = {
   icon: string;
   size: number;
   bgHoverColor: string;

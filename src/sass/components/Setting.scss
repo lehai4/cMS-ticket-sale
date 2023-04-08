@@ -11,4 +11,14 @@
     width: 5px;
     transform: translateX(0);
   }
+  .option {
+    > img {
+      width: 10px;
+      transform: translateX(-25px);
+    }
+  }
+}
+.select-css {
+  background: transparent;
+  width: 176px;
 }

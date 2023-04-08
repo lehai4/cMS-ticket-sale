@@ -51,8 +51,9 @@ const Navbar = () => {
         <Input
           option="navbar"
           name=""
-          type="text"
+          className="search-input navbar"
           placeholder="Tìm bằng số vé"
+          handleChange={() => {}}
         />
       </div>
       <div className="flex align-center user">

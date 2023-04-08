@@ -43,18 +43,43 @@ const Setting = () => {
   const dispatcher = useAppDispatch();
   const data = useAppSelector((state) => state.ticket.ticketSetting);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [input, setInput] = useState<string>();
+  const [dayApply, setDayApply] = useState<string>();
+  const [timeApply, setTimeApply] = useState<string>();
+  const [dayExpire, setDayExpire] = useState<string>();
+  const [timeExpire, setTimeExpire] = useState<string>();
+  const [checkbox, setCheckbox] = useState<string | undefined>();
+  const [selected, setSelected] = useState<string | undefined>();
 
   const [ticketSetting, setTicketSetting] = useState<
     TicketSetting[] | undefined
   >();
   const editing = { allowDeleting: true, allowEditing: true };
 
-  const handleAddPackage = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+  const handleChangeDate = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => {
+    const { value } = e.target;
+    type === "dateApply" ? setDayApply(value) : setDayExpire(value);
+  };
+  const handleCheckbox = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => {
+    const { name } = e.target;
+    setCheckbox(name);
+  };
+  const handleOpenModal = () => {
     setIsOpen(true);
   };
-  function closeModal() {
+  const handleAdd = () => {};
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
   useEffect(() => {
     const handleReadAllData = () => {
       get(child(dbRef, `settingTicket/`))
@@ -83,10 +108,11 @@ const Setting = () => {
       <div className="flex align-center justify-between">
         <div className="flex align-center relative">
           <Input
+            className="search-input router"
             option="router"
             name=""
-            type="text"
             placeholder="Tìm bằng số vé"
+            handleChange={() => {}}
           />
         </div>
         <div className="flex align-center gap-5">
@@ -118,7 +144,7 @@ const Setting = () => {
               borderRadius: 6,
               height: 48,
             }}
-            handleClick={handleAddPackage}
+            handleClick={handleOpenModal}
           />
         </div>
       </div>
@@ -159,10 +185,16 @@ const Setting = () => {
       </GridComponent>
       {modalIsOpen && (
         <ModalSetting
+          icon={star}
+          checkbox={checkbox}
           title="Thêm gói vé"
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
-          icon={star}
+          handleChange={handleChange}
+          setSelected={setSelected}
+          handleCheckbox={handleCheckbox}
+          handleAdd={handleAdd}
+          handleChangeDate={handleChangeDate}
         />
       )}
     </div>

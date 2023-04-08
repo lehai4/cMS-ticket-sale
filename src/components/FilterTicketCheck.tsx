@@ -1,5 +1,5 @@
 import iconArrow from "../assets/icon/iconArrow.png";
-import { Button, Header } from ".";
+import { Button, Header, Radio, Date } from ".";
 import { FilterTicketCheckProps } from "../typeProps";
 const FilterTicketCheck = ({
   radio,
@@ -57,12 +57,12 @@ const FilterTicketCheck = ({
             <div className="flex flex-col">
               {statusCheck.map((item, i) => (
                 <div key={i} className="flex align-center mb-4">
-                  <input
+                  <Radio
                     id={item.numberRadio}
-                    type="radio"
+                    type={item.statusCheck}
                     value={item.id}
                     checked={radio == item.id}
-                    onChange={(e) => handleChange(item.statusCheck, e)}
+                    handleChange={(e) => handleChange(e, item.statusCheck)}
                   />
                   <label
                     htmlFor={item.numberRadio}
@@ -81,18 +81,18 @@ const FilterTicketCheck = ({
           <div className="form-group flex flex-col gap-7 mt-8 ">
             <div className="flex align-center">
               <label className="form-label">Từ ngày</label>
-              <input
-                type="date"
+              <Date
+                typeDate=""
                 className="form-type-input"
-                onChange={(e) => handleChangeDate("dayFrom", e)}
+                handleChangeDate={(e) => handleChangeDate(e, "dayFrom")}
               />
             </div>
             <div className="flex align-center">
               <label className="form-label">Đến ngày</label>
-              <input
-                type="date"
+              <Date
+                typeDate=""
                 className="form-type-date"
-                onChange={(e) => handleChangeDate("dayTo", e)}
+                handleChangeDate={(e) => handleChangeDate(e, "dayTo")}
               />
             </div>
           </div>

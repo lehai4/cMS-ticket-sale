@@ -58,12 +58,12 @@ export type FilterTicketCheckProps = {
   statusCheck: statusCheck[];
   setSelected: (value: string) => void;
   handleChange: (
-    type: number | string,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: number | string
   ) => void;
   handleChangeDate: (
-    type: string,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string
   ) => void;
   handleFilter: () => void;
 };

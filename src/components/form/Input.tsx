@@ -1,20 +1,27 @@
 import searchIcon from "../../assets/icon/search.png";
 type InputProps = {
   placeholder: string;
-  type: string;
   name: string;
   option: string;
+  className: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
-const Input = ({ placeholder, type, name, option }: InputProps) => {
+const Input = ({
+  placeholder,
+  name,
+  option,
+  className,
+  handleChange,
+}: InputProps) => {
   return (
     <>
       {option == "navbar" ? (
         <>
           <input
-            type={type}
+            type="text"
             name={name}
             placeholder={`${placeholder}`}
-            className="search-input navbar"
+            className={className}
           />
           <span className="btn-search  absolute">
             <img src={`${searchIcon}`} alt="" />
@@ -23,10 +30,10 @@ const Input = ({ placeholder, type, name, option }: InputProps) => {
       ) : option == "router" ? (
         <>
           <input
-            type={type}
+            type="text"
             name={name}
             placeholder={`${placeholder}`}
-            className="search-input router"
+            className={className}
           />
           <span className="btn-search absolute">
             <img src={`${searchIcon}`} alt="" />
@@ -34,10 +41,11 @@ const Input = ({ placeholder, type, name, option }: InputProps) => {
         </>
       ) : (
         <input
-          type={type}
+          type="text"
           name={name}
           placeholder={`${placeholder}`}
-          className="search-input router"
+          className={className != "" ? className : ""}
+          onChange={handleChange}
         />
       )}
     </>

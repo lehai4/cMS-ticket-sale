@@ -50,8 +50,9 @@ const ListTicketCheck = ({
           <Input
             option="router"
             name=""
-            type="text"
+            className="search-input router"
             placeholder={placeholder}
+            handleChange={() => {}}
           />
         </div>
         <div className="flex align-center gap-3">

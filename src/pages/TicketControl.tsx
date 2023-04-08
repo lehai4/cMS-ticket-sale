@@ -27,16 +27,16 @@ const TicketControl = () => {
   const [originalTicket, setOriginalTicket] = useState<TicketCheck[]>();
   const editing = { allowDeleting: true, allowEditing: true };
   const handleChange = (
-    type: string | number,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string | number
   ) => {
     setRadio(Number(e.target.value));
     setValRadio(type);
   };
 
   const handleChangeDate = (
-    type: string,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string
   ) => {
     const { value } = e.target;
     type === "dayFrom" ? setDayFrom(value) : setDayTo(value);

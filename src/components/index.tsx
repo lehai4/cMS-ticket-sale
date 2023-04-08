@@ -9,3 +9,6 @@ export { default as FilterTicketCheck } from "./FilterTicketCheck";
 export { default as ListTicketCheck } from "./ListTicketCheck";
 export { default as Header } from "./Header";
 export { default as Input } from "./form/Input";
+export { default as Radio } from "./form/Radio";
+export { default as Date } from "./form/Date";
+export { default as Timer } from "./form/Timer";

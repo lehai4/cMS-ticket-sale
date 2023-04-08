@@ -48,6 +48,8 @@ $color2: #27aef9;
           line-height: 100%;
           opacity: 0.7;
           border-radius: 8px;
+          height: 40px;
+          width: 160px;
         }
         input[type="date"]::-webkit-calendar-picker-indicator {
           background-position: center;
@@ -73,6 +75,27 @@ $color2: #27aef9;
         input[type="checkbox"] {
           cursor: pointer;
           zoom: 1.8;
+        }
+        input[type="time"] {
+          border: 1px solid #a5a8b1;
+          color: #a5a8b1;
+          font-family: Montserrat;
+          font-size: 16px;
+          line-height: 100%;
+          opacity: 0.7;
+          border-radius: 8px;
+          height: 40px;
+          width: 129px;
+          padding: 0 12px;
+        }
+        input[type="time"]::-webkit-calendar-picker-indicator {
+          background-position: center;
+          max-width: 100%;
+          padding-right: 5px;
+          height: 20px;
+          width: 20px;
+          background-size: 24px;
+          background: url(../../assets//icon/u_clock-three.png) no-repeat;
         }
         input[type="radio"] {
           cursor: pointer;

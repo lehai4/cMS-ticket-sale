@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-import { Button, Header, Checkbox } from "../index";
+import { Button, Header, Checkbox, Radio, Date } from "../index";
 import { ModalManagementTicket } from "../../typeProps";
 
 const ModalManagerTicket = (props: ModalManagementTicket) => {
@@ -42,18 +42,24 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
               <div>
                 <label className="form-label">Từ ngày</label>
                 <div className="flex align-center gap-2 mt-2 ">
-                  <input
-                    type="date"
-                    onChange={(e) => props.handleChangeDate(e, "dayPrev")}
+                  <Date
+                    typeDate=""
+                    className=""
+                    handleChangeDate={(e) =>
+                      props.handleChangeDate(e, "dayPrev")
+                    }
                   />
                 </div>
               </div>
               <div className="ml-20">
                 <label className="form-label">Đến ngày</label>
                 <div className="flex align-center gap-2 mt-2">
-                  <input
-                    type="date"
-                    onChange={(e) => props.handleChangeDate(e, "dayNext")}
+                  <Date
+                    typeDate=""
+                    className=""
+                    handleChangeDate={(e) =>
+                      props.handleChangeDate(e, "dayNext")
+                    }
                   />
                 </div>
               </div>
@@ -65,12 +71,14 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
               <div className="flex align-center justify-between mb-2">
                 {props.statusUse.map((item, i) => (
                   <div className="flex" key={i}>
-                    <input
+                    <Radio
                       id={item.numberRadio}
-                      type="radio"
                       value={item.id}
                       checked={props.radio == item.id}
-                      onChange={(e) => props.handleChange(e, item.statusTicket)}
+                      type={item.statusTicket}
+                      handleChange={(e) =>
+                        props.handleChange(e, item.statusTicket)
+                      }
                     />
                     <label
                       htmlFor={item.numberRadio}

@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
-import { Button, Header } from "../index";
+import { Button, Header, Input, Date, Timer, Checkbox } from "../index";
+import iconArrow from "../../assets/icon/iconArrow.png";
 const customStyles = {
   content: {
     top: "50%",
@@ -13,15 +14,33 @@ const customStyles = {
 };
 type ModalSettingProps = {
   title: string;
+  checkbox: string | undefined;
   icon: string;
   modalIsOpen: boolean;
+  setSelected: (value: string) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCheckbox: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => void;
+  handleChangeDate: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => void;
+  handleAdd: () => void;
   closeModal: () => void;
 };
 const ModalSetting = ({
   title,
   modalIsOpen,
   icon,
+  checkbox,
   closeModal,
+  setSelected,
+  handleCheckbox,
+  handleChange,
+  handleAdd,
+  handleChangeDate,
 }: ModalSettingProps) => {
   return (
     <div>
@@ -50,11 +69,12 @@ const ModalSetting = ({
                 <label className="form-label flex align-center gap-1">
                   Tên gói vé <img src={`${icon}`} alt="" />
                 </label>
-                <input
-                  className="form-control"
-                  type="text"
+                <Input
                   name="name"
+                  option=""
+                  className="form-control"
                   placeholder="Nhập tên gói vé"
+                  handleChange={handleChange}
                 />
               </div>
             ) : (
@@ -63,11 +83,23 @@ const ModalSetting = ({
                   <label>
                     Mã sự kiện <img src={`${icon}`} alt="" />
                   </label>
-                  <input placeholder="Nhập tên gói vé" />
+                  <Input
+                    name="name"
+                    option=""
+                    className="form-control"
+                    placeholder="Nhập mã sự kiện"
+                    handleChange={() => {}}
+                  />
                 </div>
                 <div>
                   <label className="form-label">Tên sự kiện</label>
-                  <input placeholder="Hội chợ triễn lãm hàng tiêu dùng 2021" />
+                  <Input
+                    name="name"
+                    option=""
+                    className="form-control"
+                    placeholder="Hội chợ triễn lãm hàng tiêu dùng 2021"
+                    handleChange={() => {}}
+                  />
                 </div>
               </div>
             )}
@@ -75,36 +107,72 @@ const ModalSetting = ({
               <div>
                 <label className="form-label">Ngày áp dụng</label>
                 <div className="flex align-center gap-2 mt-2">
-                  <input type="date" placeholder="mm/dd/yy" />
-                  <input type="time" step={1} />
-                  {/* <input type="text" placeholder="hh:mm:ss" /> */}
+                  <Date
+                    typeDate=""
+                    className=""
+                    handleChangeDate={(e) => handleChangeDate(e, "dateApply")}
+                  />
+                  <Timer typeTimer="" handleChangeTime={() => {}} step={1} />
                 </div>
               </div>
               <div>
                 <label className="form-label">Ngày hết hạn</label>
                 <div className="flex align-center gap-2 mt-2">
-                  <input type="date" />
-                  <input type="text" placeholder="hh:mm:ss" />
+                  <Date
+                    typeDate=""
+                    className=""
+                    handleChangeDate={(e) => handleChangeDate(e, "dateExpire")}
+                  />
+                  <Timer typeTimer="" handleChangeTime={() => {}} step={1} />
                 </div>
               </div>
             </div>
             <div className="form-group">
               <div className="mb-2">
-                <label className="form-label">Giá vé áp dụng</label>
+                <label className="form-label" htmlFor="">
+                  Giá vé áp dụng
+                </label>
               </div>
               <div className="mb-3 flex align-center">
-                <input type="checkbox" />
+                <Checkbox
+                  id={""}
+                  type="checkbox"
+                  name="vé lẻ"
+                  isChecked={checkbox === "vé lẻ" ? true : false}
+                  handleClick={(e) => handleCheckbox(e, "vé lẻ")}
+                />
                 <span className="ml-2">Vé lẻ (vnđ/vé) với giá</span>
-                <input className="price m-2.5 mt-0 mb-0" placeholder="Giá vé" />
+                <Input
+                  option=""
+                  className="price m-2.5 mt-0 mb-0"
+                  name=""
+                  handleChange={() => {}}
+                  placeholder="Giá vé"
+                />
                 <span>/ vé</span>
               </div>
               <div className="flex align-center">
-                <input type="checkbox" />
+                <Checkbox
+                  id={""}
+                  type="checkbox"
+                  name="combo"
+                  isChecked={checkbox === "combo" ? true : false}
+                  handleClick={(e) => handleCheckbox(e, "combo")}
+                />
                 <span className="ml-2">Combo vé với giá</span>
-                <input className="price m-2.5 mt-0 mb-0" placeholder="Giá vé" />
+                <Input
+                  option=""
+                  className="price m-2.5 mt-0 mb-0"
+                  name=""
+                  handleChange={() => {}}
+                  placeholder="Giá vé"
+                />
                 <span>/</span>
-                <input
-                  className="price price-override m-2.5 mt-0 mb-0"
+                <Input
+                  option=""
+                  className="price m-2.5 mt-0 mb-0"
+                  name=""
+                  handleChange={() => {}}
                   placeholder="Giá vé"
                 />
                 <span>vé</span>
@@ -114,12 +182,16 @@ const ModalSetting = ({
               <div className="mb-2">
                 <label className="form-label">Tình trạng</label>
               </div>
-              <div className="mb-3">
-                <select className="select-css">
+              <div className="mb-3 flex align-center option">
+                <select
+                  className="select-css"
+                  onChange={(e) => setSelected(e.target.value)}
+                >
                   <option value="0">Lựa chọn</option>
                   <option value="apply">Đang áp dụng</option>
                   <option value="turn-off">Tắt</option>
                 </select>
+                <img src={iconArrow} alt="" />
               </div>
             </div>
             <div className="form-group mt-4 mb-5 ml-0 mr-0">
@@ -151,7 +223,7 @@ const ModalSetting = ({
             <Button
               text="Lưu"
               size={10}
-              handleClick={() => {}}
+              handleClick={handleAdd}
               icon={""}
               bgHoverColor=""
               style={{
