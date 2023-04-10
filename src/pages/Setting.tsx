@@ -13,20 +13,24 @@ import {
   Edit,
   Inject,
 } from "@syncfusion/ej2-react-grids";
+import { getDatabase, ref, get, set, child } from "firebase/database";
 import { Button, Header, Input, ModalSetting } from "../components";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { getDatabase, ref, get, child } from "firebase/database";
-import { loadSettingTicket } from "../redux/dataTicketSlice";
-import { TicketSetting } from "../typeProps/index";
+import { loadSettingTicket, addSettingTicket } from "../redux/dataTicketSlice";
+import { SettingTicket, TicketSetting } from "../typeProps/index";
 import app from "../database/firebaseConfig";
-import { settingTicket } from "../mock/dummy";
+import { Pagination, settingTicket } from "../mock/dummy";
+import moment from "moment";
+import { toast } from "react-toastify";
 import star from "../assets/icon/star.png";
 import update from "../assets/icon/fi_edit.png";
+import stringWithCommas from "../utils/stringWithComas";
+import numberWithCommas from "../utils/numberWithComas";
 
-type grid = {
+type gridStatusSettingProps = {
   handleUpdate: () => void;
 };
-const gridStatusSetting = ({ handleUpdate }: grid) => (
+const gridStatusSetting = ({ handleUpdate }: gridStatusSettingProps) => (
   <div className="flex align-center gap-1">
     <img src={`${update}`} alt="" />
     <button
@@ -43,7 +47,10 @@ const Setting = () => {
   const dispatcher = useAppDispatch();
   const data = useAppSelector((state) => state.ticket.ticketSetting);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
-  const [input, setInput] = useState<string>();
+  const [input, setInput] = useState<string | undefined>();
+  const [inputPrice, setInputPrice] = useState<string>();
+  const [inputPriceCombo, setInputPriceCombo] = useState<string>();
+  const [inputPriceComboPer, setInputPriceComboPer] = useState<string>();
   const [dayApply, setDayApply] = useState<string>();
   const [timeApply, setTimeApply] = useState<string>();
   const [dayExpire, setDayExpire] = useState<string>();
@@ -64,22 +71,85 @@ const Setting = () => {
     type: string
   ) => {
     const { value } = e.target;
-    type === "dateApply" ? setDayApply(value) : setDayExpire(value);
+    type === "dateApply"
+      ? setDayApply(moment(value).format("DD/MM/YYYY"))
+      : setDayExpire(moment(value).format("DD/MM/YYYY"));
   };
-  const handleCheckbox = (
+  const handleInputPriceCombo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputPriceCombo(e.target.value);
+  };
+  const handleChangeTimer = (
     e: React.ChangeEvent<HTMLInputElement>,
     type: string
   ) => {
+    type === "timeApply"
+      ? setTimeApply(e.target.value)
+      : setTimeExpire(e.target.value);
+  };
+  const handleInputPriceComboPer = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputPriceComboPer(e.target.value);
+  };
+  const handleInputPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputPrice(e.target.value);
+  };
+  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
     setCheckbox(name);
   };
+  const handleUpdate = () => {};
   const handleOpenModal = () => {
     setIsOpen(true);
   };
-  const handleAdd = () => {};
   const closeModal = () => {
     setIsOpen(false);
   };
+  const handleAdd = () => {
+    if (
+      input === "" ||
+      dayApply === "" ||
+      dayExpire === "" ||
+      checkbox === undefined ||
+      inputPrice === "" ||
+      selected === undefined
+    ) {
+      toast.warning("Please fill in whole blank");
+    } else {
+      let priceTicket = numberWithCommas(
+        Number(inputPriceCombo) / Number(inputPriceComboPer)
+      );
+      let dataObj: TicketSetting = {
+        status: Number(selected),
+        priceCombo:
+          inputPriceCombo !== undefined && inputPriceComboPer !== undefined
+            ? `${stringWithCommas(
+                inputPriceCombo
+              )}.000 VNĐ/${inputPriceComboPer} vé`
+            : "-",
+        price:
+          inputPrice === undefined
+            ? `${priceTicket}.000 VNĐ`
+            : `${stringWithCommas(inputPrice)}.000 VNĐ`,
+        packageName: input,
+        packageCode: "ALT20210501",
+        dayApply: `${dayApply} ${timeApply}`,
+        dayExpire: `${dayExpire} ${timeExpire}`,
+        uiId: 3,
+      };
+      dispatcher(addSettingTicket(dataObj));
+      handleWriteDatabase(3, dataObj);
+      closeModal();
+    }
+  };
+  const handleWriteDatabase = (id: number, data: TicketSetting) => {
+    set(child(dbRef, `settingTicket/` + id), data)
+      .then(() => {
+        toast.success(`Data saved successfully`);
+      })
+      .catch((error) => {
+        toast.error("The write failed", error);
+      });
+  };
+
   useEffect(() => {
     const handleReadAllData = () => {
       get(child(dbRef, `settingTicket/`))
@@ -92,8 +162,8 @@ const Setting = () => {
             console.log("No data available");
           }
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          console.error("No find any data");
         });
     };
     handleReadAllData();
@@ -111,6 +181,8 @@ const Setting = () => {
             className="search-input router"
             option="router"
             name=""
+            disabled
+            typeInput=""
             placeholder="Tìm bằng số vé"
             handleChange={() => {}}
           />
@@ -157,6 +229,7 @@ const Setting = () => {
         allowExcelExport
         allowPdfExport
         editSettings={editing}
+        load={Pagination}
       >
         <ColumnsDirective>
           {settingTicket.map((item, index) => (
@@ -194,6 +267,10 @@ const Setting = () => {
           setSelected={setSelected}
           handleCheckbox={handleCheckbox}
           handleAdd={handleAdd}
+          handleInputPriceCombo={handleInputPriceCombo}
+          handleChangeTimer={handleChangeTimer}
+          handleInputPriceComboPer={handleInputPriceComboPer}
+          handleInputPrice={handleInputPrice}
           handleChangeDate={handleChangeDate}
         />
       )}

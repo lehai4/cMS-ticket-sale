@@ -51,6 +51,8 @@ const Navbar = () => {
         <Input
           option="navbar"
           name=""
+          disabled
+          typeInput=""
           className="search-input navbar"
           placeholder="Tìm bằng số vé"
           handleChange={() => {}}

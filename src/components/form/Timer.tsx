@@ -3,7 +3,7 @@ type TimerProps = {
   step: number;
   handleChangeTime: (
     e: React.ChangeEvent<HTMLInputElement>,
-    type: string | number
+    type: string
   ) => void;
 };
 const Timer = ({ typeTimer, step, handleChangeTime }: TimerProps) => {

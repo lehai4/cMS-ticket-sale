@@ -2,7 +2,9 @@ import searchIcon from "../../assets/icon/search.png";
 type InputProps = {
   placeholder: string;
   name: string;
+  disabled: boolean;
   option: string;
+  typeInput: string;
   className: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -10,6 +12,8 @@ const Input = ({
   placeholder,
   name,
   option,
+  typeInput,
+  disabled,
   className,
   handleChange,
 }: InputProps) => {
@@ -41,8 +45,9 @@ const Input = ({
         </>
       ) : (
         <input
-          type="text"
+          type={typeInput !== "" ? typeInput : "text"}
           name={name}
+          disabled={disabled}
           placeholder={`${placeholder}`}
           className={className != "" ? className : ""}
           onChange={handleChange}

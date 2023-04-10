@@ -171,6 +171,8 @@ const TicketManagement = () => {
         <div className="flex align-center relative">
           <Input
             option="router"
+            typeInput=""
+            disabled
             name=""
             className="search-input router"
             placeholder="Tìm bằng số vé"

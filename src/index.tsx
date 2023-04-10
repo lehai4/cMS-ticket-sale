@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import "./index.css";
 import "./sass/index.scss";
+import "react-toastify/dist/ReactToastify.css";
 import reportWebVitals from "./reportWebVitals";
 
 registerLicense(`${process.env.REACT_APP_API_KEY}`);

@@ -35,11 +35,21 @@ export const dataTicketSlice = createSlice({
     loadSettingTicket: (state, action: PayloadAction<TicketSetting[]>) => {
       return { ...state, ticketSetting: action.payload };
     },
+    addSettingTicket: (state, action: PayloadAction<TicketSetting>) => {
+      return {
+        ...state,
+        ticketSetting: [...state.ticketSetting, action.payload],
+      };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { loadTicketManager, loadTicketControl, loadSettingTicket } =
-  dataTicketSlice.actions;
+export const {
+  loadTicketManager,
+  loadTicketControl,
+  loadSettingTicket,
+  addSettingTicket,
+} = dataTicketSlice.actions;
 
 export default dataTicketSlice.reducer;

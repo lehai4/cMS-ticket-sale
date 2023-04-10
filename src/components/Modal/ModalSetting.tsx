@@ -1,4 +1,5 @@
 import React from "react";
+
 import Modal from "react-modal";
 import { Button, Header, Input, Date, Timer, Checkbox } from "../index";
 import iconArrow from "../../assets/icon/iconArrow.png";
@@ -18,17 +19,21 @@ type ModalSettingProps = {
   icon: string;
   modalIsOpen: boolean;
   setSelected: (value: string) => void;
+  handleAdd: () => void;
+  closeModal: () => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCheckbox: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => void;
+  handleInputPrice: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputPriceCombo: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputPriceComboPer: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangeDate: (
     e: React.ChangeEvent<HTMLInputElement>,
     type: string
   ) => void;
-  handleAdd: () => void;
-  closeModal: () => void;
+  handleChangeTimer: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => void;
 };
 const ModalSetting = ({
   title,
@@ -41,6 +46,10 @@ const ModalSetting = ({
   handleChange,
   handleAdd,
   handleChangeDate,
+  handleInputPrice,
+  handleInputPriceComboPer,
+  handleChangeTimer,
+  handleInputPriceCombo,
 }: ModalSettingProps) => {
   return (
     <div>
@@ -72,6 +81,8 @@ const ModalSetting = ({
                 <Input
                   name="name"
                   option=""
+                  typeInput=""
+                  disabled={false}
                   className="form-control"
                   placeholder="Nhập tên gói vé"
                   handleChange={handleChange}
@@ -86,6 +97,8 @@ const ModalSetting = ({
                   <Input
                     name="name"
                     option=""
+                    disabled
+                    typeInput=""
                     className="form-control"
                     placeholder="Nhập mã sự kiện"
                     handleChange={() => {}}
@@ -96,6 +109,8 @@ const ModalSetting = ({
                   <Input
                     name="name"
                     option=""
+                    typeInput=""
+                    disabled
                     className="form-control"
                     placeholder="Hội chợ triễn lãm hàng tiêu dùng 2021"
                     handleChange={() => {}}
@@ -112,7 +127,11 @@ const ModalSetting = ({
                     className=""
                     handleChangeDate={(e) => handleChangeDate(e, "dateApply")}
                   />
-                  <Timer typeTimer="" handleChangeTime={() => {}} step={1} />
+                  <Timer
+                    typeTimer=""
+                    handleChangeTime={(e) => handleChangeTimer(e, "timeApply")}
+                    step={1}
+                  />
                 </div>
               </div>
               <div>
@@ -123,7 +142,11 @@ const ModalSetting = ({
                     className=""
                     handleChangeDate={(e) => handleChangeDate(e, "dateExpire")}
                   />
-                  <Timer typeTimer="" handleChangeTime={() => {}} step={1} />
+                  <Timer
+                    typeTimer=""
+                    handleChangeTime={(e) => handleChangeTimer(e, "timeExpire")}
+                    step={1}
+                  />
                 </div>
               </div>
             </div>
@@ -139,14 +162,16 @@ const ModalSetting = ({
                   type="checkbox"
                   name="vé lẻ"
                   isChecked={checkbox === "vé lẻ" ? true : false}
-                  handleClick={(e) => handleCheckbox(e, "vé lẻ")}
+                  handleClick={(e) => handleCheckbox(e)}
                 />
                 <span className="ml-2">Vé lẻ (vnđ/vé) với giá</span>
                 <Input
                   option=""
-                  className="price m-2.5 mt-0 mb-0"
                   name=""
-                  handleChange={() => {}}
+                  disabled={checkbox === "combo" ? true : false}
+                  className="price m-2.5 mt-0 mb-0"
+                  typeInput="number"
+                  handleChange={handleInputPrice}
                   placeholder="Giá vé"
                 />
                 <span>/ vé</span>
@@ -157,14 +182,16 @@ const ModalSetting = ({
                   type="checkbox"
                   name="combo"
                   isChecked={checkbox === "combo" ? true : false}
-                  handleClick={(e) => handleCheckbox(e, "combo")}
+                  handleClick={(e) => handleCheckbox(e)}
                 />
                 <span className="ml-2">Combo vé với giá</span>
                 <Input
                   option=""
                   className="price m-2.5 mt-0 mb-0"
                   name=""
-                  handleChange={() => {}}
+                  disabled={checkbox === "vé lẻ" ? true : false}
+                  typeInput="number"
+                  handleChange={handleInputPriceCombo}
                   placeholder="Giá vé"
                 />
                 <span>/</span>
@@ -172,7 +199,9 @@ const ModalSetting = ({
                   option=""
                   className="price m-2.5 mt-0 mb-0"
                   name=""
-                  handleChange={() => {}}
+                  disabled={checkbox === "vé lẻ" ? true : false}
+                  typeInput="number"
+                  handleChange={handleInputPriceComboPer}
                   placeholder="Giá vé"
                 />
                 <span>vé</span>
@@ -187,9 +216,9 @@ const ModalSetting = ({
                   className="select-css"
                   onChange={(e) => setSelected(e.target.value)}
                 >
-                  <option value="0">Lựa chọn</option>
-                  <option value="apply">Đang áp dụng</option>
-                  <option value="turn-off">Tắt</option>
+                  <option value="undefined">Lựa chọn</option>
+                  <option value="1">Đang áp dụng</option>
+                  <option value="0">Tắt</option>
                 </select>
                 <img src={iconArrow} alt="" />
               </div>

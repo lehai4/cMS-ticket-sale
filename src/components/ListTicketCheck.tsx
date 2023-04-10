@@ -50,6 +50,8 @@ const ListTicketCheck = ({
           <Input
             option="router"
             name=""
+            disabled
+            typeInput=""
             className="search-input router"
             placeholder={placeholder}
             handleChange={() => {}}

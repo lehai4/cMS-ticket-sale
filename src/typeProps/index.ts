@@ -89,7 +89,7 @@ export interface TicketSetting {
   dayApply: string;
   dayExpire: string;
   packageCode: string;
-  packageName: string;
+  packageName: string | undefined;
   price: string;
   priceCombo: string;
   status: number;
