@@ -1,5 +1,4 @@
 import React from "react";
-
 import Modal from "react-modal";
 import { Button, Header, Input, Date, Timer, Checkbox } from "../index";
 import iconArrow from "../../assets/icon/iconArrow.png";
@@ -9,6 +8,8 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
+    borderRadius: "16px",
+    border: "1px solid rgba(0,0,0,0.3)",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
@@ -74,7 +75,7 @@ const ModalSetting = ({
           </div>
           <div className="form-content">
             {title === "Thêm gói vé" ? (
-              <div className="form-group mt-6">
+              <div className="form-group mt-8">
                 <label className="form-label flex align-center gap-1">
                   Tên gói vé <img src={`${icon}`} alt="" />
                 </label>
@@ -118,7 +119,7 @@ const ModalSetting = ({
                 </div>
               </div>
             )}
-            <div className="form-group flex gap-9 mt-1 mb-6">
+            <div className="form-group flex gap-9 mt-2 mb-6">
               <div>
                 <label className="form-label">Ngày áp dụng</label>
                 <div className="flex align-center gap-2 mt-2">

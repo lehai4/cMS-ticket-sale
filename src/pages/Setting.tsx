@@ -104,21 +104,12 @@ const Setting = () => {
     setIsOpen(false);
   };
   const handleAdd = () => {
-    if (
-      input === "" ||
-      dayApply === "" ||
-      dayExpire === "" ||
-      checkbox === undefined ||
-      inputPrice === "" ||
-      selected === undefined
-    ) {
-      toast.warning("Please fill in whole blank");
-    } else {
+    if (input !== "") {
       let priceTicket = numberWithCommas(
         Number(inputPriceCombo) / Number(inputPriceComboPer)
       );
       let dataObj: TicketSetting = {
-        status: Number(selected),
+        status: selected ? Number(selected) : -1,
         priceCombo:
           inputPriceCombo !== undefined && inputPriceComboPer !== undefined
             ? `${stringWithCommas(
@@ -127,17 +118,21 @@ const Setting = () => {
             : "-",
         price:
           inputPrice === undefined
-            ? `${priceTicket}.000 VNĐ`
+            ? priceTicket !== "NaN"
+              ? `${priceTicket}.000 VNĐ`
+              : "-"
             : `${stringWithCommas(inputPrice)}.000 VNĐ`,
         packageName: input,
         packageCode: "ALT20210501",
-        dayApply: `${dayApply} ${timeApply}`,
-        dayExpire: `${dayExpire} ${timeExpire}`,
-        uiId: 3,
+        dayApply: dayApply && timeApply ? `${dayApply} ${timeApply}` : "-",
+        dayExpire: dayExpire && dayExpire ? `${dayExpire} ${timeExpire}` : "-",
+        uiId: data.length + 1,
       };
       dispatcher(addSettingTicket(dataObj));
-      handleWriteDatabase(3, dataObj);
+      handleWriteDatabase(dataObj.uiId, dataObj);
       closeModal();
+    } else {
+      toast.warning("Please fill in whole blank");
     }
   };
   const handleWriteDatabase = (id: number, data: TicketSetting) => {
@@ -149,7 +144,6 @@ const Setting = () => {
         toast.error("The write failed", error);
       });
   };
-
   useEffect(() => {
     const handleReadAllData = () => {
       get(child(dbRef, `settingTicket/`))
@@ -168,7 +162,9 @@ const Setting = () => {
     };
     handleReadAllData();
   }, []);
-  useEffect(() => setTicketSetting(data), [data]);
+  useEffect(() => {
+    setTicketSetting(data);
+  }, [data]);
   return (
     <div className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header

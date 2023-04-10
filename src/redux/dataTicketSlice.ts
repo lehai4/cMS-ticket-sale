@@ -41,6 +41,7 @@ export const dataTicketSlice = createSlice({
         ticketSetting: [...state.ticketSetting, action.payload],
       };
     },
+    updateSettingTicket: (state, action: PayloadAction<TicketSetting>) => {},
   },
 });
 
@@ -50,6 +51,7 @@ export const {
   loadTicketControl,
   loadSettingTicket,
   addSettingTicket,
+  updateSettingTicket,
 } = dataTicketSlice.actions;
 
 export default dataTicketSlice.reducer;
