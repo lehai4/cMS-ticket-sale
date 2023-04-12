@@ -89,6 +89,36 @@ export const gridStatusCheck = (props) => (
     )}
   </>
 );
+export const data = [
+  {
+    name: "Thứ 2",
+    total: 142,
+  },
+  {
+    name: "Thứ 3",
+    total: 170,
+  },
+  {
+    name: "Thứ 4",
+    total: 175,
+  },
+  {
+    name: "Thứ 5",
+    total: 230,
+  },
+  {
+    name: "Thứ 6",
+    total: 220,
+  },
+  {
+    name: "Thứ 7",
+    total: 210,
+  },
+  {
+    name: "CN",
+    total: 190,
+  },
+];
 
 export const links = [
   {

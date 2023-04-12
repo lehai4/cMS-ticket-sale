@@ -13,7 +13,7 @@ import {
   Edit,
   Inject,
 } from "@syncfusion/ej2-react-grids";
-import { Button, Header, Input } from ".";
+import { Button, Header, Input, Wrapper } from ".";
 import { TicketCheck, TicketField } from "../typeProps";
 
 type ListTicketCheckProps = {
@@ -35,7 +35,7 @@ const ListTicketCheck = ({
   placeholder,
 }: ListTicketCheckProps) => {
   return (
-    <div className="md:m-6 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
+    <Wrapper className="md:m-6 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
         title="Đối soát vé"
         style={{
@@ -45,8 +45,8 @@ const ListTicketCheck = ({
           color: "#1E0D03",
         }}
       />
-      <div className="flex align-center justify-between">
-        <div className="flex align-center relative">
+      <Wrapper className="flex align-center justify-between">
+        <Wrapper className="flex align-center relative">
           <Input
             option="router"
             name=""
@@ -56,8 +56,8 @@ const ListTicketCheck = ({
             placeholder={placeholder}
             handleChange={() => {}}
           />
-        </div>
-        <div className="flex align-center gap-3">
+        </Wrapper>
+        <Wrapper className="flex align-center gap-3">
           {isButton === 1 ? (
             <Button
               text="Xuất file (.csv)"
@@ -91,8 +91,8 @@ const ListTicketCheck = ({
               }}
             />
           )}
-        </div>
-      </div>
+        </Wrapper>
+      </Wrapper>
 
       <GridComponent
         id="gridcomp"
@@ -104,7 +104,6 @@ const ListTicketCheck = ({
         contextMenuItems={contextMenuItems}
         editSettings={editing}
         load={Pagination}
-        // pageSizes
       >
         <ColumnsDirective>
           {ticketCheck.map((item, index) => (
@@ -124,7 +123,7 @@ const ListTicketCheck = ({
           ]}
         />
       </GridComponent>
-    </div>
+    </Wrapper>
   );
 };
 

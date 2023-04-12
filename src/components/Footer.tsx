@@ -1,4 +1,3 @@
-import React from "react";
 import copyRight from "../assets/icon/u_copyright.png";
 
 const Footer = () => (

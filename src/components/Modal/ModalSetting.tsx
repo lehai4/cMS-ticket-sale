@@ -1,6 +1,14 @@
 import React from "react";
 import Modal from "react-modal";
-import { Button, Header, Input, Date, Timer, Checkbox } from "../index";
+import {
+  Button,
+  Header,
+  Input,
+  Timer,
+  Checkbox,
+  DatePicker,
+  Wrapper,
+} from "../index";
 import iconArrow from "../../assets/icon/iconArrow.png";
 const customStyles = {
   content: {
@@ -62,7 +70,7 @@ const ModalSetting = ({
         ariaHideApp={false}
       >
         <form className="form-setting">
-          <div className="form-header">
+          <Wrapper className="form-header">
             <Header
               title={title}
               style={{
@@ -72,10 +80,10 @@ const ModalSetting = ({
                 color: "#1E0D03",
               }}
             />
-          </div>
-          <div className="form-content">
+          </Wrapper>
+          <Wrapper className="form-content">
             {title === "Thêm gói vé" ? (
-              <div className="form-group mt-8">
+              <Wrapper className="form-group mt-8">
                 <label className="form-label flex align-center gap-1">
                   Tên gói vé <img src={`${icon}`} alt="" />
                 </label>
@@ -88,10 +96,10 @@ const ModalSetting = ({
                   placeholder="Nhập tên gói vé"
                   handleChange={handleChange}
                 />
-              </div>
+              </Wrapper>
             ) : (
-              <div className="form-group">
-                <div>
+              <Wrapper className="form-group">
+                <Wrapper className="">
                   <label>
                     Mã sự kiện <img src={`${icon}`} alt="" />
                   </label>
@@ -104,8 +112,8 @@ const ModalSetting = ({
                     placeholder="Nhập mã sự kiện"
                     handleChange={() => {}}
                   />
-                </div>
-                <div>
+                </Wrapper>
+                <Wrapper className="">
                   <label className="form-label">Tên sự kiện</label>
                   <Input
                     name="name"
@@ -116,16 +124,17 @@ const ModalSetting = ({
                     placeholder="Hội chợ triễn lãm hàng tiêu dùng 2021"
                     handleChange={() => {}}
                   />
-                </div>
-              </div>
+                </Wrapper>
+              </Wrapper>
             )}
-            <div className="form-group flex gap-9 mt-2 mb-6">
-              <div>
+            <Wrapper className="form-group flex gap-9 mt-2 mb-6">
+              <Wrapper className="">
                 <label className="form-label">Ngày áp dụng</label>
-                <div className="flex align-center gap-2 mt-2">
-                  <Date
-                    typeDate=""
-                    className=""
+                <Wrapper className="flex align-center gap-2 mt-2">
+                  <DatePicker
+                    format="dd/MM/yyyy"
+                    placholder="dd/mm/yy"
+                    className="date"
                     handleChangeDate={(e) => handleChangeDate(e, "dateApply")}
                   />
                   <Timer
@@ -133,14 +142,15 @@ const ModalSetting = ({
                     handleChangeTime={(e) => handleChangeTimer(e, "timeApply")}
                     step={1}
                   />
-                </div>
-              </div>
-              <div>
+                </Wrapper>
+              </Wrapper>
+              <Wrapper className="">
                 <label className="form-label">Ngày hết hạn</label>
-                <div className="flex align-center gap-2 mt-2">
-                  <Date
-                    typeDate=""
-                    className=""
+                <Wrapper className="flex align-center gap-2 mt-2">
+                  <DatePicker
+                    format="dd/MM/yyyy"
+                    placholder="dd/mm/yy"
+                    className="date"
                     handleChangeDate={(e) => handleChangeDate(e, "dateExpire")}
                   />
                   <Timer
@@ -148,16 +158,16 @@ const ModalSetting = ({
                     handleChangeTime={(e) => handleChangeTimer(e, "timeExpire")}
                     step={1}
                   />
-                </div>
-              </div>
-            </div>
-            <div className="form-group">
-              <div className="mb-2">
+                </Wrapper>
+              </Wrapper>
+            </Wrapper>
+            <Wrapper className="form-group">
+              <Wrapper className="mb-2">
                 <label className="form-label" htmlFor="">
                   Giá vé áp dụng
                 </label>
-              </div>
-              <div className="mb-3 flex align-center">
+              </Wrapper>
+              <Wrapper className="mb-3 flex align-center">
                 <Checkbox
                   id={""}
                   type="checkbox"
@@ -176,8 +186,8 @@ const ModalSetting = ({
                   placeholder="Giá vé"
                 />
                 <span>/ vé</span>
-              </div>
-              <div className="flex align-center">
+              </Wrapper>
+              <Wrapper className="flex align-center">
                 <Checkbox
                   id={""}
                   type="checkbox"
@@ -198,7 +208,7 @@ const ModalSetting = ({
                 <span>/</span>
                 <Input
                   option=""
-                  className="price m-2.5 mt-0 mb-0"
+                  className="price price-per m-2.5 mt-0 mb-0"
                   name=""
                   disabled={checkbox === "vé lẻ" ? true : false}
                   typeInput="number"
@@ -206,13 +216,13 @@ const ModalSetting = ({
                   placeholder="Giá vé"
                 />
                 <span>vé</span>
-              </div>
-            </div>
-            <div className="form-group mt-5">
-              <div className="mb-2">
+              </Wrapper>
+            </Wrapper>
+            <Wrapper className="form-group mt-5">
+              <Wrapper className="mb-2">
                 <label className="form-label">Tình trạng</label>
-              </div>
-              <div className="mb-3 flex align-center option">
+              </Wrapper>
+              <Wrapper className="mb-3 flex align-center option">
                 <select
                   className="select-css"
                   onChange={(e) => setSelected(e.target.value)}
@@ -222,17 +232,17 @@ const ModalSetting = ({
                   <option value="0">Tắt</option>
                 </select>
                 <img src={iconArrow} alt="" />
-              </div>
-            </div>
-            <div className="form-group mt-4 mb-5 ml-0 mr-0">
-              <label className="form-note flex align-center">
+              </Wrapper>
+            </Wrapper>
+            <Wrapper className="form-group mt-4 mb-5 ml-0 mr-0">
+              <label className="label-note flex align-center">
                 <img src={`${icon}`} alt="" />
                 <span className="ml-1">là thông tin bắt buộc</span>
               </label>
-            </div>
-          </div>
+            </Wrapper>
+          </Wrapper>
 
-          <div className="flex align-center justify-center gap-5">
+          <Wrapper className="flex align-center justify-center gap-5">
             <Button
               text="Hủy"
               size={10}
@@ -267,7 +277,7 @@ const ModalSetting = ({
                 backgroundColor: "#FF993C",
               }}
             />
-          </div>
+          </Wrapper>
         </form>
       </Modal>
     </div>

@@ -5,7 +5,7 @@ body {
   padding: 0;
   font-family: "Open Sans", sans-serif;
 }
-
+/* import styles talwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

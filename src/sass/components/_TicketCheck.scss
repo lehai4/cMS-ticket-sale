@@ -18,18 +18,6 @@
   .form-type {
     margin-left: 4.8rem;
   }
-  .form-type-input {
-    margin-left: 7.3rem;
-    border: none !important;
-    color: #f7f8fb;
-    background: #f1f4f8;
-  }
-  .form-type-date {
-    margin-left: 6.4rem;
-    border: none !important;
-    color: #f7f8fb;
-    background: #f1f4f8;
-  }
   img {
     width: 13px;
     height: 6px;
@@ -43,4 +31,10 @@ select {
   border-radius: 8px;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+.dateFrom {
+  margin-left: 116px;
+}
+.dateTo {
+  margin-left: 102px;
 }

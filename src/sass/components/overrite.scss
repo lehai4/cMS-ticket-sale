@@ -5,7 +5,7 @@
   background-color: #f9f6f4;
 }
 .mt-24-override {
-  margin-top: 59px;
+  margin-top: 50px;
 }
 .pt-15-override,
 .pb-15-override {
@@ -68,7 +68,35 @@ table tbody tr:nth-child(2n + 2) {
 .e-grid .e-rowcell {
   padding: 7px 22px;
 }
+tbody > tr {
+  height: 48px !important;
+}
 // Modal
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.3) !important;
+}
+.e-input-group,
+.e-input-group.e-control-wrapper {
+  align-items: center;
+  margin-bottom: 0;
+}
+.e-input-group-icon.e-date-icon,
+*.e-control-wrapper .e-input-group-icon.e-date-icon {
+  font-size: 16px;
+  margin: 0;
+  min-height: 24px;
+  min-width: 24px;
+  outline: none;
+}
+.e-date-wrapper:not(.e-filled) .e-date-icon.e-icons::after,
+.e-date-wrapper:not(.e-filled) .e-date-icon.e-icons::before {
+  display: none;
+}
+.e-date-wrapper:not(.e-filled) .e-date-icon.e-icons {
+  background-position: center;
+  max-width: 100%;
+  padding-right: 5px;
+  height: 20px;
+  width: 20px;
+  background: url(../../assets//icon/u_calender.png) no-repeat;
 }

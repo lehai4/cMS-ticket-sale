@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-import { Button, Header, Checkbox, Radio, Date } from "../index";
+import { Button, Header, Checkbox, Radio, DatePicker, Wrapper } from "../index";
 import { ModalManagementTicket } from "../../typeProps";
 
 const ModalManagerTicket = (props: ModalManagementTicket) => {
@@ -26,7 +26,7 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
         ariaHideApp={false}
       >
         <form className="form-managementTicket">
-          <div className="form-header">
+          <Wrapper className="form-header">
             <Header
               title={props.title}
               style={{
@@ -36,41 +36,43 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
                 lineHeight: "103%",
               }}
             />
-          </div>
-          <div className="form-content mt-6">
-            <div className="form-group flex gap-6 mb-5">
-              <div>
+          </Wrapper>
+          <Wrapper className="form-content mt-6">
+            <Wrapper className="form-group flex gap-6 mb-5">
+              <Wrapper className="">
                 <label className="form-label">Từ ngày</label>
-                <div className="flex align-center gap-2 mt-2 ">
-                  <Date
-                    typeDate=""
-                    className=""
+                <Wrapper className="flex align-center gap-2 mt-2 ">
+                  <DatePicker
+                    format="dd/MM/yyyy"
+                    placholder="dd/mm/yy"
+                    className="date"
                     handleChangeDate={(e) =>
                       props.handleChangeDate(e, "dayPrev")
                     }
                   />
-                </div>
-              </div>
-              <div className="ml-20">
+                </Wrapper>
+              </Wrapper>
+              <Wrapper className="ml-20">
                 <label className="form-label">Đến ngày</label>
-                <div className="flex align-center gap-2 mt-2">
-                  <Date
-                    typeDate=""
-                    className=""
+                <Wrapper className="flex align-center gap-2 mt-2">
+                  <DatePicker
+                    format="dd/MM/yyyy"
+                    placholder="dd/mm/yy"
+                    className="date"
                     handleChangeDate={(e) =>
                       props.handleChangeDate(e, "dayNext")
                     }
                   />
-                </div>
-              </div>
-            </div>
-            <div className="form-group mt-1">
-              <div className="mb-2">
+                </Wrapper>
+              </Wrapper>
+            </Wrapper>
+            <Wrapper className="form-group mt-1">
+              <Wrapper className="mb-2">
                 <label className="form-label">Tình trạng sử dụng</label>
-              </div>
-              <div className="flex align-center justify-between mb-2">
+              </Wrapper>
+              <Wrapper className="flex align-center justify-between mb-2">
                 {props.statusUse.map((item, i) => (
-                  <div className="flex" key={i}>
+                  <Wrapper className="flex" key={i}>
                     <Radio
                       id={item.numberRadio}
                       value={item.id}
@@ -86,17 +88,17 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
                     >
                       {item.text}
                     </label>
-                  </div>
+                  </Wrapper>
                 ))}
-              </div>
-            </div>
-            <div className="form-group mt-5">
-              <div className="mb-2">
+              </Wrapper>
+            </Wrapper>
+            <Wrapper className="form-group mt-5">
+              <Wrapper className="mb-2">
                 <label className="form-label">Cổng Check - in</label>
-              </div>
-              <div className="mb-2">
-                <div className="flex align-center flex-wrap">
-                  <div className="flex align-center check-in">
+              </Wrapper>
+              <Wrapper className="mb-2">
+                <Wrapper className="flex align-center flex-wrap">
+                  <Wrapper className="flex align-center check-in">
                     <Checkbox
                       type="checkbox"
                       name="selectAll"
@@ -105,9 +107,9 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
                       isChecked={props.isCheckAll}
                     />
                     <span className="ml-2">Tất cả</span>
-                  </div>
+                  </Wrapper>
                   {props.statusCheckIn.map((item, i) => (
-                    <div className="flex align-center check-in" key={i}>
+                    <Wrapper className="flex align-center check-in" key={i}>
                       <Checkbox
                         type="checkbox"
                         name={item.name}
@@ -116,13 +118,13 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
                         isChecked={props.isCheck.includes(item.name.toString())}
                       />
                       <span className="ml-2">{item.name}</span>
-                    </div>
+                    </Wrapper>
                   ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex align-center justify-center gap-5 mt-8">
+                </Wrapper>
+              </Wrapper>
+            </Wrapper>
+          </Wrapper>
+          <Wrapper className="flex align-center justify-center gap-5 mt-8">
             <Button
               text="Lọc"
               size={10}
@@ -140,7 +142,7 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
                 backgroundColor: "#FFFFFF",
               }}
             />
-          </div>
+          </Wrapper>
         </form>
       </Modal>
     </div>

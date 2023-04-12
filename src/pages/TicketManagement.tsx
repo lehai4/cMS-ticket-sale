@@ -22,7 +22,13 @@ import {
 import moment from "moment";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { getDatabase, get, ref, child } from "firebase/database";
-import { Button, Header, Input, ModalManagerTicket } from "../components";
+import {
+  Button,
+  Header,
+  Input,
+  ModalManagerTicket,
+  Wrapper,
+} from "../components";
 import { loadTicketManager } from "../redux/dataTicketSlice";
 import { TicketManagementData } from "../typeProps/index";
 import filterIcon from "../assets/icon/filter.png";
@@ -157,7 +163,7 @@ const TicketManagement = () => {
   }, [data]);
 
   return (
-    <div className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-6 md:pt-4 md:pl-6 bg-white rounded-3xl">
+    <Wrapper className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-6 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
         title="Danh sách vé"
         style={{
@@ -167,8 +173,8 @@ const TicketManagement = () => {
           fontFamily: "Montserrat",
         }}
       />
-      <div className="flex align-center justify-between">
-        <div className="flex align-center relative">
+      <Wrapper className="flex align-center justify-between">
+        <Wrapper className="flex align-center relative">
           <Input
             option="router"
             typeInput=""
@@ -178,8 +184,8 @@ const TicketManagement = () => {
             placeholder="Tìm bằng số vé"
             handleChange={() => {}}
           />
-        </div>
-        <div className="flex align-center gap-3">
+        </Wrapper>
+        <Wrapper className="flex align-center gap-3">
           <Button
             text="Lọc vé"
             size={10}
@@ -212,8 +218,8 @@ const TicketManagement = () => {
               backgroundColor: "#FFFFFF",
             }}
           />
-        </div>
-      </div>
+        </Wrapper>
+      </Wrapper>
       <GridComponent
         id="gridcomp"
         load={Pagination}
@@ -260,7 +266,7 @@ const TicketManagement = () => {
           handleFilterModal={handleFilterModal}
         />
       )}
-    </div>
+    </Wrapper>
   );
 };
 export default TicketManagement;

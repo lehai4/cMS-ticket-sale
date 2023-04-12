@@ -14,7 +14,7 @@ import {
   Inject,
 } from "@syncfusion/ej2-react-grids";
 import { getDatabase, ref, get, set, child } from "firebase/database";
-import { Button, Header, Input, ModalSetting } from "../components";
+import { Button, Header, Input, ModalSetting, Wrapper } from "../components";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { loadSettingTicket, addSettingTicket } from "../redux/dataTicketSlice";
 import { SettingTicket, TicketSetting } from "../typeProps/index";
@@ -166,13 +166,13 @@ const Setting = () => {
     setTicketSetting(data);
   }, [data]);
   return (
-    <div className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
+    <Wrapper className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
         title="Danh sách gói vé"
         style={{ lineHeight: "123%", fontSize: 36, fontWeight: 700 }}
       />
-      <div className="flex align-center justify-between">
-        <div className="flex align-center relative">
+      <Wrapper className="flex align-center justify-between">
+        <Wrapper className="flex align-center relative">
           <Input
             className="search-input router"
             option="router"
@@ -182,8 +182,8 @@ const Setting = () => {
             placeholder="Tìm bằng số vé"
             handleChange={() => {}}
           />
-        </div>
-        <div className="flex align-center gap-5">
+        </Wrapper>
+        <Wrapper className="flex align-center gap-5">
           <Button
             text="Xuất file (.csv)"
             icon=""
@@ -214,8 +214,8 @@ const Setting = () => {
             }}
             handleClick={handleOpenModal}
           />
-        </div>
-      </div>
+        </Wrapper>
+      </Wrapper>
 
       <GridComponent
         id="gridcomp"
@@ -270,7 +270,7 @@ const Setting = () => {
           handleChangeDate={handleChangeDate}
         />
       )}
-    </div>
+    </Wrapper>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-import { Input } from ".";
+import { Input, Wrapper } from ".";
 import avatar from "../assets/img/avatar.png";
 import mail from "../assets/icon/fi_mail.png";
 import bell from "../assets/icon/fi_bell.png";
@@ -46,8 +46,8 @@ const Navbar = () => {
   }, [screenSize]);
 
   return (
-    <div className="flex justify-between p-3 pl-0 md:ml-0 md:mr-6 relative">
-      <div className="flex align-center search relative">
+    <Wrapper className="flex justify-between p-3 pl-0 md:ml-0 md:mr-6 relative">
+      <Wrapper className="flex align-center search relative">
         <Input
           option="navbar"
           name=""
@@ -57,8 +57,8 @@ const Navbar = () => {
           placeholder="Tìm bằng số vé"
           handleChange={() => {}}
         />
-      </div>
-      <div className="flex align-center user">
+      </Wrapper>
+      <Wrapper className="flex align-center user">
         <NavButton title="Mail" dotColor="#03C9D7" color={bgColor} img={mail} />
         <NavButton
           title="Notification"
@@ -67,16 +67,16 @@ const Navbar = () => {
           img={bell}
         />
         <TooltipComponent content="Profile" position="BottomCenter">
-          <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
+          <Wrapper className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
             <img
               className="rounded-full w-9 h-9"
               src={avatar}
               alt="user-profile"
             />
-          </div>
+          </Wrapper>
         </TooltipComponent>
-      </div>
-    </div>
+      </Wrapper>
+    </Wrapper>
   );
 };
 

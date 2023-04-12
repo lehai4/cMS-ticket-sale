@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { TicketCheck } from "../typeProps";
 import { get, child, ref, getDatabase } from "firebase/database";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { FilterTicketCheck, ListTicketCheck } from "../components";
+import { FilterTicketCheck, ListTicketCheck, Wrapper } from "../components";
 import {
   contextMenuItems,
   statusCheck,
@@ -90,7 +90,7 @@ const TicketControl = () => {
   }, [data]);
 
   return (
-    <div className="grid grid-flow-dense grid-template-columns">
+    <Wrapper className="grid grid-flow-dense grid-template-columns">
       <ListTicketCheck
         isButton={isButton}
         ticketCheck={ticketCheck}
@@ -109,7 +109,7 @@ const TicketControl = () => {
         handleFilter={handleFilter}
         handleChangeDate={handleChangeDate}
       />
-    </div>
+    </Wrapper>
   );
 };
 export default TicketControl;

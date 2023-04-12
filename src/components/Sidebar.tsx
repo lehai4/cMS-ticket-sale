@@ -2,7 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { MdOutlineCancel } from "react-icons/md";
 import { links } from "../mock/dummy";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-import { Footer } from "../components";
+import { Footer, Wrapper } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 import logo from "../assets/img/logo.png";
 const Sidebar = () => {
@@ -20,7 +20,7 @@ const Sidebar = () => {
   const normalLink =
     "flex items-center mb-1 gap-3 pl-7 pb-15-override pt-15-override rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2 m-4-override";
   return (
-    <div className="ml-8 mr-8 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto relative">
+    <Wrapper className="ml-8 mr-8 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto relative">
       {activeMenu && (
         <>
           <div className="flex justify-between items-center">
@@ -42,7 +42,7 @@ const Sidebar = () => {
               </button>
             </TooltipComponent>
           </div>
-          <div className="mt-24 mt-24-override">
+          <Wrapper className="mt-24 mt-24-override">
             {links.map((link) => (
               <div key={link.name}>
                 <NavLink
@@ -63,14 +63,14 @@ const Sidebar = () => {
                 </NavLink>
               </div>
             ))}
-            <div className="package">
+            <Wrapper className="package">
               <span>Gói dịch vụ</span>
-            </div>
-          </div>
+            </Wrapper>
+          </Wrapper>
         </>
       )}
       <Footer />
-    </div>
+    </Wrapper>
   );
 };
 

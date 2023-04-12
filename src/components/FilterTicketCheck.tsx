@@ -1,5 +1,6 @@
 import iconArrow from "../assets/icon/iconArrow.png";
-import { Button, Header, Radio, Date } from ".";
+import { Button, Header, Radio, DatePicker, Wrapper } from ".";
+
 import { FilterTicketCheckProps } from "../typeProps";
 const FilterTicketCheck = ({
   radio,
@@ -11,7 +12,7 @@ const FilterTicketCheck = ({
   handleChangeDate,
 }: FilterTicketCheckProps) => {
   return (
-    <div className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
+    <Wrapper className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
         title="Lọc vé"
         style={{
@@ -22,9 +23,9 @@ const FilterTicketCheck = ({
         }}
       />
       <form className="form-ticketCheck">
-        <div className="form-content mt-3">
-          <div className="form-group flex gap-6 mt-1 mb-6">
-            <div className="flex flex-row align-center">
+        <Wrapper className="form-content mt-3">
+          <Wrapper className="form-group flex gap-6 mt-1 mb-6">
+            <Wrapper className="flex flex-row align-center">
               <select
                 name="events"
                 id="events"
@@ -50,13 +51,13 @@ const FilterTicketCheck = ({
                 )}
               </select>
               <img src={iconArrow} alt="" />
-            </div>
-          </div>
-          <div className="form-group flex gap-6 mt-1 mb-4">
+            </Wrapper>
+          </Wrapper>
+          <Wrapper className="form-group flex gap-6 mt-1 mb-4">
             <label className="form-label">Tình trạng đối soát</label>
-            <div className="flex flex-col">
+            <Wrapper className="flex flex-col">
               {statusCheck.map((item, i) => (
-                <div key={i} className="flex align-center mb-4">
+                <Wrapper key={i} className="flex align-center mb-4">
                   <Radio
                     id={item.numberRadio}
                     type={item.statusCheck}
@@ -70,34 +71,40 @@ const FilterTicketCheck = ({
                   >
                     {item.text}
                   </label>
-                </div>
+                </Wrapper>
               ))}
-            </div>
-          </div>
-          <div className="form-group flex gap-12 mb-5">
+            </Wrapper>
+          </Wrapper>
+          <Wrapper className="form-group flex gap-12 mb-5">
             <label className="form-label">Loại vé</label>
-            <div className="form-label form-type">Vé cổng</div>
-          </div>
-          <div className="form-group flex flex-col gap-7 mt-8 ">
-            <div className="flex align-center">
+            <Wrapper className="form-label form-type">Vé cổng</Wrapper>
+          </Wrapper>
+          <Wrapper className="form-group flex flex-col gap-7 mt-8 ">
+            <Wrapper className="flex align-center ">
               <label className="form-label">Từ ngày</label>
-              <Date
-                typeDate=""
-                className="form-type-input"
-                handleChangeDate={(e) => handleChangeDate(e, "dayFrom")}
-              />
-            </div>
-            <div className="flex align-center">
+              <Wrapper className="dateFrom">
+                <DatePicker
+                  format="dd/MM/yyyy"
+                  placholder="dd/mm/yy"
+                  className="dateForm"
+                  handleChangeDate={(e) => handleChangeDate(e, "dayFrom")}
+                />
+              </Wrapper>
+            </Wrapper>
+            <Wrapper className="flex align-center">
               <label className="form-label">Đến ngày</label>
-              <Date
-                typeDate=""
-                className="form-type-date"
-                handleChangeDate={(e) => handleChangeDate(e, "dayTo")}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex align-center justify-center gap-5 mt-8">
+              <Wrapper className="dateTo">
+                <DatePicker
+                  format="dd/MM/yyyy"
+                  placholder="dd/mm/yy"
+                  className=""
+                  handleChangeDate={(e) => handleChangeDate(e, "dayTo")}
+                />
+              </Wrapper>
+            </Wrapper>
+          </Wrapper>
+        </Wrapper>
+        <Wrapper className="flex align-center justify-center gap-5 mt-8">
           <Button
             text="Lọc"
             size={10}
@@ -114,9 +121,9 @@ const FilterTicketCheck = ({
               height: 48,
             }}
           />
-        </div>
+        </Wrapper>
       </form>
-    </div>
+    </Wrapper>
   );
 };
 

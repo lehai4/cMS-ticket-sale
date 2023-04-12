@@ -1,0 +1,47 @@
+.revenue {
+  color: #1e0d03;
+  &-define {
+    font-size: 14px;
+    line-height: 129%;
+    font-weight: 500;
+    opacity: 0.5;
+    text-style: 14 medium;
+    font-family: Montserrat;
+  }
+  &-total {
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 103%;
+  }
+  &-unit {
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 129%;
+  }
+}
+.circle-content {
+  margin-top: 85px;
+  &-calender {
+    max-width: 245px;
+    width: 245px;
+  }
+  &-chart {
+    width: 246px;
+    &:nth-child(1) {
+      margin-left: 0 !important;
+    }
+    margin-right: 180px;
+  }
+  &-note {
+    span {
+      color: #1e0d03;
+      text-style: 14 regular;
+      font-family: Montserrat;
+      font-style: Regular;
+      font-size: 14px;
+      line-height: 129%;
+    }
+  }
+}
