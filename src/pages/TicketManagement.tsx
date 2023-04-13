@@ -3,6 +3,7 @@ import {
   GridComponent,
   ColumnsDirective,
   ColumnDirective,
+  Inject,
   Resize,
   Sort,
   ContextMenu,
@@ -11,7 +12,6 @@ import {
   ExcelExport,
   PdfExport,
   Edit,
-  Inject,
 } from "@syncfusion/ej2-react-grids";
 import {
   ordersGrid,
@@ -179,6 +179,7 @@ const TicketManagement = () => {
             option="router"
             typeInput=""
             disabled
+            width={446}
             name=""
             className="search-input router"
             placeholder="Tìm bằng số vé"
@@ -238,14 +239,14 @@ const TicketManagement = () => {
         </ColumnsDirective>
         <Inject
           services={[
-            Resize,
-            Sort,
-            ContextMenu,
-            Filter,
+            // Resize,
+            // Sort,
+            // ContextMenu,
+            // Filter,
             Page,
-            ExcelExport,
-            Edit,
-            PdfExport,
+            // ExcelExport,
+            // Edit,
+            // PdfExport,
           ]}
         />
       </GridComponent>

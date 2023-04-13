@@ -51,6 +51,7 @@ const Navbar = () => {
         <Input
           option="navbar"
           name=""
+          width={470}
           disabled
           typeInput=""
           className="search-input navbar"

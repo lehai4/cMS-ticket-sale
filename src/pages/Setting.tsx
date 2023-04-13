@@ -3,50 +3,33 @@ import {
   GridComponent,
   ColumnsDirective,
   ColumnDirective,
-  Resize,
   Sort,
   ContextMenu,
-  Filter,
   Page,
-  ExcelExport,
-  PdfExport,
-  Edit,
   Inject,
+  Edit,
 } from "@syncfusion/ej2-react-grids";
+import DataTable, { TableColumn } from "react-data-table-component";
 import { getDatabase, ref, get, set, child } from "firebase/database";
 import { Button, Header, Input, ModalSetting, Wrapper } from "../components";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { loadSettingTicket, addSettingTicket } from "../redux/dataTicketSlice";
-import { SettingTicket, TicketSetting } from "../typeProps/index";
+import { TicketSetting } from "../typeProps/index";
 import app from "../database/firebaseConfig";
-import { Pagination, settingTicket } from "../mock/dummy";
+import { Pagination, gridSettingTicket } from "../mock/dummy";
 import moment from "moment";
 import { toast } from "react-toastify";
 import star from "../assets/icon/star.png";
-import update from "../assets/icon/fi_edit.png";
 import stringWithCommas from "../utils/stringWithComas";
 import numberWithCommas from "../utils/numberWithComas";
-
-type gridStatusSettingProps = {
-  handleUpdate: () => void;
-};
-const gridStatusSetting = ({ handleUpdate }: gridStatusSettingProps) => (
-  <div className="flex align-center gap-1">
-    <img src={`${update}`} alt="" />
-    <button
-      className="button-update capitalize rounded-2xl text-md"
-      onClick={handleUpdate}
-    >
-      Cập nhật
-    </button>
-  </div>
-);
+import update from "../assets/icon/fi_edit.png";
 
 const Setting = () => {
   const dbRef = ref(getDatabase(app));
   const dispatcher = useAppDispatch();
   const data = useAppSelector((state) => state.ticket.ticketSetting);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>("Thêm gói vé");
   const [input, setInput] = useState<string | undefined>();
   const [inputPrice, setInputPrice] = useState<string>();
   const [inputPriceCombo, setInputPriceCombo] = useState<string>();
@@ -57,12 +40,59 @@ const Setting = () => {
   const [timeExpire, setTimeExpire] = useState<string>();
   const [checkbox, setCheckbox] = useState<string | undefined>();
   const [selected, setSelected] = useState<string | undefined>();
+  const [ticketSetting, setTicketSetting] = useState<TicketSetting[]>([]);
 
-  const [ticketSetting, setTicketSetting] = useState<
-    TicketSetting[] | undefined
-  >();
+  const columns: TableColumn<TicketSetting>[] = [
+    {
+      name: "STT",
+      selector: (row) => row.uiId,
+    },
+    {
+      name: "Mã gói",
+      selector: (row) => row.packageCode,
+    },
+    {
+      name: "Tên gói vé",
+      selector: (row) => (row.packageName ? row.packageName : ""),
+    },
+    {
+      name: "Ngày áp dụng",
+      selector: (row) => row.dayApply,
+    },
+    {
+      name: "Ngày hết hạn",
+      selector: (row) => row.dayExpire,
+    },
+    {
+      name: "Giá vé (VNĐ/vé)",
+      selector: (row) => row.price,
+    },
+    {
+      name: "Giá Combo (VNĐ/Combo)",
+      selector: (row) => row.priceCombo,
+    },
+    {
+      name: "Tình trạng",
+      cell: (row, index, column, id) => gridSettingTicket(row),
+    },
+    {
+      cell: (row, index, column, id) => (
+        <div className="flex align-center gap-1">
+          <img src={`${update}`} alt="" />
+          <button
+            className="button-update capitalize rounded-2xl text-md"
+            onClick={handleOpenModalUpdate}
+          >
+            Cập nhật
+          </button>
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+  ];
   const editing = { allowDeleting: true, allowEditing: true };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
@@ -96,7 +126,14 @@ const Setting = () => {
     const { name } = e.target;
     setCheckbox(name);
   };
-  const handleUpdate = () => {};
+  const handleOpenModalUpdate = () => {
+    setTitle("Cập nhật thông tin gói vé");
+    handleOpenModal();
+  };
+  const handleOpenModalAdd = () => {
+    setTitle("Thêm gói vé");
+    handleOpenModal();
+  };
   const handleOpenModal = () => {
     setIsOpen(true);
   };
@@ -135,6 +172,7 @@ const Setting = () => {
       toast.warning("Please fill in whole blank");
     }
   };
+  const handleUpdateTicket = (e: React.ChangeEvent<HTMLInputElement>) => {};
   const handleWriteDatabase = (id: number, data: TicketSetting) => {
     set(child(dbRef, `settingTicket/` + id), data)
       .then(() => {
@@ -178,6 +216,7 @@ const Setting = () => {
             option="router"
             name=""
             disabled
+            width={446}
             typeInput=""
             placeholder="Tìm bằng số vé"
             handleChange={() => {}}
@@ -212,57 +251,23 @@ const Setting = () => {
               borderRadius: 6,
               height: 48,
             }}
-            handleClick={handleOpenModal}
+            handleClick={handleOpenModalAdd}
           />
         </Wrapper>
       </Wrapper>
-
-      <GridComponent
-        id="gridcomp"
-        dataSource={ticketSetting}
-        allowPaging
-        allowSorting
-        allowExcelExport
-        allowPdfExport
-        editSettings={editing}
-        load={Pagination}
-      >
-        <ColumnsDirective>
-          {settingTicket.map((item, index) => (
-            <ColumnDirective key={index} {...item} />
-          ))}
-          <ColumnDirective
-            field=""
-            headerText=""
-            textAlign="Left"
-            width="70"
-            template={gridStatusSetting}
-          />
-        </ColumnsDirective>
-        <Inject
-          services={[
-            Resize,
-            Sort,
-            ContextMenu,
-            Filter,
-            Page,
-            ExcelExport,
-            Edit,
-            PdfExport,
-          ]}
-        />
-      </GridComponent>
+      <DataTable columns={columns} data={ticketSetting} pagination />
       {modalIsOpen && (
         <ModalSetting
           icon={star}
           checkbox={checkbox}
-          title="Thêm gói vé"
+          title={title}
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
           handleChange={handleChange}
           setSelected={setSelected}
           handleCheckbox={handleCheckbox}
           handleAdd={handleAdd}
+          handleUpdateTicket={handleUpdateTicket}
           handleInputPriceCombo={handleInputPriceCombo}
           handleChangeTimer={handleChangeTimer}
           handleInputPriceComboPer={handleInputPriceComboPer}

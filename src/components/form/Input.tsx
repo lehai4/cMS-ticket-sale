@@ -6,6 +6,7 @@ type InputProps = {
   option: string;
   typeInput: string;
   className: string;
+  width: number;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 const Input = ({
@@ -15,6 +16,7 @@ const Input = ({
   typeInput,
   disabled,
   className,
+  width,
   handleChange,
 }: InputProps) => {
   return (
@@ -25,6 +27,7 @@ const Input = ({
             type="text"
             name={name}
             placeholder={`${placeholder}`}
+            style={{ width }}
             className={className}
           />
           <span className="btn-search  absolute">
@@ -36,6 +39,7 @@ const Input = ({
           <input
             type="text"
             name={name}
+            style={{ width }}
             placeholder={`${placeholder}`}
             className={className}
           />
@@ -47,6 +51,7 @@ const Input = ({
         <input
           type={typeInput !== "" ? typeInput : "text"}
           name={name}
+          style={{ width }}
           disabled={disabled}
           placeholder={`${placeholder}`}
           className={className != "" ? className : ""}

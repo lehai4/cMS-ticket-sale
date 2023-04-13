@@ -9,7 +9,7 @@ import {
   DatePicker,
   Wrapper,
 } from "../index";
-import iconArrow from "../../assets/icon/iconArrow.png";
+import u_angleDown from "../../assets/icon/u_angle-down.png";
 const customStyles = {
   content: {
     top: "50%",
@@ -29,6 +29,7 @@ type ModalSettingProps = {
   modalIsOpen: boolean;
   setSelected: (value: string) => void;
   handleAdd: () => void;
+  handleUpdateTicket: (e: React.ChangeEvent<HTMLInputElement>) => void;
   closeModal: () => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleInputPrice: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -54,6 +55,7 @@ const ModalSetting = ({
   handleCheckbox,
   handleChange,
   handleAdd,
+  handleUpdateTicket,
   handleChangeDate,
   handleInputPrice,
   handleInputPriceComboPer,
@@ -84,12 +86,13 @@ const ModalSetting = ({
           <Wrapper className="form-content">
             {title === "Thêm gói vé" ? (
               <Wrapper className="form-group mt-8">
-                <label className="form-label flex align-center gap-1">
+                <label className="form-label flex gap-1">
                   Tên gói vé <img src={`${icon}`} alt="" />
                 </label>
                 <Input
                   name="name"
                   option=""
+                  width={367}
                   typeInput=""
                   disabled={false}
                   className="form-control"
@@ -98,30 +101,32 @@ const ModalSetting = ({
                 />
               </Wrapper>
             ) : (
-              <Wrapper className="form-group">
-                <Wrapper className="">
-                  <label>
+              <Wrapper className="form-group flex flex-row justify-between gap-90">
+                <Wrapper className="flex flex-col">
+                  <label className="form-label flex gap-1">
                     Mã sự kiện <img src={`${icon}`} alt="" />
                   </label>
                   <Input
                     name="name"
                     option=""
                     disabled
+                    width={245}
                     typeInput=""
                     className="form-control"
                     placeholder="Nhập mã sự kiện"
                     handleChange={() => {}}
                   />
                 </Wrapper>
-                <Wrapper className="">
+                <Wrapper className="flex flex-col">
                   <label className="form-label">Tên sự kiện</label>
                   <Input
                     name="name"
+                    width={367}
                     option=""
                     typeInput=""
                     disabled
                     className="form-control"
-                    placeholder="Hội chợ triễn lãm hàng tiêu dùng 2021"
+                    placeholder="Nhập tên sự kiện"
                     handleChange={() => {}}
                   />
                 </Wrapper>
@@ -178,6 +183,7 @@ const ModalSetting = ({
                 <span className="ml-2">Vé lẻ (vnđ/vé) với giá</span>
                 <Input
                   option=""
+                  width={148}
                   name=""
                   disabled={checkbox === "combo" ? true : false}
                   className="price m-2.5 mt-0 mb-0"
@@ -199,6 +205,7 @@ const ModalSetting = ({
                 <Input
                   option=""
                   className="price m-2.5 mt-0 mb-0"
+                  width={148}
                   name=""
                   disabled={checkbox === "vé lẻ" ? true : false}
                   typeInput="number"
@@ -210,6 +217,7 @@ const ModalSetting = ({
                   option=""
                   className="price price-per m-2.5 mt-0 mb-0"
                   name=""
+                  width={85}
                   disabled={checkbox === "vé lẻ" ? true : false}
                   typeInput="number"
                   handleChange={handleInputPriceComboPer}
@@ -231,7 +239,7 @@ const ModalSetting = ({
                   <option value="1">Đang áp dụng</option>
                   <option value="0">Tắt</option>
                 </select>
-                <img src={iconArrow} alt="" />
+                <img src={u_angleDown} alt="" />
               </Wrapper>
             </Wrapper>
             <Wrapper className="form-group mt-4 mb-5 ml-0 mr-0">
@@ -263,7 +271,9 @@ const ModalSetting = ({
             <Button
               text="Lưu"
               size={10}
-              handleClick={handleAdd}
+              handleClick={
+                title === "Thêm gói vé" ? handleAdd : () => handleUpdateTicket
+              }
               icon={""}
               bgHoverColor=""
               style={{

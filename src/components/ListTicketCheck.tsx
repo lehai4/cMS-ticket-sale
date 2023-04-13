@@ -51,6 +51,7 @@ const ListTicketCheck = ({
             option="router"
             name=""
             disabled
+            width={446}
             typeInput=""
             className="search-input router"
             placeholder={placeholder}
@@ -111,16 +112,18 @@ const ListTicketCheck = ({
           ))}
         </ColumnsDirective>
         <Inject
-          services={[
-            Resize,
-            Sort,
-            ContextMenu,
-            Filter,
-            Page,
-            ExcelExport,
-            Edit,
-            PdfExport,
-          ]}
+          services={
+            [
+              // Resize,
+              // Sort,
+              // ContextMenu,
+              // Filter,
+              // Page,
+              // ExcelExport,
+              // Edit,
+              // PdfExport,
+            ]
+          }
         />
       </GridComponent>
     </Wrapper>

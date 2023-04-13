@@ -68,6 +68,9 @@ table tbody tr:nth-child(2n + 2) {
 .e-grid .e-rowcell {
   padding: 7px 22px;
 }
+.e-grid .e-rowcell {
+  padding: 4px 22px;
+}
 tbody > tr {
   height: 48px !important;
 }
@@ -99,4 +102,8 @@ tbody > tr {
   height: 20px;
   width: 20px;
   background: url(../../assets//icon/u_calender.png) no-repeat;
+}
+// generate
+.gap-90 {
+  gap: 90px;
 }

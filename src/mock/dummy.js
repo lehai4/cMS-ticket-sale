@@ -8,7 +8,6 @@ import iconBar from "../assets/icon/iconBar.png";
 import use from "../assets/icon/use.png";
 import nouse from "../assets/icon/nouse.png";
 import invalid from "../assets/icon/invalid.png";
-import update from "../assets/icon/fi_edit.png";
 
 export const gridTicketStatus = (props) => (
   <>
@@ -47,6 +46,7 @@ export const gridTicketStatus = (props) => (
     )}
   </>
 );
+
 export const gridSettingTicket = (props) => (
   <>
     {props.status === 1 ? (
@@ -159,6 +159,8 @@ export const settingTicket = [
     headerText: "STT",
     width: "50",
     textAlign: "Center",
+    showInColumnChooser: false,
+    isPrimaryKey: true,
   },
   {
     field: "packageCode",
@@ -166,36 +168,42 @@ export const settingTicket = [
     width: "70",
     editType: "dropdownedit",
     textAlign: "Left",
+    showInColumnChooser: false,
   },
   {
     field: "packageName",
     headerText: "Tên gói vé",
     width: "70",
     textAlign: "Center",
+    showInColumnChooser: false,
   },
   {
     field: "dayApply",
     headerText: "Ngày áp dụng",
     width: "80",
     textAlign: "Right",
+    showInColumnChooser: false,
   },
   {
     field: "dayExpire",
     headerText: "Ngày hết hạn",
     width: "75",
     textAlign: "Right",
+    showInColumnChooser: false,
   },
   {
     field: "price",
     headerText: "Giá vé(VNĐ/Vé)",
     width: "90",
     textAlign: "Right",
+    showInColumnChooser: false,
   },
   {
     field: "priceCombo",
     headerText: "Giá Combo (VNĐ/Combo)",
     width: "130",
     textAlign: "Center",
+    showInColumnChooser: false,
   },
   {
     field: "status",
@@ -203,6 +211,7 @@ export const settingTicket = [
     template: gridSettingTicket,
     textAlign: "Left",
     width: "90",
+    showInColumnChooser: false,
   },
 ];
 export const ticketCheck = [

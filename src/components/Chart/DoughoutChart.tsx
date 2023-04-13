@@ -17,7 +17,6 @@ const renderCustomizedLabel = ({
   value,
 }: any) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  console.log(radius);
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -34,7 +33,7 @@ const renderCustomizedLabel = ({
   );
 };
 
-function DoughnutChart({ data, title }: Props) {
+const DoughnutChart = ({ data, title }: Props): JSX.Element => {
   return (
     <Wrapper className="chart">
       <p className="text-center text-slate-900 font-bold">{title}</p>
@@ -63,6 +62,6 @@ function DoughnutChart({ data, title }: Props) {
       </ResponsiveContainer>
     </Wrapper>
   );
-}
+};
 
 export default DoughnutChart;
