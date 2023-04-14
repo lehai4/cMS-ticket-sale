@@ -87,6 +87,7 @@ const FilterTicketCheck = ({
                   format="dd/MM/yyyy"
                   placholder="dd/mm/yy"
                   className="dateForm"
+                  value=""
                   handleChangeDate={(e) => handleChangeDate(e, "dayFrom")}
                 />
               </Wrapper>
@@ -97,6 +98,7 @@ const FilterTicketCheck = ({
                 <DatePicker
                   format="dd/MM/yyyy"
                   placholder="dd/mm/yy"
+                  value=""
                   className=""
                   handleChangeDate={(e) => handleChangeDate(e, "dayTo")}
                 />

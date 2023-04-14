@@ -24,12 +24,16 @@ const customStyles = {
 };
 type ModalSettingProps = {
   title: string;
+  packageCode: string;
+  dayApply: string;
+  packageName: string | undefined;
+  selected: string | undefined;
   checkbox: string | undefined;
   icon: string;
   modalIsOpen: boolean;
   setSelected: (value: string) => void;
   handleAdd: () => void;
-  handleUpdateTicket: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUpdateTicket: () => void;
   closeModal: () => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleInputPrice: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -48,8 +52,12 @@ type ModalSettingProps = {
 const ModalSetting = ({
   title,
   modalIsOpen,
+  packageCode,
+  packageName,
   icon,
+  selected,
   checkbox,
+  dayApply,
   closeModal,
   setSelected,
   handleCheckbox,
@@ -93,6 +101,7 @@ const ModalSetting = ({
                   name="name"
                   option=""
                   width={367}
+                  value=""
                   typeInput=""
                   disabled={false}
                   className="form-control"
@@ -109,12 +118,13 @@ const ModalSetting = ({
                   <Input
                     name="name"
                     option=""
-                    disabled
+                    disabled={false}
                     width={245}
                     typeInput=""
+                    value={packageCode}
                     className="form-control"
                     placeholder="Nhập mã sự kiện"
-                    handleChange={() => {}}
+                    handleChange={handleChange}
                   />
                 </Wrapper>
                 <Wrapper className="flex flex-col">
@@ -123,11 +133,12 @@ const ModalSetting = ({
                     name="name"
                     width={367}
                     option=""
+                    value={packageName}
                     typeInput=""
-                    disabled
+                    disabled={false}
                     className="form-control"
                     placeholder="Nhập tên sự kiện"
-                    handleChange={() => {}}
+                    handleChange={handleChange}
                   />
                 </Wrapper>
               </Wrapper>
@@ -140,6 +151,7 @@ const ModalSetting = ({
                     format="dd/MM/yyyy"
                     placholder="dd/mm/yy"
                     className="date"
+                    value={dayApply}
                     handleChangeDate={(e) => handleChangeDate(e, "dateApply")}
                   />
                   <Timer
@@ -156,6 +168,7 @@ const ModalSetting = ({
                     format="dd/MM/yyyy"
                     placholder="dd/mm/yy"
                     className="date"
+                    value={dayApply}
                     handleChangeDate={(e) => handleChangeDate(e, "dateExpire")}
                   />
                   <Timer
@@ -185,6 +198,7 @@ const ModalSetting = ({
                   option=""
                   width={148}
                   name=""
+                  value=""
                   disabled={checkbox === "combo" ? true : false}
                   className="price m-2.5 mt-0 mb-0"
                   typeInput="number"
@@ -207,6 +221,7 @@ const ModalSetting = ({
                   className="price m-2.5 mt-0 mb-0"
                   width={148}
                   name=""
+                  value=""
                   disabled={checkbox === "vé lẻ" ? true : false}
                   typeInput="number"
                   handleChange={handleInputPriceCombo}
@@ -216,6 +231,7 @@ const ModalSetting = ({
                 <Input
                   option=""
                   className="price price-per m-2.5 mt-0 mb-0"
+                  value=""
                   name=""
                   width={85}
                   disabled={checkbox === "vé lẻ" ? true : false}
@@ -233,6 +249,7 @@ const ModalSetting = ({
               <Wrapper className="mb-3 flex align-center option">
                 <select
                   className="select-css"
+                  value={selected}
                   onChange={(e) => setSelected(e.target.value)}
                 >
                   <option value="undefined">Lựa chọn</option>

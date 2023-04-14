@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-  GridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  Sort,
-  ContextMenu,
-  Page,
-  Inject,
-  Edit,
-} from "@syncfusion/ej2-react-grids";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { getDatabase, ref, get, set, child } from "firebase/database";
 import { Button, Header, Input, ModalSetting, Wrapper } from "../components";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import { loadSettingTicket, addSettingTicket } from "../redux/dataTicketSlice";
 import { TicketSetting } from "../typeProps/index";
-import app from "../database/firebaseConfig";
-import { Pagination, gridSettingTicket } from "../mock/dummy";
-import moment from "moment";
+import { gridSettingTicket } from "../mock/dummy";
 import { toast } from "react-toastify";
+import moment from "moment";
+import app from "../database/firebaseConfig";
 import star from "../assets/icon/star.png";
 import stringWithCommas from "../utils/stringWithComas";
 import numberWithCommas from "../utils/numberWithComas";
@@ -32,11 +22,13 @@ const Setting = () => {
   const [title, setTitle] = useState<string>("Thêm gói vé");
   const [input, setInput] = useState<string | undefined>();
   const [inputPrice, setInputPrice] = useState<string>();
+  const [packageName, setPackageName] = useState<string | undefined>();
+  const [packageCode, setPackageCode] = useState<string>("ALT20210501");
   const [inputPriceCombo, setInputPriceCombo] = useState<string>();
   const [inputPriceComboPer, setInputPriceComboPer] = useState<string>();
-  const [dayApply, setDayApply] = useState<string>();
+  const [dayApply, setDayApply] = useState<string>("");
   const [timeApply, setTimeApply] = useState<string>();
-  const [dayExpire, setDayExpire] = useState<string>();
+  const [dayExpire, setDayExpire] = useState<string>("");
   const [timeExpire, setTimeExpire] = useState<string>();
   const [checkbox, setCheckbox] = useState<string | undefined>();
   const [selected, setSelected] = useState<string | undefined>();
@@ -46,34 +38,51 @@ const Setting = () => {
     {
       name: "STT",
       selector: (row) => row.uiId,
+      allowOverflow: false,
+      width: "70px",
+      center: true,
     },
     {
       name: "Mã gói",
       selector: (row) => row.packageCode,
+      allowOverflow: false,
+      width: "140px",
     },
     {
       name: "Tên gói vé",
       selector: (row) => (row.packageName ? row.packageName : ""),
+      allowOverflow: false,
+      width: "140px",
     },
     {
       name: "Ngày áp dụng",
       selector: (row) => row.dayApply,
+      width: "190px",
+      allowOverflow: false,
     },
     {
       name: "Ngày hết hạn",
       selector: (row) => row.dayExpire,
+      width: "190px",
+      allowOverflow: false,
     },
     {
       name: "Giá vé (VNĐ/vé)",
       selector: (row) => row.price,
+      width: "170px",
+      allowOverflow: false,
     },
     {
       name: "Giá Combo (VNĐ/Combo)",
       selector: (row) => row.priceCombo,
+      allowOverflow: false,
+      width: "270px",
     },
     {
       name: "Tình trạng",
       cell: (row, index, column, id) => gridSettingTicket(row),
+      allowOverflow: false,
+      width: "190px",
     },
     {
       cell: (row, index, column, id) => (
@@ -81,7 +90,7 @@ const Setting = () => {
           <img src={`${update}`} alt="" />
           <button
             className="button-update capitalize rounded-2xl text-md"
-            onClick={handleOpenModalUpdate}
+            onClick={() => handleOpenModalUpdate(row)}
           >
             Cập nhật
           </button>
@@ -90,6 +99,7 @@ const Setting = () => {
       ignoreRowClick: true,
       allowOverflow: true,
       button: true,
+      center: false,
     },
   ];
   const editing = { allowDeleting: true, allowEditing: true };
@@ -126,8 +136,15 @@ const Setting = () => {
     const { name } = e.target;
     setCheckbox(name);
   };
-  const handleOpenModalUpdate = () => {
+  const handleOpenModalUpdate = (ticket: TicketSetting) => {
     setTitle("Cập nhật thông tin gói vé");
+    setDayApply(ticket.dayApply);
+    setPackageName(ticket.packageName);
+    setPackageCode(ticket.packageCode);
+    setInputPrice(ticket.price);
+    setInputPriceCombo(ticket.priceCombo);
+    setDayExpire(moment(ticket.dayExpire).format("DD/MM/YYYY"));
+    setSelected(ticket.status.toString());
     handleOpenModal();
   };
   const handleOpenModalAdd = () => {
@@ -160,7 +177,7 @@ const Setting = () => {
               : "-"
             : `${stringWithCommas(inputPrice)}.000 VNĐ`,
         packageName: input,
-        packageCode: "ALT20210501",
+        packageCode: packageCode,
         dayApply: dayApply && timeApply ? `${dayApply} ${timeApply}` : "-",
         dayExpire: dayExpire && dayExpire ? `${dayExpire} ${timeExpire}` : "-",
         uiId: data.length + 1,
@@ -172,7 +189,7 @@ const Setting = () => {
       toast.warning("Please fill in whole blank");
     }
   };
-  const handleUpdateTicket = (e: React.ChangeEvent<HTMLInputElement>) => {};
+  const handleUpdateTicket = () => {};
   const handleWriteDatabase = (id: number, data: TicketSetting) => {
     set(child(dbRef, `settingTicket/` + id), data)
       .then(() => {
@@ -218,6 +235,7 @@ const Setting = () => {
             disabled
             width={446}
             typeInput=""
+            value=""
             placeholder="Tìm bằng số vé"
             handleChange={() => {}}
           />
@@ -261,6 +279,10 @@ const Setting = () => {
           icon={star}
           checkbox={checkbox}
           title={title}
+          packageCode={packageCode}
+          packageName={packageName}
+          selected={selected}
+          dayApply={dayApply}
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
           handleChange={handleChange}

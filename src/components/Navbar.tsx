@@ -52,6 +52,7 @@ const Navbar = () => {
           option="navbar"
           name=""
           width={470}
+          value=""
           disabled
           typeInput=""
           className="search-input navbar"

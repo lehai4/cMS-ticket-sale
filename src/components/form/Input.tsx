@@ -5,6 +5,7 @@ type InputProps = {
   disabled: boolean;
   option: string;
   typeInput: string;
+  value: string | undefined;
   className: string;
   width: number;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -17,6 +18,7 @@ const Input = ({
   disabled,
   className,
   width,
+  value,
   handleChange,
 }: InputProps) => {
   return (
@@ -51,6 +53,7 @@ const Input = ({
         <input
           type={typeInput !== "" ? typeInput : "text"}
           name={name}
+          value={value !== "" ? value : undefined}
           style={{ width }}
           disabled={disabled}
           placeholder={`${placeholder}`}

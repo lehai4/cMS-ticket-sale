@@ -46,6 +46,7 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
                     format="dd/MM/yyyy"
                     placholder="dd/mm/yy"
                     className="date"
+                    value=""
                     handleChangeDate={(e) =>
                       props.handleChangeDate(e, "dayPrev")
                     }
@@ -58,6 +59,7 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
                   <DatePicker
                     format="dd/MM/yyyy"
                     placholder="dd/mm/yy"
+                    value=""
                     className="date"
                     handleChangeDate={(e) =>
                       props.handleChangeDate(e, "dayNext")

@@ -46,6 +46,7 @@ const Home = () => {
           format="MM/yyyy"
           placholder="mm/yy"
           className=""
+          value=""
           handleChangeDate={() => {}}
         />
       </Wrapper>
@@ -63,6 +64,7 @@ const Home = () => {
             format="MM/yyyy"
             placholder="mm/yy"
             className=""
+            value=""
             handleChangeDate={() => {}}
           />
         </Wrapper>

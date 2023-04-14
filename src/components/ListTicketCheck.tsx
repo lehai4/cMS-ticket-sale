@@ -3,14 +3,7 @@ import {
   GridComponent,
   ColumnsDirective,
   ColumnDirective,
-  Resize,
-  Sort,
-  ContextMenu,
-  Filter,
   Page,
-  ExcelExport,
-  PdfExport,
-  Edit,
   Inject,
 } from "@syncfusion/ej2-react-grids";
 import { Button, Header, Input, Wrapper } from ".";
@@ -52,6 +45,7 @@ const ListTicketCheck = ({
             name=""
             disabled
             width={446}
+            value=""
             typeInput=""
             className="search-input router"
             placeholder={placeholder}
@@ -111,20 +105,7 @@ const ListTicketCheck = ({
             <ColumnDirective key={index} {...item} />
           ))}
         </ColumnsDirective>
-        <Inject
-          services={
-            [
-              // Resize,
-              // Sort,
-              // ContextMenu,
-              // Filter,
-              // Page,
-              // ExcelExport,
-              // Edit,
-              // PdfExport,
-            ]
-          }
-        />
+        <Inject services={[Page]} />
       </GridComponent>
     </Wrapper>
   );

@@ -4,14 +4,7 @@ import {
   ColumnsDirective,
   ColumnDirective,
   Inject,
-  Resize,
-  Sort,
-  ContextMenu,
-  Filter,
   Page,
-  ExcelExport,
-  PdfExport,
-  Edit,
 } from "@syncfusion/ej2-react-grids";
 import {
   ordersGrid,
@@ -180,6 +173,7 @@ const TicketManagement = () => {
             typeInput=""
             disabled
             width={446}
+            value=""
             name=""
             className="search-input router"
             placeholder="Tìm bằng số vé"
@@ -237,18 +231,7 @@ const TicketManagement = () => {
             <ColumnDirective key={index} {...item} />
           ))}
         </ColumnsDirective>
-        <Inject
-          services={[
-            // Resize,
-            // Sort,
-            // ContextMenu,
-            // Filter,
-            Page,
-            // ExcelExport,
-            // Edit,
-            // PdfExport,
-          ]}
-        />
+        <Inject services={[Page]} />
       </GridComponent>
       {modalIsOpen && (
         <ModalManagerTicket

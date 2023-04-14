@@ -1,4 +1,3 @@
-import SyncGrid from "../components/Demo";
 import {
   Home,
   TicketManagement,
@@ -13,12 +12,10 @@ const Router: React.FunctionComponent<IRouterProps> = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-
       <Route path="/quan-ly-ve" element={<TicketManagement />} />
       <Route path="/doi-soat-ve" element={<TicketControl />} />
-
       <Route path="/danh-sach-su-kien" element={<Event />} />
-      <Route path="/quan-ly-thiet-bi" element={<SyncGrid />} />
+      <Route path="/quan-ly-thiet-bi" element={<MachineManagement />} />
       <Route path="/cai-dat" element={<Setting />} />
     </Routes>
   );
