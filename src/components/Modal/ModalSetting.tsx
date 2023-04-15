@@ -25,50 +25,27 @@ const customStyles = {
 type ModalSettingProps = {
   title: string;
   packageCode: string;
-  dayApply: string;
-  packageName: string | undefined;
-  selected: string | undefined;
+  dataFormAdd: any;
   checkbox: string | undefined;
   icon: string;
   modalIsOpen: boolean;
-  setSelected: (value: string) => void;
   handleAdd: () => void;
   handleUpdateTicket: () => void;
   closeModal: () => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleInputPrice: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleInputPriceCombo: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleInputPriceComboPer: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement> | any) => void;
   handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleChangeDate: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => void;
-  handleChangeTimer: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => void;
 };
 const ModalSetting = ({
   title,
   modalIsOpen,
-  packageCode,
-  packageName,
   icon,
-  selected,
+  dataFormAdd,
   checkbox,
-  dayApply,
   closeModal,
-  setSelected,
   handleCheckbox,
   handleChange,
   handleAdd,
   handleUpdateTicket,
-  handleChangeDate,
-  handleInputPrice,
-  handleInputPriceComboPer,
-  handleChangeTimer,
-  handleInputPriceCombo,
 }: ModalSettingProps) => {
   return (
     <div>
@@ -98,10 +75,10 @@ const ModalSetting = ({
                   Tên gói vé <img src={`${icon}`} alt="" />
                 </label>
                 <Input
-                  name="name"
+                  name="packageName"
                   option=""
                   width={367}
-                  value=""
+                  value={dataFormAdd.packageName}
                   typeInput=""
                   disabled={false}
                   className="form-control"
@@ -116,12 +93,12 @@ const ModalSetting = ({
                     Mã sự kiện <img src={`${icon}`} alt="" />
                   </label>
                   <Input
-                    name="name"
+                    name="packageCode"
                     option=""
                     disabled={false}
                     width={245}
                     typeInput=""
-                    value={packageCode}
+                    value={dataFormAdd.packageCode}
                     className="form-control"
                     placeholder="Nhập mã sự kiện"
                     handleChange={handleChange}
@@ -130,10 +107,10 @@ const ModalSetting = ({
                 <Wrapper className="flex flex-col">
                   <label className="form-label">Tên sự kiện</label>
                   <Input
-                    name="name"
+                    name="packageName"
                     width={367}
                     option=""
-                    value={packageName}
+                    value={dataFormAdd.packageName}
                     typeInput=""
                     disabled={false}
                     className="form-control"
@@ -151,12 +128,14 @@ const ModalSetting = ({
                     format="dd/MM/yyyy"
                     placholder="dd/mm/yy"
                     className="date"
-                    value={dayApply}
-                    handleChangeDate={(e) => handleChangeDate(e, "dateApply")}
+                    name="dayApply"
+                    value={dataFormAdd.dayApply}
+                    handleChangeDate={handleChange}
                   />
                   <Timer
-                    typeTimer=""
-                    handleChangeTime={(e) => handleChangeTimer(e, "timeApply")}
+                    name="timeApply"
+                    value={dataFormAdd.timeApply}
+                    handleChangeTime={handleChange}
                     step={1}
                   />
                 </Wrapper>
@@ -168,12 +147,14 @@ const ModalSetting = ({
                     format="dd/MM/yyyy"
                     placholder="dd/mm/yy"
                     className="date"
-                    value={dayApply}
-                    handleChangeDate={(e) => handleChangeDate(e, "dateExpire")}
+                    name="dayExpire"
+                    value={dataFormAdd.dayExpire}
+                    handleChangeDate={handleChange}
                   />
                   <Timer
-                    typeTimer=""
-                    handleChangeTime={(e) => handleChangeTimer(e, "timeExpire")}
+                    name="timeExpire"
+                    value={dataFormAdd.timeExpire}
+                    handleChangeTime={handleChange}
                     step={1}
                   />
                 </Wrapper>
@@ -197,12 +178,12 @@ const ModalSetting = ({
                 <Input
                   option=""
                   width={148}
-                  name=""
-                  value=""
+                  name="price"
+                  value={dataFormAdd.price}
                   disabled={checkbox === "combo" ? true : false}
                   className="price m-2.5 mt-0 mb-0"
                   typeInput="number"
-                  handleChange={handleInputPrice}
+                  handleChange={handleChange}
                   placeholder="Giá vé"
                 />
                 <span>/ vé</span>
@@ -220,23 +201,23 @@ const ModalSetting = ({
                   option=""
                   className="price m-2.5 mt-0 mb-0"
                   width={148}
-                  name=""
-                  value=""
+                  value={dataFormAdd.priceCombo}
+                  name="priceCombo"
                   disabled={checkbox === "vé lẻ" ? true : false}
                   typeInput="number"
-                  handleChange={handleInputPriceCombo}
+                  handleChange={handleChange}
                   placeholder="Giá vé"
                 />
                 <span>/</span>
                 <Input
                   option=""
                   className="price price-per m-2.5 mt-0 mb-0"
-                  value=""
-                  name=""
+                  name="priceComboPer"
+                  value={dataFormAdd.priceComboPer}
                   width={85}
                   disabled={checkbox === "vé lẻ" ? true : false}
                   typeInput="number"
-                  handleChange={handleInputPriceComboPer}
+                  handleChange={handleChange}
                   placeholder="Giá vé"
                 />
                 <span>vé</span>
@@ -249,8 +230,9 @@ const ModalSetting = ({
               <Wrapper className="mb-3 flex align-center option">
                 <select
                   className="select-css"
-                  value={selected}
-                  onChange={(e) => setSelected(e.target.value)}
+                  name="status"
+                  value={dataFormAdd.status}
+                  onChange={handleChange}
                 >
                   <option value="undefined">Lựa chọn</option>
                   <option value="1">Đang áp dụng</option>
@@ -289,7 +271,7 @@ const ModalSetting = ({
               text="Lưu"
               size={10}
               handleClick={
-                title === "Thêm gói vé" ? handleAdd : () => handleUpdateTicket
+                title === "Thêm gói vé" ? handleAdd : handleUpdateTicket
               }
               icon={""}
               bgHoverColor=""

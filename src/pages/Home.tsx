@@ -46,6 +46,7 @@ const Home = () => {
           format="MM/yyyy"
           placholder="mm/yy"
           className=""
+          name=""
           value=""
           handleChangeDate={() => {}}
         />
@@ -64,6 +65,7 @@ const Home = () => {
             format="MM/yyyy"
             placholder="mm/yy"
             className=""
+            name=""
             value=""
             handleChangeDate={() => {}}
           />

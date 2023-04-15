@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
-import { getDatabase, ref, get, set, child } from "firebase/database";
+import { getDatabase, ref, get, set, child, update } from "firebase/database";
 import { Button, Header, Input, ModalSetting, Wrapper } from "../components";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { loadSettingTicket, addSettingTicket } from "../redux/dataTicketSlice";
+import {
+  loadSettingTicket,
+  addSettingTicket,
+  updateSettingTicket,
+} from "../redux/dataTicketSlice";
 import { TicketSetting } from "../typeProps/index";
 import { gridSettingTicket } from "../mock/dummy";
 import { toast } from "react-toastify";
@@ -12,7 +16,14 @@ import app from "../database/firebaseConfig";
 import star from "../assets/icon/star.png";
 import stringWithCommas from "../utils/stringWithComas";
 import numberWithCommas from "../utils/numberWithComas";
-import update from "../assets/icon/fi_edit.png";
+import updated from "../assets/icon/fi_edit.png";
+
+const paginationComponentOptions = {
+  rowsPerPageText: "Page Number",
+  rangeSeparatorText: "page",
+  selectAllRowsItem: true,
+  selectAllRowsItemText: "Package",
+};
 
 const Setting = () => {
   const dbRef = ref(getDatabase(app));
@@ -20,18 +31,21 @@ const Setting = () => {
   const data = useAppSelector((state) => state.ticket.ticketSetting);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("Thêm gói vé");
-  const [input, setInput] = useState<string | undefined>();
-  const [inputPrice, setInputPrice] = useState<string>();
-  const [packageName, setPackageName] = useState<string | undefined>();
   const [packageCode, setPackageCode] = useState<string>("ALT20210501");
-  const [inputPriceCombo, setInputPriceCombo] = useState<string>();
-  const [inputPriceComboPer, setInputPriceComboPer] = useState<string>();
-  const [dayApply, setDayApply] = useState<string>("");
-  const [timeApply, setTimeApply] = useState<string>();
-  const [dayExpire, setDayExpire] = useState<string>("");
-  const [timeExpire, setTimeExpire] = useState<string>();
   const [checkbox, setCheckbox] = useState<string | undefined>();
-  const [selected, setSelected] = useState<string | undefined>();
+  const [dataFormAdd, setDataFormAdd] = useState({
+    dayApply: "",
+    timeApply: "",
+    timeExpire: "",
+    dayExpire: "",
+    packageCode: packageCode,
+    packageName: "",
+    priceComboPer: "",
+    price: "",
+    priceCombo: "",
+    status: undefined,
+    uiId: 0,
+  });
   const [ticketSetting, setTicketSetting] = useState<TicketSetting[]>([]);
 
   const columns: TableColumn<TicketSetting>[] = [
@@ -87,7 +101,7 @@ const Setting = () => {
     {
       cell: (row, index, column, id) => (
         <div className="flex align-center gap-1">
-          <img src={`${update}`} alt="" />
+          <img src={`${updated}`} alt="" />
           <button
             className="button-update capitalize rounded-2xl text-md"
             onClick={() => handleOpenModalUpdate(row)}
@@ -102,49 +116,48 @@ const Setting = () => {
       center: false,
     },
   ];
-  const editing = { allowDeleting: true, allowEditing: true };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-  const handleChangeDate = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => {
-    const { value } = e.target;
-    type === "dateApply"
-      ? setDayApply(moment(value).format("DD/MM/YYYY"))
-      : setDayExpire(moment(value).format("DD/MM/YYYY"));
-  };
-  const handleInputPriceCombo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputPriceCombo(e.target.value);
-  };
-  const handleChangeTimer = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => {
-    type === "timeApply"
-      ? setTimeApply(e.target.value)
-      : setTimeExpire(e.target.value);
-  };
-  const handleInputPriceComboPer = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputPriceComboPer(e.target.value);
-  };
-  const handleInputPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputPrice(e.target.value);
+    const { name, value } = e.target;
+    setDataFormAdd((prev: any) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
   const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
     setCheckbox(name);
   };
   const handleOpenModalUpdate = (ticket: TicketSetting) => {
+    let timeApply = ticket.dayApply.slice(11);
+    let timeExpire = ticket.dayExpire.slice(11);
+    let dayApply = moment(ticket.dayApply.slice(0, 11), "DD/MM/YYYY").toDate();
+    let dayExpire = moment(
+      ticket.dayExpire.slice(0, 11),
+      "DD/MM/YYYY"
+    ).toDate();
+    let price = ticket.price.slice(0, -8).replaceAll(",", "");
+    let priceCombo = ticket.priceCombo.slice(0, -13).replaceAll(",", "");
+    let priceComboPer =
+      ticket.priceCombo !== "-"
+        ? ticket.priceCombo.split("/")[1].slice(0, -3)
+        : "";
+    let rest = {
+      timeApply,
+      timeExpire,
+      dayApply,
+      dayExpire,
+      price,
+      priceCombo,
+      priceComboPer,
+    };
+    let ticketCurrent = { ...ticket, ...rest };
     setTitle("Cập nhật thông tin gói vé");
-    setDayApply(ticket.dayApply);
-    setPackageName(ticket.packageName);
-    setPackageCode(ticket.packageCode);
-    setInputPrice(ticket.price);
-    setInputPriceCombo(ticket.priceCombo);
-    setDayExpire(moment(ticket.dayExpire).format("DD/MM/YYYY"));
-    setSelected(ticket.status.toString());
+    setDataFormAdd((prev: any) => ({
+      ...prev,
+      ...ticketCurrent,
+    }));
+
     handleOpenModal();
   };
   const handleOpenModalAdd = () => {
@@ -156,30 +169,54 @@ const Setting = () => {
   };
   const closeModal = () => {
     setIsOpen(false);
+    setDataFormAdd({
+      dayApply: "",
+      timeApply: "",
+      timeExpire: "",
+      dayExpire: "",
+      packageCode: packageCode,
+      packageName: "",
+      priceComboPer: "",
+      price: "",
+      priceCombo: "",
+      status: undefined,
+      uiId: 0,
+    });
   };
   const handleAdd = () => {
-    if (input !== "") {
+    if (dataFormAdd.packageName !== "") {
       let priceTicket = numberWithCommas(
-        Number(inputPriceCombo) / Number(inputPriceComboPer)
+        Number(dataFormAdd.priceCombo) / Number(dataFormAdd.priceComboPer)
       );
       let dataObj: TicketSetting = {
-        status: selected ? Number(selected) : -1,
+        status: dataFormAdd.status ? Number(dataFormAdd.status) : -1,
         priceCombo:
-          inputPriceCombo !== undefined && inputPriceComboPer !== undefined
-            ? `${stringWithCommas(
-                inputPriceCombo
-              )}.000 VNĐ/${inputPriceComboPer} vé`
+          dataFormAdd.priceCombo !== undefined &&
+          dataFormAdd.priceComboPer !== undefined
+            ? `${stringWithCommas(dataFormAdd.priceCombo)}.000 VNĐ/${
+                dataFormAdd.priceComboPer
+              } vé`
             : "-",
         price:
-          inputPrice === undefined
+          dataFormAdd.price === ""
             ? priceTicket !== "NaN"
               ? `${priceTicket}.000 VNĐ`
               : "-"
-            : `${stringWithCommas(inputPrice)}.000 VNĐ`,
-        packageName: input,
-        packageCode: packageCode,
-        dayApply: dayApply && timeApply ? `${dayApply} ${timeApply}` : "-",
-        dayExpire: dayExpire && dayExpire ? `${dayExpire} ${timeExpire}` : "-",
+            : `${stringWithCommas(dataFormAdd.price)}.000 VNĐ`,
+        packageName: dataFormAdd.packageName,
+        packageCode: dataFormAdd.packageCode,
+        dayApply:
+          dataFormAdd.dayApply && dataFormAdd.timeApply
+            ? `${moment(dataFormAdd.dayApply).format("DD/MM/YYYY")} ${
+                dataFormAdd.timeApply
+              }`
+            : "-",
+        dayExpire:
+          dataFormAdd.dayExpire && dataFormAdd.dayExpire
+            ? `${moment(dataFormAdd.dayExpire).format("DD/MM/YYYY")} ${
+                dataFormAdd.timeExpire
+              }`
+            : "-",
         uiId: data.length + 1,
       };
       dispatcher(addSettingTicket(dataObj));
@@ -189,7 +226,62 @@ const Setting = () => {
       toast.warning("Please fill in whole blank");
     }
   };
-  const handleUpdateTicket = () => {};
+  const handleUpdateTicket = () => {
+    let priceTicket = numberWithCommas(
+      Number(dataFormAdd.priceCombo) / Number(dataFormAdd.priceComboPer)
+    );
+    let dataObj: TicketSetting = {
+      status: dataFormAdd.status ? Number(dataFormAdd.status) : -1,
+      priceCombo:
+        dataFormAdd.priceCombo !== "" && dataFormAdd.priceComboPer !== ""
+          ? `${stringWithCommas(dataFormAdd.priceCombo)}.000 VNĐ/${
+              dataFormAdd.priceComboPer
+            } vé`
+          : "-",
+      price:
+        dataFormAdd.price === ""
+          ? priceTicket !== "NaN"
+            ? `${priceTicket}.000 VNĐ`
+            : "-"
+          : `${stringWithCommas(dataFormAdd.price)}.000 VNĐ`,
+      packageName: dataFormAdd.packageName,
+      packageCode: dataFormAdd.packageCode,
+      dayApply:
+        dataFormAdd.dayApply && dataFormAdd.timeApply
+          ? `${moment(dataFormAdd.dayApply).format("DD/MM/YYYY")} ${
+              dataFormAdd.timeApply
+            }`
+          : "-",
+
+      dayExpire:
+        dataFormAdd.dayExpire && dataFormAdd.dayExpire
+          ? `${moment(dataFormAdd.dayExpire).format("DD/MM/YYYY")} ${
+              dataFormAdd.timeExpire
+            }`
+          : "-",
+      uiId: dataFormAdd.uiId,
+    };
+    let dataUpdate: TicketSetting[] = data.map((ticket) => {
+      if (ticket.uiId === dataFormAdd.uiId) {
+        return dataObj;
+      } else {
+        return ticket;
+      }
+    });
+    // dispatcher Redux
+    dispatcher(updateSettingTicket(dataUpdate));
+    // update DB
+    handleUpdateDb(dataObj);
+    closeModal();
+  };
+  // DB
+  const handleUpdateDb = (data: TicketSetting) => {
+    const db = getDatabase(app);
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const updates: any = {};
+    updates["/settingTicket/" + data.uiId] = data;
+    return update(ref(db), updates);
+  };
   const handleWriteDatabase = (id: number, data: TicketSetting) => {
     set(child(dbRef, `settingTicket/` + id), data)
       .then(() => {
@@ -220,6 +312,7 @@ const Setting = () => {
   useEffect(() => {
     setTicketSetting(data);
   }, [data]);
+
   return (
     <Wrapper className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
@@ -273,28 +366,26 @@ const Setting = () => {
           />
         </Wrapper>
       </Wrapper>
-      <DataTable columns={columns} data={ticketSetting} pagination />
+      <DataTable
+        columns={columns}
+        data={ticketSetting}
+        pagination
+        paginationComponentOptions={paginationComponentOptions}
+        paginationRowsPerPageOptions={[5, 10, 15, 20]}
+      />
       {modalIsOpen && (
         <ModalSetting
           icon={star}
           checkbox={checkbox}
           title={title}
           packageCode={packageCode}
-          packageName={packageName}
-          selected={selected}
-          dayApply={dayApply}
+          dataFormAdd={dataFormAdd}
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
           handleChange={handleChange}
-          setSelected={setSelected}
           handleCheckbox={handleCheckbox}
           handleAdd={handleAdd}
           handleUpdateTicket={handleUpdateTicket}
-          handleInputPriceCombo={handleInputPriceCombo}
-          handleChangeTimer={handleChangeTimer}
-          handleInputPriceComboPer={handleInputPriceComboPer}
-          handleInputPrice={handleInputPrice}
-          handleChangeDate={handleChangeDate}
         />
       )}
     </Wrapper>

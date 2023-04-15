@@ -41,7 +41,12 @@ export const dataTicketSlice = createSlice({
         ticketSetting: [...state.ticketSetting, action.payload],
       };
     },
-    updateSettingTicket: (state, action: PayloadAction<TicketSetting>) => {},
+    updateSettingTicket: (state, action: PayloadAction<TicketSetting[]>) => {
+      return {
+        ...state,
+        ticketSetting: action.payload,
+      };
+    },
   },
 });
 

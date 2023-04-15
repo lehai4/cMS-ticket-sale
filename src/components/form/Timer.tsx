@@ -1,17 +1,17 @@
 type TimerProps = {
-  typeTimer: string;
   step: number;
-  handleChangeTime: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => void;
+  value: string;
+  name: string;
+  handleChangeTime: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
-const Timer = ({ typeTimer, step, handleChangeTime }: TimerProps) => {
+const Timer = ({ name, value, step, handleChangeTime }: TimerProps) => {
   return (
     <input
       type="time"
+      value={value}
+      name={name}
       step={step}
-      onChange={(e) => handleChangeTime(e, typeTimer)}
+      onChange={handleChangeTime}
     />
   );
 };

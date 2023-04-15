@@ -9,6 +9,7 @@ type DatePickerProps = {
   placholder: string;
   className: string;
   value: string;
+  name: string;
 };
 const DatePicker = ({
   handleChangeDate,
@@ -16,13 +17,15 @@ const DatePicker = ({
   placholder,
   className,
   value,
+  name,
 }: DatePickerProps) => {
-  let currentDate = moment(value).toDate();
+  let currentDate = moment(value, "DD/MM/YYYY").toDate();
   return (
     <DatePickerComponent
       format={format}
       value={currentDate}
       placeholder={placholder}
+      name={name}
       className={className ? className : "default"}
       onChange={(e: React.ChangeEvent<HTMLInputElement>, type: string) =>
         handleChangeDate(e, type)

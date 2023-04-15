@@ -28,9 +28,11 @@ const Input = ({
           <input
             type="text"
             name={name}
+            value=""
             placeholder={`${placeholder}`}
             style={{ width }}
             className={className}
+            onChange={() => {}}
           />
           <span className="btn-search  absolute">
             <img src={`${searchIcon}`} alt="" />
@@ -40,10 +42,12 @@ const Input = ({
         <>
           <input
             type="text"
+            value=""
             name={name}
             style={{ width }}
             placeholder={`${placeholder}`}
             className={className}
+            onChange={() => {}}
           />
           <span className="btn-search absolute">
             <img src={`${searchIcon}`} alt="" />
@@ -53,7 +57,7 @@ const Input = ({
         <input
           type={typeInput !== "" ? typeInput : "text"}
           name={name}
-          value={value !== "" ? value : undefined}
+          value={value}
           style={{ width }}
           disabled={disabled}
           placeholder={`${placeholder}`}
