@@ -22,7 +22,6 @@ const paginationComponentOptions = {
   rowsPerPageText: "Page Number",
   rangeSeparatorText: "page",
   selectAllRowsItem: true,
-  selectAllRowsItemText: "Package",
 };
 
 const Setting = () => {
@@ -32,7 +31,6 @@ const Setting = () => {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("Thêm gói vé");
   const [packageCode, setPackageCode] = useState<string>("ALT20210501");
-  const [checkbox, setCheckbox] = useState<string | undefined>();
   const [dataFormAdd, setDataFormAdd] = useState({
     dayApply: "",
     timeApply: "",
@@ -43,6 +41,8 @@ const Setting = () => {
     priceComboPer: "",
     price: "",
     priceCombo: "",
+    checkbox: "",
+    type: undefined,
     status: undefined,
     uiId: 0,
   });
@@ -117,17 +117,18 @@ const Setting = () => {
     },
   ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => {
     const { name, value } = e.target;
     setDataFormAdd((prev: any) => ({
       ...prev,
       [name]: value,
+      type: type !== "" ? type : dataFormAdd.type,
     }));
   };
-  const handleCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-    setCheckbox(name);
-  };
+
   const handleOpenModalUpdate = (ticket: TicketSetting) => {
     let timeApply = ticket.dayApply.slice(11);
     let timeExpire = ticket.dayExpire.slice(11);
@@ -142,6 +143,8 @@ const Setting = () => {
       ticket.priceCombo !== "-"
         ? ticket.priceCombo.split("/")[1].slice(0, -3)
         : "";
+    let type = ticket.priceCombo !== "-" ? "combo" : "odd";
+    let checkbox = "true";
     let rest = {
       timeApply,
       timeExpire,
@@ -149,7 +152,10 @@ const Setting = () => {
       dayExpire,
       price,
       priceCombo,
+      status: ticket.status,
       priceComboPer,
+      type,
+      checkbox,
     };
     let ticketCurrent = { ...ticket, ...rest };
     setTitle("Cập nhật thông tin gói vé");
@@ -179,6 +185,8 @@ const Setting = () => {
       priceComboPer: "",
       price: "",
       priceCombo: "",
+      checkbox: "",
+      type: undefined,
       status: undefined,
       uiId: 0,
     });
@@ -191,8 +199,7 @@ const Setting = () => {
       let dataObj: TicketSetting = {
         status: dataFormAdd.status ? Number(dataFormAdd.status) : -1,
         priceCombo:
-          dataFormAdd.priceCombo !== undefined &&
-          dataFormAdd.priceComboPer !== undefined
+          dataFormAdd.priceCombo !== "" && dataFormAdd.priceComboPer !== ""
             ? `${stringWithCommas(dataFormAdd.priceCombo)}.000 VNĐ/${
                 dataFormAdd.priceComboPer
               } vé`
@@ -312,7 +319,9 @@ const Setting = () => {
   useEffect(() => {
     setTicketSetting(data);
   }, [data]);
-
+  useEffect(() => {
+    console.log(dataFormAdd);
+  }, [dataFormAdd]);
   return (
     <Wrapper className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
@@ -376,14 +385,12 @@ const Setting = () => {
       {modalIsOpen && (
         <ModalSetting
           icon={star}
-          checkbox={checkbox}
           title={title}
           packageCode={packageCode}
           dataFormAdd={dataFormAdd}
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
           handleChange={handleChange}
-          handleCheckbox={handleCheckbox}
           handleAdd={handleAdd}
           handleUpdateTicket={handleUpdateTicket}
         />

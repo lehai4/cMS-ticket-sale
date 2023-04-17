@@ -26,23 +26,22 @@ type ModalSettingProps = {
   title: string;
   packageCode: string;
   dataFormAdd: any;
-  checkbox: string | undefined;
   icon: string;
   modalIsOpen: boolean;
   handleAdd: () => void;
   handleUpdateTicket: () => void;
   closeModal: () => void;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement> | any) => void;
-  handleCheckbox: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement> | any,
+    type: string
+  ) => void;
 };
 const ModalSetting = ({
   title,
   modalIsOpen,
   icon,
   dataFormAdd,
-  checkbox,
   closeModal,
-  handleCheckbox,
   handleChange,
   handleAdd,
   handleUpdateTicket,
@@ -83,7 +82,7 @@ const ModalSetting = ({
                   disabled={false}
                   className="form-control"
                   placeholder="Nhập tên gói vé"
-                  handleChange={handleChange}
+                  handleChange={(e) => handleChange(e, "")}
                 />
               </Wrapper>
             ) : (
@@ -101,21 +100,21 @@ const ModalSetting = ({
                     value={dataFormAdd.packageCode}
                     className="form-control"
                     placeholder="Nhập mã sự kiện"
-                    handleChange={handleChange}
+                    handleChange={(e) => handleChange(e, "")}
                   />
                 </Wrapper>
                 <Wrapper className="flex flex-col">
                   <label className="form-label">Tên sự kiện</label>
                   <Input
                     name="packageName"
-                    width={367}
+                    width={355}
                     option=""
                     value={dataFormAdd.packageName}
                     typeInput=""
                     disabled={false}
                     className="form-control"
                     placeholder="Nhập tên sự kiện"
-                    handleChange={handleChange}
+                    handleChange={(e) => handleChange(e, "")}
                   />
                 </Wrapper>
               </Wrapper>
@@ -130,12 +129,12 @@ const ModalSetting = ({
                     className="date"
                     name="dayApply"
                     value={dataFormAdd.dayApply}
-                    handleChangeDate={handleChange}
+                    handleChangeDate={(e) => handleChange(e, "")}
                   />
                   <Timer
                     name="timeApply"
                     value={dataFormAdd.timeApply}
-                    handleChangeTime={handleChange}
+                    handleChangeTime={(e) => handleChange(e, "")}
                     step={1}
                   />
                 </Wrapper>
@@ -149,12 +148,12 @@ const ModalSetting = ({
                     className="date"
                     name="dayExpire"
                     value={dataFormAdd.dayExpire}
-                    handleChangeDate={handleChange}
+                    handleChangeDate={(e) => handleChange(e, "")}
                   />
                   <Timer
                     name="timeExpire"
                     value={dataFormAdd.timeExpire}
-                    handleChangeTime={handleChange}
+                    handleChangeTime={(e) => handleChange(e, "")}
                     step={1}
                   />
                 </Wrapper>
@@ -170,9 +169,14 @@ const ModalSetting = ({
                 <Checkbox
                   id={""}
                   type="checkbox"
-                  name="vé lẻ"
-                  isChecked={checkbox === "vé lẻ" ? true : false}
-                  handleClick={(e) => handleCheckbox(e)}
+                  name="checkbox"
+                  isChecked={
+                    dataFormAdd.type === "odd" &&
+                    dataFormAdd.checkbox === "true"
+                      ? true
+                      : false
+                  }
+                  handleClick={(e) => handleChange(e, "odd")}
                 />
                 <span className="ml-2">Vé lẻ (vnđ/vé) với giá</span>
                 <Input
@@ -180,10 +184,10 @@ const ModalSetting = ({
                   width={148}
                   name="price"
                   value={dataFormAdd.price}
-                  disabled={checkbox === "combo" ? true : false}
+                  disabled={dataFormAdd.type === "combo" ? true : false}
                   className="price m-2.5 mt-0 mb-0"
                   typeInput="number"
-                  handleChange={handleChange}
+                  handleChange={(e) => handleChange(e, "odd")}
                   placeholder="Giá vé"
                 />
                 <span>/ vé</span>
@@ -192,9 +196,14 @@ const ModalSetting = ({
                 <Checkbox
                   id={""}
                   type="checkbox"
-                  name="combo"
-                  isChecked={checkbox === "combo" ? true : false}
-                  handleClick={(e) => handleCheckbox(e)}
+                  name="checkbox"
+                  isChecked={
+                    dataFormAdd.type === "combo" &&
+                    dataFormAdd.checkbox === "true"
+                      ? true
+                      : false
+                  }
+                  handleClick={(e) => handleChange(e, "combo")}
                 />
                 <span className="ml-2">Combo vé với giá</span>
                 <Input
@@ -203,9 +212,9 @@ const ModalSetting = ({
                   width={148}
                   value={dataFormAdd.priceCombo}
                   name="priceCombo"
-                  disabled={checkbox === "vé lẻ" ? true : false}
+                  disabled={dataFormAdd.type === "odd" ? true : false}
                   typeInput="number"
-                  handleChange={handleChange}
+                  handleChange={(e) => handleChange(e, "combo")}
                   placeholder="Giá vé"
                 />
                 <span>/</span>
@@ -215,9 +224,9 @@ const ModalSetting = ({
                   name="priceComboPer"
                   value={dataFormAdd.priceComboPer}
                   width={85}
-                  disabled={checkbox === "vé lẻ" ? true : false}
+                  disabled={dataFormAdd.type === "odd" ? true : false}
                   typeInput="number"
-                  handleChange={handleChange}
+                  handleChange={(e) => handleChange(e, "combo")}
                   placeholder="Giá vé"
                 />
                 <span>vé</span>
@@ -232,7 +241,7 @@ const ModalSetting = ({
                   className="select-css"
                   name="status"
                   value={dataFormAdd.status}
-                  onChange={handleChange}
+                  onChange={(e) => handleChange(e, "")}
                 >
                   <option value="undefined">Lựa chọn</option>
                   <option value="1">Đang áp dụng</option>
