@@ -22,15 +22,15 @@ const paginationComponentOptions = {
   rowsPerPageText: "Page Number",
   rangeSeparatorText: "page",
   selectAllRowsItem: true,
+  selectAllRowsItemText: "ALL",
 };
-
 const Setting = () => {
   const dbRef = ref(getDatabase(app));
   const dispatcher = useAppDispatch();
+  let packageCode: string = "ALT20210501";
   const data = useAppSelector((state) => state.ticket.ticketSetting);
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("Thêm gói vé");
-  const [packageCode, setPackageCode] = useState<string>("ALT20210501");
   const [dataFormAdd, setDataFormAdd] = useState({
     dayApply: "",
     timeApply: "",
@@ -166,13 +166,16 @@ const Setting = () => {
 
     handleOpenModal();
   };
+
   const handleOpenModalAdd = () => {
     setTitle("Thêm gói vé");
     handleOpenModal();
   };
+
   const handleOpenModal = () => {
     setIsOpen(true);
   };
+
   const closeModal = () => {
     setIsOpen(false);
     setDataFormAdd({
@@ -191,6 +194,7 @@ const Setting = () => {
       uiId: 0,
     });
   };
+
   const handleAdd = () => {
     if (dataFormAdd.packageName !== "") {
       let priceTicket = numberWithCommas(
@@ -233,6 +237,7 @@ const Setting = () => {
       toast.warning("Please fill in whole blank");
     }
   };
+
   const handleUpdateTicket = () => {
     let priceTicket = numberWithCommas(
       Number(dataFormAdd.priceCombo) / Number(dataFormAdd.priceComboPer)
@@ -289,6 +294,7 @@ const Setting = () => {
     updates["/settingTicket/" + data.uiId] = data;
     return update(ref(db), updates);
   };
+
   const handleWriteDatabase = (id: number, data: TicketSetting) => {
     set(child(dbRef, `settingTicket/` + id), data)
       .then(() => {
@@ -319,9 +325,7 @@ const Setting = () => {
   useEffect(() => {
     setTicketSetting(data);
   }, [data]);
-  useEffect(() => {
-    console.log(dataFormAdd);
-  }, [dataFormAdd]);
+
   return (
     <Wrapper className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
       <Header
@@ -379,8 +383,9 @@ const Setting = () => {
         columns={columns}
         data={ticketSetting}
         pagination
-        paginationComponentOptions={paginationComponentOptions}
+        paginationPerPage={5}
         paginationRowsPerPageOptions={[5, 10, 15, 20]}
+        paginationComponentOptions={paginationComponentOptions}
       />
       {modalIsOpen && (
         <ModalSetting

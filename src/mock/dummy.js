@@ -1,10 +1,7 @@
-import React from "react";
-import iconQuanly from "../assets/icon/quanlythietbi.png";
 import iconHome from "../assets/icon/home.png";
 import iconDoisoatve from "../assets/icon/doisoatve.png";
 import iconCatdat from "../assets/icon/caidat.png";
 import iconVe from "../assets/icon/quanlyve.png";
-import iconBar from "../assets/icon/iconBar.png";
 import use from "../assets/icon/use.png";
 import nouse from "../assets/icon/nouse.png";
 import invalid from "../assets/icon/invalid.png";
@@ -135,16 +132,6 @@ export const links = [
     name: "Đối soát vé",
     iconVector: iconDoisoatve,
     path: "doi-soat-ve",
-  },
-  {
-    name: "Danh sách sự kiện",
-    iconVector: iconBar,
-    path: "danh-sach-su-kien",
-  },
-  {
-    name: "Quản lý thiết bị",
-    iconVector: iconQuanly,
-    path: "quan-ly-thiet-bi",
   },
   {
     name: "Cài đặt",

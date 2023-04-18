@@ -9,6 +9,7 @@ import {
   DatePicker,
   Wrapper,
 } from "../index";
+import { ModalSettingProps } from "../../typeProps";
 import u_angleDown from "../../assets/icon/u_angle-down.png";
 const customStyles = {
   content: {
@@ -21,20 +22,6 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
   },
-};
-type ModalSettingProps = {
-  title: string;
-  packageCode: string;
-  dataFormAdd: any;
-  icon: string;
-  modalIsOpen: boolean;
-  handleAdd: () => void;
-  handleUpdateTicket: () => void;
-  closeModal: () => void;
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement> | any,
-    type: string
-  ) => void;
 };
 const ModalSetting = ({
   title,

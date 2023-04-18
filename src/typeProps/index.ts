@@ -95,3 +95,17 @@ export interface TicketSetting {
   status: number;
   uiId: number;
 }
+export type ModalSettingProps = {
+  title: string;
+  packageCode: string;
+  dataFormAdd: any;
+  icon: string;
+  modalIsOpen: boolean;
+  handleAdd: () => void;
+  handleUpdateTicket: () => void;
+  closeModal: () => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement> | any,
+    type: string
+  ) => void;
+};

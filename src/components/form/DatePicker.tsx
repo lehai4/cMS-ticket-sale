@@ -30,7 +30,7 @@ const DatePicker = ({
       onChange={(e: React.ChangeEvent<HTMLInputElement>, type: string) =>
         handleChangeDate(e, type)
       }
-    ></DatePickerComponent>
+    />
   );
 };
 

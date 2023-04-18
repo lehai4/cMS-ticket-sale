@@ -1,10 +1,6 @@
-import {
-  Header,
-  AreaCharts,
-  DatePicker,
-  Wrapper,
-  DoughnutChart,
-} from "../components";
+import { Header, AreaCharts, Wrapper, DoughnutChart } from "../components";
+import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
+
 import ticketNoUse from "../assets/icon/eventPackage.png";
 import ticketUse from "../assets/icon/familyPackage.png";
 const Home = () => {
@@ -42,13 +38,12 @@ const Home = () => {
             fontFamily: "Montserrat",
           }}
         />
-        <DatePicker
+        <DatePickerComponent
           format="MM/yyyy"
-          placholder="mm/yy"
-          className=""
-          name=""
-          value=""
-          handleChangeDate={() => {}}
+          placeholder="mm/yy"
+          className="default"
+          start="Year"
+          depth="Year"
         />
       </Wrapper>
       <AreaCharts />
@@ -61,13 +56,12 @@ const Home = () => {
       </Wrapper>
       <Wrapper className="circle-content flex flex-row">
         <Wrapper className="circle-content-calender">
-          <DatePicker
+          <DatePickerComponent
             format="MM/yyyy"
-            placholder="mm/yy"
-            className=""
-            name=""
-            value=""
-            handleChangeDate={() => {}}
+            placeholder="mm/yy"
+            className="default"
+            start="Year"
+            depth="Year"
           />
         </Wrapper>
         <Wrapper className="circle-content-chart">

@@ -63,8 +63,8 @@ const Sidebar = () => {
                 </NavLink>
               </div>
             ))}
-            <Wrapper className="package">
-              <span>Gói dịch vụ</span>
+            <Wrapper className="package text-center">
+              <span className="capitalize">Gói dịch vụ</span>
             </Wrapper>
           </Wrapper>
         </>
