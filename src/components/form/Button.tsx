@@ -22,7 +22,8 @@ const Button = ({
       onClick={handleClick}
       className={`flex fw-700 align-center justify-center text-${size} p-4 pt-1 pb-1 hover:drop-shadow-xl hover:bg-${bgHoverColor}`}
     >
-      {icon ? <img src={`${icon}`} /> : <></>} <span>{text}</span>
+      {icon ? <img src={`${icon}`} alt="" /> : <span></span>}
+      <span>{text}</span>
     </button>
   );
 };

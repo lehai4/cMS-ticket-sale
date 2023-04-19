@@ -19,7 +19,7 @@ const NavButton = ({ title, color, img, dotColor }: NavButtonProps) => (
       style={{ color }}
       className="relative text-xl rounded-full p-3 hover:bg-light-gray"
     >
-      <div>{img ? <img src={`${img}`} /> : <></>}</div>
+      <div>{img ? <img src={`${img}`} alt="" /> : <span></span>}</div>
     </button>
   </TooltipComponent>
 );
