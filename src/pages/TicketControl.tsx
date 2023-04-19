@@ -4,7 +4,12 @@ import React, { useEffect, useState } from "react";
 import { TicketCheck } from "../typeProps";
 import { get, child, ref, getDatabase } from "firebase/database";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { FilterTicketCheck, ListTicketCheck, Wrapper } from "../components";
+import {
+  FilterTicketCheck,
+  Helmet,
+  ListTicketCheck,
+  Wrapper,
+} from "../components";
 import {
   contextMenuItems,
   statusCheck,
@@ -90,26 +95,28 @@ const TicketControl = () => {
   }, [data]);
 
   return (
-    <Wrapper className="grid grid-flow-dense grid-template-columns">
-      <ListTicketCheck
-        isButton={isButton}
-        ticketCheck={ticketCheck}
-        ticket={ticket}
-        editing={editing}
-        contextMenuItems={contextMenuItems}
-        Pagination={Pagination}
-        placeholder="Tìm bằng số vé"
-      />
-      <FilterTicketCheck
-        radio={radio}
-        statusCheck={statusCheck}
-        originalTicket={originalTicket}
-        setSelected={setSelected}
-        handleChange={handleChange}
-        handleFilter={handleFilter}
-        handleChangeDate={handleChangeDate}
-      />
-    </Wrapper>
+    <Helmet title="Đối soát vé">
+      <Wrapper className="grid grid-flow-dense grid-template-columns">
+        <ListTicketCheck
+          isButton={isButton}
+          ticketCheck={ticketCheck}
+          ticket={ticket}
+          editing={editing}
+          contextMenuItems={contextMenuItems}
+          Pagination={Pagination}
+          placeholder="Tìm bằng số vé"
+        />
+        <FilterTicketCheck
+          radio={radio}
+          statusCheck={statusCheck}
+          originalTicket={originalTicket}
+          setSelected={setSelected}
+          handleChange={handleChange}
+          handleFilter={handleFilter}
+          handleChangeDate={handleChangeDate}
+        />
+      </Wrapper>
+    </Helmet>
   );
 };
 export default TicketControl;

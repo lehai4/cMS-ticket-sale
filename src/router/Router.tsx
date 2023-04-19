@@ -1,3 +1,4 @@
+import { NotFound } from "../components";
 import { Home, TicketManagement, Setting, TicketControl } from "../pages";
 import { Routes, Route } from "react-router-dom";
 export interface IRouterProps {}
@@ -8,6 +9,7 @@ const Router: React.FunctionComponent<IRouterProps> = () => {
       <Route path="/quan-ly-ve" element={<TicketManagement />} />
       <Route path="/doi-soat-ve" element={<TicketControl />} />
       <Route path="/cai-dat" element={<Setting />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

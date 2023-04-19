@@ -18,6 +18,7 @@ import { getDatabase, get, ref, child } from "firebase/database";
 import {
   Button,
   Header,
+  Helmet,
   Input,
   ModalManagerTicket,
   Wrapper,
@@ -157,99 +158,101 @@ const TicketManagement = () => {
 
   return (
     <Wrapper className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-6 md:pt-4 md:pl-6 bg-white rounded-3xl">
-      <Header
-        title="Danh sách vé"
-        style={{
-          fontWeight: "700",
-          fontSize: "36px",
-          lineHeight: "123%",
-          fontFamily: "Montserrat",
-        }}
-      />
-      <Wrapper className="flex align-center justify-between">
-        <Wrapper className="flex align-center relative">
-          <Input
-            option="router"
-            typeInput=""
-            disabled
-            width={446}
-            value=""
-            name=""
-            className="search-input router"
-            placeholder="Tìm bằng số vé"
-            handleChange={() => {}}
-          />
-        </Wrapper>
-        <Wrapper className="flex align-center gap-3">
-          <Button
-            text="Lọc vé"
-            size={10}
-            handleClick={handleFilter}
-            icon={filterIcon}
-            bgHoverColor=""
-            style={{
-              gap: 12,
-              height: 45,
-              border: "1px solid #FF993C",
-              color: "#FF993C",
-              fontSize: "18px",
-              borderRadius: "6px",
-              backgroundColor: "#FFFFFF",
-            }}
-          />
-          <Button
-            text="Xuất file (.csv)"
-            size={10}
-            handleClick={() => {}}
-            icon={""}
-            bgHoverColor=""
-            style={{
-              gap: 0,
-              height: 45,
-              border: "1px solid #FF993C",
-              color: "#FF993C",
-              fontSize: "18px",
-              borderRadius: "6px",
-              backgroundColor: "#FFFFFF",
-            }}
-          />
-        </Wrapper>
-      </Wrapper>
-      <GridComponent
-        id="gridcomp"
-        load={Pagination}
-        dataSource={ticket}
-        allowPaging
-        allowSorting
-        allowExcelExport
-        allowPdfExport
-        editSettings={editing}
-        height={580}
-      >
-        <ColumnsDirective>
-          {ordersGrid.map((item, index) => (
-            <ColumnDirective key={index} {...item} />
-          ))}
-        </ColumnsDirective>
-        <Inject services={[Page]} />
-      </GridComponent>
-      {modalIsOpen && (
-        <ModalManagerTicket
-          title="Lọc vé "
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          statusUse={statusUse}
-          statusCheckIn={statusCheckIn}
-          isCheckAll={isCheckAll}
-          radio={radio}
-          isCheck={isCheck}
-          handleClick={handleClick}
-          handleChange={handleChange}
-          handleSelectAll={handleSelectAll}
-          handleChangeDate={handleChangeDate}
-          handleFilterModal={handleFilterModal}
+      <Helmet title="Quản lý vé">
+        <Header
+          title="Danh sách vé"
+          style={{
+            fontWeight: "700",
+            fontSize: "36px",
+            lineHeight: "123%",
+            fontFamily: "Montserrat",
+          }}
         />
-      )}
+        <Wrapper className="flex align-center justify-between">
+          <Wrapper className="flex align-center relative">
+            <Input
+              option="router"
+              typeInput=""
+              disabled
+              width={446}
+              value=""
+              name=""
+              className="search-input router"
+              placeholder="Tìm bằng số vé"
+              handleChange={() => {}}
+            />
+          </Wrapper>
+          <Wrapper className="flex align-center gap-3">
+            <Button
+              text="Lọc vé"
+              size={10}
+              handleClick={handleFilter}
+              icon={filterIcon}
+              bgHoverColor=""
+              style={{
+                gap: 12,
+                height: 45,
+                border: "1px solid #FF993C",
+                color: "#FF993C",
+                fontSize: "18px",
+                borderRadius: "6px",
+                backgroundColor: "#FFFFFF",
+              }}
+            />
+            <Button
+              text="Xuất file (.csv)"
+              size={10}
+              handleClick={() => {}}
+              icon={""}
+              bgHoverColor=""
+              style={{
+                gap: 0,
+                height: 45,
+                border: "1px solid #FF993C",
+                color: "#FF993C",
+                fontSize: "18px",
+                borderRadius: "6px",
+                backgroundColor: "#FFFFFF",
+              }}
+            />
+          </Wrapper>
+        </Wrapper>
+        <GridComponent
+          id="gridcomp"
+          load={Pagination}
+          dataSource={ticket}
+          allowPaging
+          allowSorting
+          allowExcelExport
+          allowPdfExport
+          editSettings={editing}
+          height={580}
+        >
+          <ColumnsDirective>
+            {ordersGrid.map((item, index) => (
+              <ColumnDirective key={index} {...item} />
+            ))}
+          </ColumnsDirective>
+          <Inject services={[Page]} />
+        </GridComponent>
+        {modalIsOpen && (
+          <ModalManagerTicket
+            title="Lọc vé "
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
+            statusUse={statusUse}
+            statusCheckIn={statusCheckIn}
+            isCheckAll={isCheckAll}
+            radio={radio}
+            isCheck={isCheck}
+            handleClick={handleClick}
+            handleChange={handleChange}
+            handleSelectAll={handleSelectAll}
+            handleChangeDate={handleChangeDate}
+            handleFilterModal={handleFilterModal}
+          />
+        )}
+      </Helmet>
     </Wrapper>
   );
 };

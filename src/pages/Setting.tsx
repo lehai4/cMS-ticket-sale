@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 import { getDatabase, ref, get, set, child, update } from "firebase/database";
-import { Button, Header, Input, ModalSetting, Wrapper } from "../components";
+import {
+  Button,
+  Header,
+  Helmet,
+  Input,
+  ModalSetting,
+  Wrapper,
+} from "../components";
 import { useAppSelector, useAppDispatch } from "../hooks/hooks";
 import {
   loadSettingTicket,
@@ -328,78 +335,80 @@ const Setting = () => {
 
   return (
     <Wrapper className="md:m-10 md:mb-0 md:ml-0 mt-24 p-2 md:p-8 md:pb-12 md:pt-4 md:pl-6 bg-white rounded-3xl">
-      <Header
-        title="Danh sách gói vé"
-        style={{ lineHeight: "123%", fontSize: 36, fontWeight: 700 }}
-      />
-      <Wrapper className="flex align-center justify-between">
-        <Wrapper className="flex align-center relative">
-          <Input
-            className="search-input router"
-            option="router"
-            name=""
-            disabled
-            width={446}
-            typeInput=""
-            value=""
-            placeholder="Tìm bằng số vé"
-            handleChange={() => {}}
-          />
-        </Wrapper>
-        <Wrapper className="flex align-center gap-5">
-          <Button
-            text="Xuất file (.csv)"
-            icon=""
-            bgHoverColor=""
-            handleClick={() => {}}
-            size={10}
-            style={{
-              backgroundColor: "#FFFFFF",
-              color: "#FF993C",
-              border: "1px solid #FF993C",
-              fontSize: 18,
-              borderRadius: 6,
-              height: 48,
-            }}
-          />
-          <Button
-            text="Thêm gói vé"
-            icon=""
-            bgHoverColor=""
-            size={10}
-            style={{
-              backgroundColor: "#FF993C",
-              color: "#FFFFFF",
-              border: "1px solid #FF993C",
-              fontSize: 18,
-              borderRadius: 6,
-              height: 48,
-            }}
-            handleClick={handleOpenModalAdd}
-          />
-        </Wrapper>
-      </Wrapper>
-      <DataTable
-        columns={columns}
-        data={ticketSetting}
-        pagination
-        paginationPerPage={5}
-        paginationRowsPerPageOptions={[5, 10, 15, 20]}
-        paginationComponentOptions={paginationComponentOptions}
-      />
-      {modalIsOpen && (
-        <ModalSetting
-          icon={star}
-          title={title}
-          packageCode={packageCode}
-          dataFormAdd={dataFormAdd}
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          handleChange={handleChange}
-          handleAdd={handleAdd}
-          handleUpdateTicket={handleUpdateTicket}
+      <Helmet title="Cài đặt">
+        <Header
+          title="Danh sách gói vé"
+          style={{ lineHeight: "123%", fontSize: 36, fontWeight: 700 }}
         />
-      )}
+        <Wrapper className="flex align-center justify-between">
+          <Wrapper className="flex align-center relative">
+            <Input
+              className="search-input router"
+              option="router"
+              name=""
+              disabled
+              width={446}
+              typeInput=""
+              value=""
+              placeholder="Tìm bằng số vé"
+              handleChange={() => {}}
+            />
+          </Wrapper>
+          <Wrapper className="flex align-center gap-5">
+            <Button
+              text="Xuất file (.csv)"
+              icon=""
+              bgHoverColor=""
+              handleClick={() => {}}
+              size={10}
+              style={{
+                backgroundColor: "#FFFFFF",
+                color: "#FF993C",
+                border: "1px solid #FF993C",
+                fontSize: 18,
+                borderRadius: 6,
+                height: 48,
+              }}
+            />
+            <Button
+              text="Thêm gói vé"
+              icon=""
+              bgHoverColor=""
+              size={10}
+              style={{
+                backgroundColor: "#FF993C",
+                color: "#FFFFFF",
+                border: "1px solid #FF993C",
+                fontSize: 18,
+                borderRadius: 6,
+                height: 48,
+              }}
+              handleClick={handleOpenModalAdd}
+            />
+          </Wrapper>
+        </Wrapper>
+        <DataTable
+          columns={columns}
+          data={ticketSetting}
+          pagination
+          paginationPerPage={5}
+          paginationRowsPerPageOptions={[5, 10, 15, 20]}
+          paginationComponentOptions={paginationComponentOptions}
+        />
+        {modalIsOpen && (
+          <ModalSetting
+            icon={star}
+            title={title}
+            packageCode={packageCode}
+            dataFormAdd={dataFormAdd}
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
+            handleChange={handleChange}
+            handleAdd={handleAdd}
+            handleUpdateTicket={handleUpdateTicket}
+          />
+        )}
+      </Helmet>
     </Wrapper>
   );
 };
