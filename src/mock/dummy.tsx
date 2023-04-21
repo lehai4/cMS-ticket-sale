@@ -5,8 +5,10 @@ import iconVe from "../assets/icon/quanlyve.png";
 import use from "../assets/icon/use.png";
 import nouse from "../assets/icon/nouse.png";
 import invalid from "../assets/icon/invalid.png";
-
-export const gridTicketStatus = (props) => (
+type gridTicketStatusProps = {
+  statusTicket: number;
+};
+export const gridTicketStatus = (props: gridTicketStatusProps) => (
   <>
     {props.statusTicket === 1 ? (
       <div className="status status--use inline-flex ">
@@ -43,8 +45,10 @@ export const gridTicketStatus = (props) => (
     )}
   </>
 );
-
-export const gridSettingTicket = (props) => (
+type gridSettingTicketProps = {
+  status: number;
+};
+export const gridSettingTicket = (props: gridSettingTicketProps) => (
   <>
     {props.status === 1 ? (
       <div className="status status--noUse inline-flex">
@@ -71,7 +75,10 @@ export const gridSettingTicket = (props) => (
     )}
   </>
 );
-export const gridStatusCheck = (props) => (
+type gridStatusCheckProps = {
+  statusCheck: number;
+};
+export const gridStatusCheck = (props: gridStatusCheckProps) => (
   <>
     {props.statusCheck === 1 ? (
       <span className="status-check status-check--true capitalize rounded-2xl text-md">
@@ -338,8 +345,9 @@ export const statusCheck = [
   { id: 2, text: "Chưa đối soát", numberRadio: "radio3", statusCheck: 0 },
 ];
 //pagination
+
 export const Pagination = () => {
-  let gridElement = document.getElementById("gridcomp");
+  let gridElement: any = document.getElementById("gridcomp");
   if (gridElement && gridElement.ej2_instances[0]) {
     let gridInstance = gridElement.ej2_instances[0];
     const rowHeight = gridInstance.getRowHeight();
