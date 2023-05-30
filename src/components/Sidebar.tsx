@@ -1,9 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
-import { MdOutlineCancel } from "react-icons/md";
-import { links } from "../mock/dummy";
-import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { Footer, Wrapper } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
+import { links } from "../mock/dummy";
 import logo from "../assets/img/logo.png";
 const Sidebar = () => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } =
@@ -31,16 +29,6 @@ const Sidebar = () => {
             >
               <img src={`${logo}`} alt="logo" />
             </Link>
-            <TooltipComponent content="Menu" position="BottomCenter">
-              <button
-                type="button"
-                onClick={() => setActiveMenu(!activeMenu)}
-                style={{ color: currentColor }}
-                className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
-              >
-                <MdOutlineCancel />
-              </button>
-            </TooltipComponent>
           </div>
           <Wrapper className="mt-24 mt-24-override">
             {links.map((link) => (

@@ -1,14 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import {
-  Button,
-  Header,
-  Input,
-  Timer,
-  Checkbox,
-  DatePicker,
-  Wrapper,
-} from "../index";
+import { Button, Header, Input, Timer, Checkbox, Wrapper } from "../index";
 import { ModalSettingProps } from "../../typeProps";
 import u_angleDown from "../../assets/icon/u_angle-down.png";
 const customStyles = {
@@ -110,14 +102,14 @@ const ModalSetting = ({
               <Wrapper className="">
                 <label className="form-label">Ngày áp dụng</label>
                 <Wrapper className="flex align-center gap-2 mt-2">
-                  <DatePicker
+                  {/* <DatePicker
                     format="dd/MM/yyyy"
                     placholder="dd/mm/yy"
                     className="date"
                     name="dayApply"
                     value={dataFormAdd.dayApply}
                     handleChangeDate={(e) => handleChange(e, "")}
-                  />
+                  /> */}
                   <Timer
                     name="timeApply"
                     value={dataFormAdd.timeApply}
@@ -129,14 +121,14 @@ const ModalSetting = ({
               <Wrapper className="">
                 <label className="form-label">Ngày hết hạn</label>
                 <Wrapper className="flex align-center gap-2 mt-2">
-                  <DatePicker
+                  {/* <DatePicker
                     format="dd/MM/yyyy"
                     placholder="dd/mm/yy"
                     className="date"
                     name="dayExpire"
                     value={dataFormAdd.dayExpire}
                     handleChangeDate={(e) => handleChange(e, "")}
-                  />
+                  /> */}
                   <Timer
                     name="timeExpire"
                     value={dataFormAdd.timeExpire}

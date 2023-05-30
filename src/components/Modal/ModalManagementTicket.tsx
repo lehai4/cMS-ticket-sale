@@ -1,5 +1,12 @@
 import Modal from "react-modal";
-import { Button, Header, Checkbox, Radio, DatePicker, Wrapper } from "../index";
+import {
+  Button,
+  Header,
+  Checkbox,
+  Radio,
+  Wrapper,
+  DatePickers,
+} from "../index";
 import { ModalManagementTicket } from "../../typeProps";
 
 const ModalManagerTicket = (props: ModalManagementTicket) => {
@@ -41,31 +48,33 @@ const ModalManagerTicket = (props: ModalManagementTicket) => {
             <Wrapper className="form-group flex gap-6 mb-5">
               <Wrapper className="">
                 <label className="form-label">Từ ngày</label>
-                <Wrapper className="flex align-center gap-2 mt-2 ">
-                  <DatePicker
-                    format="dd/MM/yyyy"
-                    placholder="dd/mm/yy"
-                    className="date"
-                    name=""
-                    value=""
-                    handleChangeDate={(e) =>
-                      props.handleChangeDate(e, "dayPrev")
+                <Wrapper className="flex align-center mt-2 ">
+                  <DatePickers
+                    valueStart={props.dayFrom}
+                    valueEnd={undefined}
+                    showIcon={false}
+                    placeholder="dd/mm/yy"
+                    isRange={false}
+                    setValueStart={(date: Date) =>
+                      props.handleChangeDate(date, "dayPrev")
                     }
+                    setValueEnd={() => {}}
                   />
                 </Wrapper>
               </Wrapper>
               <Wrapper className="ml-20">
                 <label className="form-label">Đến ngày</label>
-                <Wrapper className="flex align-center gap-2 mt-2">
-                  <DatePicker
-                    format="dd/MM/yyyy"
-                    placholder="dd/mm/yy"
-                    value=""
-                    name=""
-                    className="date"
-                    handleChangeDate={(e) =>
-                      props.handleChangeDate(e, "dayNext")
+                <Wrapper className="flex align-center mt-2">
+                  <DatePickers
+                    valueStart={props.dayTo}
+                    valueEnd={undefined}
+                    showIcon={false}
+                    placeholder="dd/mm/yy"
+                    isRange={false}
+                    setValueStart={(date: Date) =>
+                      props.handleChangeDate(date, "dayTo")
                     }
+                    setValueEnd={() => {}}
                   />
                 </Wrapper>
               </Wrapper>

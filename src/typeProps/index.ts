@@ -1,3 +1,12 @@
+export type gridTicketStatusProps = {
+  statusTicket: number;
+};
+export type gridStatusCheckProps = {
+  statusCheck: number;
+};
+export type gridSettingTicketProps = {
+  status: number;
+};
 export interface Ticket {
   id: number;
   text: string;
@@ -9,6 +18,8 @@ export interface StatusCheckIn {
   name: string;
 }
 export type ModalManagementTicket = {
+  dayFrom: Date | undefined;
+  dayTo: Date | undefined;
   title: string;
   modalIsOpen: boolean;
   statusUse: Ticket[];
@@ -21,10 +32,7 @@ export type ModalManagementTicket = {
     e: React.ChangeEvent<HTMLInputElement>,
     type: number | string
   ) => void;
-  handleChangeDate: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => void;
+  handleChangeDate: (e: any, type: string) => void;
   handleSelectAll: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleClick: (e: React.ChangeEvent<HTMLInputElement>, name: string) => void;
   handleFilterModal: () => void;
@@ -53,6 +61,8 @@ export interface statusCheck {
   statusCheck: string | number;
 }
 export type FilterTicketCheckProps = {
+  dayFrom: Date | undefined;
+  dayTo: Date | undefined;
   radio: string | number | undefined;
   originalTicket: TicketCheck[] | undefined;
   statusCheck: statusCheck[];
@@ -61,10 +71,7 @@ export type FilterTicketCheckProps = {
     e: React.ChangeEvent<HTMLInputElement>,
     type: number | string
   ) => void;
-  handleChangeDate: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => void;
+  handleChangeDate: (e: any, type: string) => void;
   handleFilter: () => void;
 };
 export interface SettingTicket {

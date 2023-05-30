@@ -5,7 +5,7 @@ import {
   DoughnutChart,
   Helmet,
 } from "../components";
-import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
+// import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 import ticketNoUse from "../assets/icon/eventPackage.png";
 import ticketUse from "../assets/icon/familyPackage.png";
@@ -45,13 +45,13 @@ const Home = () => {
               fontFamily: "Montserrat",
             }}
           />
-          <DatePickerComponent
+          {/* <DatePickerComponent
             format="MM/yyyy"
             placeholder="mm/yy"
             className="default"
             start="Year"
             depth="Year"
-          />
+          /> */}
         </Wrapper>
         <AreaCharts />
         <Wrapper className="revenue md:mt-10">
@@ -63,13 +63,13 @@ const Home = () => {
         </Wrapper>
         <Wrapper className="circle-content flex flex-row">
           <Wrapper className="circle-content-calender">
-            <DatePickerComponent
+            {/* <DatePickerComponent
               format="MM/yyyy"
               placeholder="mm/yy"
               className="default"
               start="Year"
               depth="Year"
-            />
+            /> */}
           </Wrapper>
           <Wrapper className="circle-content-chart">
             <DoughnutChart data={familyPackage} title="Gói gia đình" />

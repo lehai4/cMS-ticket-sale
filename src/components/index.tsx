@@ -11,7 +11,7 @@ export { default as ListTicketCheck } from "./ListTicketCheck";
 export { default as Header } from "./Header";
 export { default as Input } from "./Form/Input";
 export { default as Radio } from "./Form/Radio";
-export { default as DatePicker } from "./Form/DatePicker";
+export { default as DatePickers } from "./Form/DatePickers";
 export { default as Helmet } from "./Helmet";
 export { default as NotFound } from "./NotFound";
 export { default as Timer } from "./Form/Timer";

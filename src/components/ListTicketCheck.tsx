@@ -1,30 +1,18 @@
-import React from "react";
-import {
-  GridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  Page,
-  Inject,
-} from "@syncfusion/ej2-react-grids";
+import DataTable from "react-data-table-component";
 import { Button, Header, Input, Wrapper } from ".";
-import { TicketCheck, TicketField } from "../typeProps";
+import { paginationComponentOptions } from "../mock/dummy";
+import { TicketCheck } from "../typeProps";
 
 type ListTicketCheckProps = {
-  editing: any;
+  columns: any;
   isButton: number;
-  ticket: TicketCheck[] | undefined;
-  ticketCheck: TicketField[];
-  contextMenuItems: any;
+  ticket: TicketCheck[];
   placeholder: string;
-  Pagination: () => void;
 };
 const ListTicketCheck = ({
-  editing,
+  columns,
   isButton,
   ticket,
-  ticketCheck,
-  contextMenuItems,
-  Pagination,
   placeholder,
 }: ListTicketCheckProps) => {
   return (
@@ -88,25 +76,17 @@ const ListTicketCheck = ({
           )}
         </Wrapper>
       </Wrapper>
-
-      <GridComponent
-        id="gridcomp"
-        dataSource={ticket}
-        allowPaging
-        allowSorting
-        allowExcelExport
-        allowPdfExport
-        contextMenuItems={contextMenuItems}
-        editSettings={editing}
-        load={Pagination}
-      >
-        <ColumnsDirective>
-          {ticketCheck.map((item, index) => (
-            <ColumnDirective key={index} {...item} />
-          ))}
-        </ColumnsDirective>
-        <Inject services={[Page]} />
-      </GridComponent>
+      <Wrapper className="content-table">
+        <DataTable
+          columns={columns}
+          data={ticket}
+          pagination
+          responsive
+          paginationPerPage={10}
+          paginationRowsPerPageOptions={[5, 10, 15, 20]}
+          paginationComponentOptions={paginationComponentOptions}
+        />
+      </Wrapper>
     </Wrapper>
   );
 };

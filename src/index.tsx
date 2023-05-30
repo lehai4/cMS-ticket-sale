@@ -1,6 +1,5 @@
 import React from "react";
 import { ContextProvider } from "./contexts/ContextProvider";
-import { registerLicense } from "@syncfusion/ej2-base";
 import ReactDOM from "react-dom/client";
 import store from "./redux/store";
 import { Provider } from "react-redux";
@@ -9,8 +8,6 @@ import "./index.css";
 import "./sass/index.scss";
 import "react-toastify/dist/ReactToastify.css";
 import reportWebVitals from "./reportWebVitals";
-
-registerLicense(`${process.env.REACT_APP_API_KEY}`);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

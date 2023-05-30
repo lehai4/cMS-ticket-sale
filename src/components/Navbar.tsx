@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-import { TooltipComponent } from "@syncfusion/ej2-react-popups";
+import Tooltip from "@mui/material/Tooltip";
 import { Input, Wrapper } from ".";
-import avatar from "../assets/img/avatar.png";
-import mail from "../assets/icon/fi_mail.png";
 import bell from "../assets/icon/fi_bell.png";
+import mail from "../assets/icon/fi_mail.png";
+import avatar from "../assets/img/avatar.png";
 import { useStateContext } from "../contexts/ContextProvider";
+
 type NavButtonProps = {
   title: string;
   color: string;
@@ -13,7 +14,7 @@ type NavButtonProps = {
   dotColor: string;
 };
 const NavButton = ({ title, color, img, dotColor }: NavButtonProps) => (
-  <TooltipComponent content={title} position="BottomCenter">
+  <Tooltip title={title} placement="bottom">
     <button
       type="button"
       style={{ color }}
@@ -21,7 +22,7 @@ const NavButton = ({ title, color, img, dotColor }: NavButtonProps) => (
     >
       <div>{img ? <img src={`${img}`} alt="" /> : <span></span>}</div>
     </button>
-  </TooltipComponent>
+  </Tooltip>
 );
 const Navbar = () => {
   const { bgColor, setActiveMenu, setScreenSize, screenSize } =
@@ -68,15 +69,15 @@ const Navbar = () => {
           color={bgColor}
           img={bell}
         />
-        <TooltipComponent content="Profile" position="BottomCenter">
-          <Wrapper className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
+        <Tooltip title="Profile" placement="bottom">
+          <div className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg">
             <img
               className="rounded-full w-9 h-9"
               src={avatar}
               alt="user-profile"
             />
-          </Wrapper>
-        </TooltipComponent>
+          </div>
+        </Tooltip>
       </Wrapper>
     </Wrapper>
   );

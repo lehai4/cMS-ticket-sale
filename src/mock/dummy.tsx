@@ -5,9 +5,12 @@ import iconVe from "../assets/icon/quanlyve.png";
 import use from "../assets/icon/use.png";
 import nouse from "../assets/icon/nouse.png";
 import invalid from "../assets/icon/invalid.png";
-type gridTicketStatusProps = {
-  statusTicket: number;
-};
+import {
+  gridSettingTicketProps,
+  gridStatusCheckProps,
+  gridTicketStatusProps,
+} from "../typeProps";
+
 export const gridTicketStatus = (props: gridTicketStatusProps) => (
   <>
     {props.statusTicket === 1 ? (
@@ -45,9 +48,7 @@ export const gridTicketStatus = (props: gridTicketStatusProps) => (
     )}
   </>
 );
-type gridSettingTicketProps = {
-  status: number;
-};
+
 export const gridSettingTicket = (props: gridSettingTicketProps) => (
   <>
     {props.status === 1 ? (
@@ -75,9 +76,7 @@ export const gridSettingTicket = (props: gridSettingTicketProps) => (
     )}
   </>
 );
-type gridStatusCheckProps = {
-  statusCheck: number;
-};
+
 export const gridStatusCheck = (props: gridStatusCheckProps) => (
   <>
     {props.statusCheck === 1 ? (
@@ -147,166 +146,6 @@ export const links = [
   },
 ];
 
-export const settingTicket = [
-  {
-    field: "uiId",
-    headerText: "STT",
-    width: "50",
-    textAlign: "Center",
-    showInColumnChooser: false,
-    isPrimaryKey: true,
-  },
-  {
-    field: "packageCode",
-    headerText: "Mã gói",
-    width: "70",
-    editType: "dropdownedit",
-    textAlign: "Left",
-    showInColumnChooser: false,
-  },
-  {
-    field: "packageName",
-    headerText: "Tên gói vé",
-    width: "70",
-    textAlign: "Center",
-    showInColumnChooser: false,
-  },
-  {
-    field: "dayApply",
-    headerText: "Ngày áp dụng",
-    width: "80",
-    textAlign: "Right",
-    showInColumnChooser: false,
-  },
-  {
-    field: "dayExpire",
-    headerText: "Ngày hết hạn",
-    width: "75",
-    textAlign: "Right",
-    showInColumnChooser: false,
-  },
-  {
-    field: "price",
-    headerText: "Giá vé(VNĐ/Vé)",
-    width: "90",
-    textAlign: "Right",
-    showInColumnChooser: false,
-  },
-  {
-    field: "priceCombo",
-    headerText: "Giá Combo (VNĐ/Combo)",
-    width: "130",
-    textAlign: "Center",
-    showInColumnChooser: false,
-  },
-  {
-    field: "status",
-    headerText: "Tình trạng",
-    template: gridSettingTicket,
-    textAlign: "Left",
-    width: "90",
-    showInColumnChooser: false,
-  },
-];
-export const ticketCheck = [
-  {
-    field: "uiId",
-    headerText: "STT",
-    width: "38",
-    textAlign: "Center",
-  },
-  {
-    field: "ticketNumber",
-    headerText: "Số vé",
-    width: "58",
-    textAlign: "Left",
-  },
-  {
-    field: "event",
-    headerText: "Tên sự kiện",
-    width: "105",
-    textAlign: "Left",
-  },
-  {
-    field: "dayUseTicket",
-    headerText: "Ngày sử dụng",
-    width: "75",
-    textAlign: "Left",
-  },
-  {
-    field: "nameTicket",
-    headerText: "Loại vé",
-    width: "48",
-    textAlign: "Left",
-  },
-  {
-    field: "checkIn",
-    headerText: "Cổng check-in",
-    width: "75",
-    textAlign: "Left",
-  },
-  {
-    field: "statusCheck",
-    headerText: "",
-    template: gridStatusCheck,
-    textAlign: "Left",
-    width: "65",
-  },
-];
-export const ordersGrid = [
-  {
-    field: "uiId",
-    headerText: "STT",
-    width: "70",
-    textAlign: "Center",
-  },
-  {
-    field: "code",
-    headerText: "Booking code",
-    width: "90",
-    editType: "dropdownedit",
-    textAlign: "Left",
-  },
-  {
-    field: "ticketNumber",
-    headerText: "Số vé",
-    width: "80",
-    textAlign: "Left",
-  },
-  {
-    field: "event",
-    headerText: "Tên sự kiện",
-    width: "120",
-    textAlign: "Left",
-  },
-  {
-    field: "statusTicket",
-    headerText: "Tình trạng sử dụng",
-    template: gridTicketStatus,
-    textAlign: "Left",
-    width: "100",
-  },
-  {
-    field: "dayUseTicket",
-    headerText: "Ngày sử dụng",
-    width: "90",
-    textAlign: "Right",
-  },
-  {
-    field: "dayExportedTicket",
-    headerText: "Ngày xuất vé",
-    width: "80",
-    textAlign: "Right",
-  },
-
-  {
-    field: "checkIn",
-    headerText: "Cổng check - in",
-    width: "100",
-    textAlign: "Left",
-  },
-];
-
 export const contextMenuItems = [
   "AutoFit",
   "AutoFitAll",
@@ -344,16 +183,10 @@ export const statusCheck = [
   { id: 1, text: "Đã đối soát", numberRadio: "radio2", statusCheck: 1 },
   { id: 2, text: "Chưa đối soát", numberRadio: "radio3", statusCheck: 0 },
 ];
-//pagination
 
-export const Pagination = () => {
-  let gridElement: any = document.getElementById("gridcomp");
-  if (gridElement && gridElement.ej2_instances[0]) {
-    let gridInstance = gridElement.ej2_instances[0];
-    const rowHeight = gridInstance.getRowHeight();
-    const gridHeight = gridInstance.height;
-    const pageSize = gridInstance.pageSettings.pageSize;
-    const pageResize = (gridHeight - pageSize * rowHeight) / rowHeight;
-    // gridInstance.pageSettings.pageSize = pageSize + Math.round(pageResize);
-  }
+export const paginationComponentOptions = {
+  rowsPerPageText: "Page Number",
+  rangeSeparatorText: "page",
+  selectAllRowsItem: true,
+  selectAllRowsItemText: "ALL",
 };

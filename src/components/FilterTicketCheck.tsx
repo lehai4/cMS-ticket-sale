@@ -1,9 +1,11 @@
 import iconArrow from "../assets/icon/iconArrow.png";
-import { Button, Header, Radio, DatePicker, Wrapper } from ".";
+import { Button, Header, Radio, DatePickers, Wrapper } from ".";
 
 import { FilterTicketCheckProps } from "../typeProps";
 const FilterTicketCheck = ({
   radio,
+  dayFrom,
+  dayTo,
   statusCheck,
   originalTicket,
   setSelected,
@@ -83,26 +85,32 @@ const FilterTicketCheck = ({
             <Wrapper className="flex align-center ">
               <label className="form-label">Từ ngày</label>
               <Wrapper className="dateFrom">
-                <DatePicker
-                  format="dd/MM/yyyy"
-                  placholder="dd/mm/yy"
-                  className="dateForm"
-                  name=""
-                  value=""
-                  handleChangeDate={(e) => handleChangeDate(e, "dayFrom")}
+                <DatePickers
+                  valueStart={dayFrom}
+                  valueEnd={undefined}
+                  showIcon={false}
+                  placeholder="dd/mm/yy"
+                  isRange={false}
+                  setValueStart={(date: Date) =>
+                    handleChangeDate(date, "dayFrom")
+                  }
+                  setValueEnd={() => {}}
                 />
               </Wrapper>
             </Wrapper>
             <Wrapper className="flex align-center">
               <label className="form-label">Đến ngày</label>
               <Wrapper className="dateTo">
-                <DatePicker
-                  format="dd/MM/yyyy"
-                  placholder="dd/mm/yy"
-                  name=""
-                  value=""
-                  className=""
-                  handleChangeDate={(e) => handleChangeDate(e, "dayTo")}
+                <DatePickers
+                  valueStart={dayTo}
+                  valueEnd={undefined}
+                  placeholder="dd/mm/yy"
+                  showIcon={false}
+                  isRange={false}
+                  setValueStart={(date: Date) =>
+                    handleChangeDate(date, "dayTo")
+                  }
+                  setValueEnd={() => {}}
                 />
               </Wrapper>
             </Wrapper>

@@ -20,7 +20,7 @@ const App = () => {
             draggable
             pauseOnHover
           />
-          <div className="flex relative dark:bg-main-dark-bg">
+          <div className="flex relative dark:bg-main-dark-bg overflow-hidden">
             <div className="w-80 fixed dark:bg-secondary-dark-bg bg-main-grey">
               <Sidebar />
             </div>

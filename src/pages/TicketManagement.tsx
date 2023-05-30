@@ -1,20 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  GridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  Inject,
-  Page,
-} from "@syncfusion/ej2-react-grids";
-import {
-  ordersGrid,
-  statusUse,
-  statusCheckIn,
-  Pagination,
-} from "../mock/dummy";
+import { child, get, getDatabase, ref } from "firebase/database";
 import moment from "moment";
-import { useAppSelector, useAppDispatch } from "../hooks/hooks";
-import { getDatabase, get, ref, child } from "firebase/database";
+import React, { useEffect, useState } from "react";
+import DataTable, { TableColumn } from "react-data-table-component";
+import filterIcon from "../assets/icon/filter.png";
 import {
   Button,
   Header,
@@ -23,10 +11,16 @@ import {
   ModalManagerTicket,
   Wrapper,
 } from "../components";
+import app from "../database/firebaseConfig";
+import { useAppDispatch, useAppSelector } from "../hooks/hooks";
+import {
+  gridTicketStatus,
+  paginationComponentOptions,
+  statusCheckIn,
+  statusUse,
+} from "../mock/dummy";
 import { loadTicketManager } from "../redux/dataTicketSlice";
 import { TicketManagementData } from "../typeProps/index";
-import filterIcon from "../assets/icon/filter.png";
-import app from "../database/firebaseConfig";
 
 const TicketManagement = () => {
   const dbRef = ref(getDatabase(app));
@@ -36,14 +30,65 @@ const TicketManagement = () => {
   const [isCheckAll, setIsCheckAll] = useState<boolean>(false);
   const [isCheck, setIsCheck] = useState<string[]>([]);
   const [valRadio, setValRadio] = useState<string | number | undefined>();
-  const [dayFrom, setDayFrom] = useState("");
-  const [dayTo, setDayTo] = useState("");
+
+  const [dayFrom, setDayFrom] = useState<Date | undefined>();
+  const [dayTo, setDayTo] = useState<Date | undefined>();
   const [radio, setRadio] = useState<string | number | undefined>();
-  const [ticket, setTicket] = useState<TicketManagementData[] | undefined>();
-  const [originalTicket, setOriginalTicket] = useState<
-    TicketManagementData[] | undefined
-  >();
-  const editing = { allowDeleting: true, allowEditing: true };
+  const [ticket, setTicket] = useState<TicketManagementData[]>([]);
+  const [originalTicket, setOriginalTicket] = useState<TicketManagementData[]>(
+    []
+  );
+  const columns: TableColumn<TicketManagementData>[] = [
+    {
+      name: "STT",
+      selector: (row) => row.uiId,
+      allowOverflow: false,
+      width: "100px",
+      center: true,
+    },
+    {
+      name: "Booking Code",
+      selector: (row) => row.code,
+      allowOverflow: false,
+      width: "160px",
+    },
+    {
+      name: "Số vé",
+      selector: (row) => row.ticketNumber,
+      allowOverflow: false,
+      width: "150px",
+    },
+    {
+      name: "Tên sự kiện",
+      selector: (row) => row.event,
+      allowOverflow: false,
+      width: "280px",
+    },
+    {
+      name: "Tình trạng sử dụng",
+      cell: (row) => gridTicketStatus(row),
+      allowOverflow: false,
+      width: "220px",
+    },
+    {
+      name: "Ngày sử dụng",
+      selector: (row) => row.dayUseTicket,
+      allowOverflow: false,
+      width: "190px",
+    },
+    {
+      name: "Ngày xuất vé",
+      selector: (row) => row.dayExportedTicket,
+      allowOverflow: false,
+      width: "190px",
+    },
+    {
+      name: "Cổng check - in",
+      selector: (row) => row.checkIn,
+      allowOverflow: false,
+      width: "190px",
+    },
+  ];
   const stringToBool = (value: string) => {
     if (value) {
       return value.toString().toLowerCase() === "true";
@@ -85,19 +130,15 @@ const TicketManagement = () => {
     setRadio(Number(e.target.value));
     setValRadio(type);
   };
-  const handleChangeDate = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => {
-    const { value } = e.target;
-    type === "dayPrev" ? setDayFrom(value) : setDayTo(value);
+  const handleChangeDate = (date: any, type: string) => {
+    type === "dayPrev" ? setDayFrom(date) : setDayTo(date);
   };
 
   const handleFilterModal = () => {
     let result: TicketManagementData[] | undefined = [];
     result = originalTicket;
 
-    if (dayFrom !== "" && dayTo !== "") {
+    if (dayFrom !== undefined && dayTo !== undefined) {
       let dateFrom = moment(dayFrom);
       let dateTo = moment(dayTo);
       result = result?.filter(
@@ -128,8 +169,8 @@ const TicketManagement = () => {
     setIsCheck([]);
     setIsCheckAll(false);
     setRadio(undefined);
-    setDayFrom("");
-    setDayTo("");
+    setDayFrom(undefined);
+    setDayTo(undefined);
     setValRadio("");
   };
 
@@ -217,27 +258,22 @@ const TicketManagement = () => {
             />
           </Wrapper>
         </Wrapper>
-        <GridComponent
-          id="gridcomp"
-          load={Pagination}
-          dataSource={ticket}
-          allowPaging
-          allowSorting
-          allowExcelExport
-          allowPdfExport
-          editSettings={editing}
-          height={580}
-        >
-          <ColumnsDirective>
-            {ordersGrid.map((item, index) => (
-              <ColumnDirective key={index} {...item} />
-            ))}
-          </ColumnsDirective>
-          <Inject services={[Page]} />
-        </GridComponent>
+        <Wrapper className="content-table">
+          <DataTable
+            columns={columns}
+            data={ticket}
+            pagination
+            responsive
+            paginationPerPage={10}
+            paginationRowsPerPageOptions={[5, 10, 15, 20]}
+            paginationComponentOptions={paginationComponentOptions}
+          />
+        </Wrapper>
         {modalIsOpen && (
           <ModalManagerTicket
             title="Lọc vé "
+            dayFrom={dayFrom}
+            dayTo={dayTo}
             modalIsOpen={modalIsOpen}
             closeModal={closeModal}
             statusUse={statusUse}
