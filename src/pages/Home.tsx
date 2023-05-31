@@ -4,12 +4,15 @@ import {
   Wrapper,
   DoughnutChart,
   Helmet,
+  DatePickers,
 } from "../components";
-// import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 import ticketNoUse from "../assets/icon/eventPackage.png";
 import ticketUse from "../assets/icon/familyPackage.png";
+import { useState } from "react";
 const Home = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   const revenue = 525145000;
   const revenueFinal = revenue.toLocaleString("vi", {
     maximumSignificantDigits: 6,
@@ -45,13 +48,17 @@ const Home = () => {
               fontFamily: "Montserrat",
             }}
           />
-          {/* <DatePickerComponent
-            format="MM/yyyy"
-            placeholder="mm/yy"
-            className="default"
-            start="Year"
-            depth="Year"
-          /> */}
+          <Wrapper className="flex flex-row items-center">
+            <DatePickers
+              valueStart={startDate}
+              valueEnd={undefined}
+              showIcon={true}
+              placeholder="dd/mm/yy"
+              isRange={false}
+              setValueStart={(date) => setStartDate(date)}
+              setValueEnd={() => {}}
+            />
+          </Wrapper>
         </Wrapper>
         <AreaCharts />
         <Wrapper className="revenue md:mt-10">
@@ -63,13 +70,17 @@ const Home = () => {
         </Wrapper>
         <Wrapper className="circle-content flex flex-row">
           <Wrapper className="circle-content-calender">
-            {/* <DatePickerComponent
-              format="MM/yyyy"
-              placeholder="mm/yy"
-              className="default"
-              start="Year"
-              depth="Year"
-            /> */}
+            <Wrapper className="flex flex-row items-center">
+              <DatePickers
+                valueStart={date}
+                valueEnd={undefined}
+                showIcon={true}
+                placeholder="dd/mm/yy"
+                isRange={false}
+                setValueStart={(date) => setDate(date)}
+                setValueEnd={() => {}}
+              />
+            </Wrapper>
           </Wrapper>
           <Wrapper className="circle-content-chart">
             <DoughnutChart data={familyPackage} title="Gói gia đình" />

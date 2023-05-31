@@ -104,6 +104,7 @@ export interface TicketSetting {
 }
 export type ModalSettingProps = {
   title: string;
+
   packageCode: string;
   dataFormAdd: any;
   icon: string;
@@ -111,8 +112,5 @@ export type ModalSettingProps = {
   handleAdd: () => void;
   handleUpdateTicket: () => void;
   closeModal: () => void;
-  handleChange: (
-    e: React.ChangeEvent<HTMLInputElement> | any,
-    type: string
-  ) => void;
+  handleChange: (e: any, type: string, opt: string) => void;
 };

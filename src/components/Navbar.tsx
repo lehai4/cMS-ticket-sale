@@ -6,6 +6,7 @@ import bell from "../assets/icon/fi_bell.png";
 import mail from "../assets/icon/fi_mail.png";
 import avatar from "../assets/img/avatar.png";
 import { useStateContext } from "../contexts/ContextProvider";
+import { toast } from "react-toastify";
 
 type NavButtonProps = {
   title: string;
@@ -54,7 +55,7 @@ const Navbar = () => {
           name=""
           width={470}
           value=""
-          disabled
+          disabled={true}
           typeInput=""
           className="search-input navbar"
           placeholder="Tìm bằng số vé"

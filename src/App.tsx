@@ -10,7 +10,7 @@ const App = () => {
       <GlobalStyle>
         <BrowserRouter>
           <ToastContainer
-            position="top-right"
+            position="bottom-left"
             autoClose={3000}
             hideProgressBar={false}
             newestOnTop={false}

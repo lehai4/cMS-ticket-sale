@@ -39,10 +39,10 @@ const Setting = () => {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("Thêm gói vé");
   const [dataFormAdd, setDataFormAdd] = useState({
-    dayApply: "",
+    dayApply: undefined,
     timeApply: "",
     timeExpire: "",
-    dayExpire: "",
+    dayExpire: undefined,
     packageCode: packageCode,
     packageName: "",
     priceComboPer: "",
@@ -124,14 +124,21 @@ const Setting = () => {
     },
   ];
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => {
-    const { name, value } = e.target;
+  const handleChange = (e: any, type: string, opt: string) => {
     setDataFormAdd((prev: any) => ({
       ...prev,
-      [name]: value,
+      [e?.target?.name
+        ? e?.target?.name
+        : e?.target?.name === undefined && opt === "apply"
+        ? "dayApply"
+        : e?.target?.name === undefined && opt === "expire"
+        ? "dayExpire"
+        : ""]:
+        e?.target?.value !== undefined
+          ? e?.target?.value
+          : e?.target?.value === undefined
+          ? e
+          : undefined,
       type: type !== "" ? type : dataFormAdd.type,
     }));
   };
@@ -170,7 +177,6 @@ const Setting = () => {
       ...prev,
       ...ticketCurrent,
     }));
-
     handleOpenModal();
   };
 
@@ -186,10 +192,10 @@ const Setting = () => {
   const closeModal = () => {
     setIsOpen(false);
     setDataFormAdd({
-      dayApply: "",
+      dayApply: undefined,
       timeApply: "",
       timeExpire: "",
-      dayExpire: "",
+      dayExpire: undefined,
       packageCode: packageCode,
       packageName: "",
       priceComboPer: "",
@@ -203,12 +209,22 @@ const Setting = () => {
   };
 
   const handleAdd = () => {
-    if (dataFormAdd.packageName !== "") {
+    if (
+      dataFormAdd.packageName !== "" &&
+      dataFormAdd.dayApply !== undefined &&
+      dataFormAdd.dayExpire !== undefined &&
+      dataFormAdd.timeApply !== "" &&
+      dataFormAdd.timeExpire !== "" &&
+      dataFormAdd.checkbox !== "" &&
+      dataFormAdd.checkbox !== "false" &&
+      dataFormAdd.status !== undefined &&
+      dataFormAdd.status !== "undefined"
+    ) {
       let priceTicket = numberWithCommas(
         Number(dataFormAdd.priceCombo) / Number(dataFormAdd.priceComboPer)
       );
       let dataObj: TicketSetting = {
-        status: dataFormAdd.status ? Number(dataFormAdd.status) : -1,
+        status: dataFormAdd.status ? Number(dataFormAdd.status) : 0,
         priceCombo:
           dataFormAdd.priceCombo !== "" && dataFormAdd.priceComboPer !== ""
             ? `${stringWithCommas(dataFormAdd.priceCombo)}.000 VNĐ/${
@@ -237,6 +253,7 @@ const Setting = () => {
             : "-",
         uiId: data.length + 1,
       };
+
       dispatcher(addSettingTicket(dataObj));
       handleWriteDatabase(dataObj.uiId, dataObj);
       closeModal();
@@ -271,7 +288,6 @@ const Setting = () => {
               dataFormAdd.timeApply
             }`
           : "-",
-
       dayExpire:
         dataFormAdd.dayExpire && dataFormAdd.dayExpire
           ? `${moment(dataFormAdd.dayExpire).format("DD/MM/YYYY")} ${
@@ -291,6 +307,7 @@ const Setting = () => {
     dispatcher(updateSettingTicket(dataUpdate));
     // update DB
     handleUpdateDb(dataObj);
+    toast.success("Update successfully!");
     closeModal();
   };
   // DB
@@ -402,9 +419,9 @@ const Setting = () => {
             packageCode={packageCode}
             dataFormAdd={dataFormAdd}
             modalIsOpen={modalIsOpen}
+            handleAdd={handleAdd}
             closeModal={closeModal}
             handleChange={handleChange}
-            handleAdd={handleAdd}
             handleUpdateTicket={handleUpdateTicket}
           />
         )}

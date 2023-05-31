@@ -61,7 +61,7 @@ export const gridSettingTicket = (props: gridSettingTicketProps) => (
           Đang áp dụng
         </button>
       </div>
-    ) : props.status === 0 ? (
+    ) : props.status === -1 ? (
       <div className="status status--invalid inline-flex">
         <img src={`${invalid}`} alt="" />
         <button
