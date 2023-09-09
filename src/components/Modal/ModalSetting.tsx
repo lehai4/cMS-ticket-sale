@@ -262,7 +262,6 @@ const ModalSetting = ({
               icon={""}
               bgHoverColor=""
               style={{
-                gap: 12,
                 height: 48,
                 width: 160,
                 border: "1px solid #FF993C",
@@ -281,7 +280,6 @@ const ModalSetting = ({
               icon={""}
               bgHoverColor=""
               style={{
-                gap: 12,
                 height: 48,
                 width: 160,
                 border: "1px solid #FF993C",
